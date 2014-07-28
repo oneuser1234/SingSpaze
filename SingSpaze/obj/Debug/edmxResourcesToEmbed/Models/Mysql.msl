@@ -100,7 +100,7 @@
           <ScalarProperty Name="song_picture" ColumnName="song_picture" />
           <ScalarProperty Name="song_status" ColumnName="song_status" />
           <ScalarProperty Name="song_addedDate" ColumnName="song_addedDate" />
-          <ScalarProperty Name="song_filePathId" ColumnName="song_filePathId" />
+          <ScalarProperty Name="song_filePath" ColumnName="song_filePath" />
           <ScalarProperty Name="song_price" ColumnName="song_price" />
           <ScalarProperty Name="song_view" ColumnName="song_view" />
         </MappingFragment>

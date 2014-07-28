@@ -110,7 +110,7 @@
           <Property Name="song_picture" Type="varchar" MaxLength="255" />
           <Property Name="song_status" Type="int" Nullable="false" />
           <Property Name="song_addedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="song_filePathId" Type="int" Nullable="false" />
+          <Property Name="song_filePath" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="song_price" Type="decimal" />
           <Property Name="song_view" Type="int" Nullable="false" />
         </EntityType>
@@ -250,7 +250,7 @@
           <Property Name="song_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="song_status" Type="Int32" Nullable="false" />
           <Property Name="song_addedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="song_filePathId" Type="Int32" Nullable="false" />
+          <Property Name="song_filePath" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="song_price" Type="Decimal" />
           <Property Name="song_view" Type="Int32" Nullable="false" />
         </EntityType>
@@ -385,7 +385,7 @@
                 <ScalarProperty Name="song_picture" ColumnName="song_picture" />
                 <ScalarProperty Name="song_status" ColumnName="song_status" />
                 <ScalarProperty Name="song_addedDate" ColumnName="song_addedDate" />
-                <ScalarProperty Name="song_filePathId" ColumnName="song_filePathId" />
+                <ScalarProperty Name="song_filePath" ColumnName="song_filePath" />
                 <ScalarProperty Name="song_price" ColumnName="song_price" />
                 <ScalarProperty Name="song_view" ColumnName="song_view" />
               </MappingFragment>

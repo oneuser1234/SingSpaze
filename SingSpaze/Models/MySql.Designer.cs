@@ -1312,9 +1312,9 @@ namespace SingSpaze.Models
         /// <param name="song_releasedDate">Initial value of the song_releasedDate property.</param>
         /// <param name="song_status">Initial value of the song_status property.</param>
         /// <param name="song_addedDate">Initial value of the song_addedDate property.</param>
-        /// <param name="song_filePathId">Initial value of the song_filePathId property.</param>
+        /// <param name="song_filePath">Initial value of the song_filePath property.</param>
         /// <param name="song_view">Initial value of the song_view property.</param>
-        public static song Createsong(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.Decimal song_length, global::System.Int32 song_contentPartnerId, global::System.Int32 song_recordLabelId, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate, global::System.Int32 song_filePathId, global::System.Int32 song_view)
+        public static song Createsong(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.Decimal song_length, global::System.Int32 song_contentPartnerId, global::System.Int32 song_recordLabelId, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate, global::System.String song_filePath, global::System.Int32 song_view)
         {
             song song = new song();
             song.song_id = song_id;
@@ -1328,7 +1328,7 @@ namespace SingSpaze.Models
             song.song_releasedDate = song_releasedDate;
             song.song_status = song_status;
             song.song_addedDate = song_addedDate;
-            song.song_filePathId = song_filePathId;
+            song.song_filePath = song_filePath;
             song.song_view = song_view;
             return song;
         }
@@ -1753,24 +1753,24 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 song_filePathId
+        public global::System.String song_filePath
         {
             get
             {
-                return _song_filePathId;
+                return _song_filePath;
             }
             set
             {
-                Onsong_filePathIdChanging(value);
-                ReportPropertyChanging("song_filePathId");
-                _song_filePathId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("song_filePathId");
-                Onsong_filePathIdChanged();
+                Onsong_filePathChanging(value);
+                ReportPropertyChanging("song_filePath");
+                _song_filePath = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("song_filePath");
+                Onsong_filePathChanged();
             }
         }
-        private global::System.Int32 _song_filePathId;
-        partial void Onsong_filePathIdChanging(global::System.Int32 value);
-        partial void Onsong_filePathIdChanged();
+        private global::System.String _song_filePath;
+        partial void Onsong_filePathChanging(global::System.String value);
+        partial void Onsong_filePathChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

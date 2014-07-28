@@ -105,7 +105,7 @@
     <Property Name="song_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
     <Property Name="song_status" Type="Int32" Nullable="false" />
     <Property Name="song_addedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="song_filePathId" Type="Int32" Nullable="false" />
+    <Property Name="song_filePath" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
     <Property Name="song_price" Type="Decimal" />
     <Property Name="song_view" Type="Int32" Nullable="false" />
   </EntityType>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SingSpaze.Models.Management;
 
 namespace SingSpaze.Controllers
 {
@@ -10,9 +11,16 @@ namespace SingSpaze.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+           return View();
+        }
 
-            return View();
+        [HttpPost]
+        public ActionResult login(Account input)
+        {
+            if(input.user_login == "admin" && input.user_password == "admin")
+                return RedirectToAction("Index", "Song");
+            else
+                return RedirectToAction("Index");
         }
 
         public ActionResult About()

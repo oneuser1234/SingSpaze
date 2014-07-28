@@ -177,6 +177,7 @@
     <Compile Include="Models\Input\artist.cs" />
     <Compile Include="Models\Input\playlist.cs" />
     <Compile Include="Models\Input\song.cs" />
+    <Compile Include="Models\Management\Account.cs" />
     <Compile Include="Models\MySql.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -307,13 +308,25 @@
     <Content Include="Views\Account\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Song\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <EntityDeploy Include="Models\MySql.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MySql.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Song\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Song\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Song\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Song\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Song\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

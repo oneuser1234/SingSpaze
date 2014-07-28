@@ -105,7 +105,7 @@
     <Property Name="song_picture" Type="varchar" MaxLength="255" />
     <Property Name="song_status" Type="int" Nullable="false" />
     <Property Name="song_addedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="song_filePathId" Type="int" Nullable="false" />
+    <Property Name="song_filePath" Type="varchar" Nullable="false" MaxLength="100" />
     <Property Name="song_price" Type="decimal" />
     <Property Name="song_view" Type="int" Nullable="false" />
   </EntityType>

@@ -190,7 +190,7 @@ namespace SingSpaze.Controllers.API
                 releasedDate = datasong.song_releasedDate,
                 thumbnail = datasong.song_thumbnail,
                 view = datasong.song_view,
-                filePathId = datasong.song_filePathId,
+                filePath = datasong.song_filePath,
                 length = datasong.song_length,
                 keywords = datasong.song_keywords,
 
