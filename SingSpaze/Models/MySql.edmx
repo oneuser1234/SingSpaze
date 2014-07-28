@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="singspazeModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="singspazeModelStoreContainer">
+          <EntitySet Name="album" EntityType="singspazeModel.Store.album" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="artist" EntityType="singspazeModel.Store.artist" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="contentpartner" EntityType="singspazeModel.Store.contentpartner" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="genre" EntityType="singspazeModel.Store.genre" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="language" EntityType="singspazeModel.Store.language" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="playlist" EntityType="singspazeModel.Store.playlist" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="playlisttosong" EntityType="singspazeModel.Store.playlisttosong" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="recordlabel" EntityType="singspazeModel.Store.recordlabel" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="singinghistory" EntityType="singspazeModel.Store.singinghistory" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="song" EntityType="singspazeModel.Store.song" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="status" EntityType="singspazeModel.Store.status" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="user" EntityType="singspazeModel.Store.user" store:Type="Tables" Schema="singspaze" />
+        </EntityContainer>
+        <EntityType Name="album">
+          <Key>
+            <PropertyRef Name="album_id" />
+          </Key>
+          <Property Name="album_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="album_description" Type="varchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="artist">
+          <Key>
+            <PropertyRef Name="artist_id" />
+          </Key>
+          <Property Name="artist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="artist_description" Type="varchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="contentpartner">
+          <Key>
+            <PropertyRef Name="contentpartner_id" />
+          </Key>
+          <Property Name="contentpartner_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="contentpartner_description" Type="varchar" Nullable="false" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="genre_id" />
+          </Key>
+          <Property Name="genre_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="genre_description" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="language">
+          <Key>
+            <PropertyRef Name="language_id" />
+          </Key>
+          <Property Name="language_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="language_description" Type="varchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="playlist">
+          <Key>
+            <PropertyRef Name="playlist_id" />
+          </Key>
+          <Property Name="playlist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="playlist_description" Type="varchar" MaxLength="255" />
+          <Property Name="playlist_createdDatetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="playlisttosong">
+          <Key>
+            <PropertyRef Name="playlisttosong_id" />
+          </Key>
+          <Property Name="playlisttosong_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="playlist_id" Type="int" Nullable="false" />
+          <Property Name="song_id" Type="int" Nullable="false" />
+          <Property Name="playlistToSong_sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="recordlabel">
+          <Key>
+            <PropertyRef Name="recordlabel_id" />
+          </Key>
+          <Property Name="recordlabel_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="recordlabel_description" Type="varchar" Nullable="false" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="singinghistory">
+          <Key>
+            <PropertyRef Name="singinghistory_id" />
+          </Key>
+          <Property Name="singinghistory_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="song_id" Type="int" Nullable="false" />
+          <Property Name="artist_id" Type="int" Nullable="false" />
+          <Property Name="singinghistory_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="song">
+          <Key>
+            <PropertyRef Name="song_id" />
+          </Key>
+          <Property Name="song_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="song_originName" Type="varchar" MaxLength="255" />
+          <Property Name="song_engName" Type="varchar" MaxLength="255" />
+          <Property Name="song_genre" Type="int" Nullable="false" />
+          <Property Name="song_languageId" Type="int" Nullable="false" />
+          <Property Name="song_albumId" Type="int" Nullable="false" />
+          <Property Name="song_artistId" Type="int" Nullable="false" />
+          <Property Name="song_length" Type="decimal" Nullable="false" Precision="11" />
+          <Property Name="song_keywords" Type="varchar" MaxLength="255" />
+          <Property Name="song_lyrics" Type="text" />
+          <Property Name="song_contentPartnerId" Type="int" Nullable="false" />
+          <Property Name="song_recordLabelId" Type="int" Nullable="false" />
+          <Property Name="song_releasedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="song_thumbnail" Type="varchar" MaxLength="255" />
+          <Property Name="song_picture" Type="varchar" MaxLength="255" />
+          <Property Name="song_status" Type="int" Nullable="false" />
+          <Property Name="song_addedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="song_filePathId" Type="int" Nullable="false" />
+          <Property Name="song_price" Type="decimal" />
+          <Property Name="song_view" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="status_description" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_status" Type="tinyint" Nullable="false" />
+          <Property Name="usergroup_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="int" Nullable="false" />
+          <Property Name="user_fbUserId" Type="int" Nullable="false" />
+          <Property Name="user_firstname" Type="varchar" MaxLength="255" />
+          <Property Name="user_lastname" Type="varchar" MaxLength="255" />
+          <Property Name="user_login" Type="varchar" MaxLength="255" />
+          <Property Name="user_password" Type="varchar" MaxLength="255" />
+          <Property Name="user_email" Type="varchar" MaxLength="255" />
+          <Property Name="user_createdDatetime" Type="datetime" />
+          <Property Name="user_modifiedDatetime" Type="datetime" />
+          <Property Name="user_lastlogin" Type="datetime" />
+          <Property Name="user_avartar" Type="varchar" MaxLength="255" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="singspazeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="singspazeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="album" EntityType="singspazeModel.album" />
+          <EntitySet Name="artist" EntityType="singspazeModel.artist" />
+          <EntitySet Name="contentpartner" EntityType="singspazeModel.contentpartner" />
+          <EntitySet Name="genre" EntityType="singspazeModel.genre" />
+          <EntitySet Name="language" EntityType="singspazeModel.language" />
+          <EntitySet Name="playlist" EntityType="singspazeModel.playlist" />
+          <EntitySet Name="playlisttosong" EntityType="singspazeModel.playlisttosong" />
+          <EntitySet Name="recordlabel" EntityType="singspazeModel.recordlabel" />
+          <EntitySet Name="singinghistory" EntityType="singspazeModel.singinghistory" />
+          <EntitySet Name="song" EntityType="singspazeModel.song" />
+          <EntitySet Name="status" EntityType="singspazeModel.status" />
+          <EntitySet Name="user" EntityType="singspazeModel.user" />
+        </EntityContainer>
+        <EntityType Name="album">
+          <Key>
+            <PropertyRef Name="album_id" />
+          </Key>
+          <Property Name="album_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="album_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="artist">
+          <Key>
+            <PropertyRef Name="artist_id" />
+          </Key>
+          <Property Name="artist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="artist_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="contentpartner">
+          <Key>
+            <PropertyRef Name="contentpartner_id" />
+          </Key>
+          <Property Name="contentpartner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contentpartner_description" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="genre_id" />
+          </Key>
+          <Property Name="genre_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genre_description" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="language">
+          <Key>
+            <PropertyRef Name="language_id" />
+          </Key>
+          <Property Name="language_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="language_description" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="playlist">
+          <Key>
+            <PropertyRef Name="playlist_id" />
+          </Key>
+          <Property Name="playlist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="playlist_description" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="playlist_createdDatetime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="playlisttosong">
+          <Key>
+            <PropertyRef Name="playlisttosong_id" />
+          </Key>
+          <Property Name="playlisttosong_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="playlist_id" Type="Int32" Nullable="false" />
+          <Property Name="song_id" Type="Int32" Nullable="false" />
+          <Property Name="playlistToSong_sequence" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="recordlabel">
+          <Key>
+            <PropertyRef Name="recordlabel_id" />
+          </Key>
+          <Property Name="recordlabel_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recordlabel_description" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="singinghistory">
+          <Key>
+            <PropertyRef Name="singinghistory_id" />
+          </Key>
+          <Property Name="singinghistory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="song_id" Type="Int32" Nullable="false" />
+          <Property Name="artist_id" Type="Int32" Nullable="false" />
+          <Property Name="singinghistory_date" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="song">
+          <Key>
+            <PropertyRef Name="song_id" />
+          </Key>
+          <Property Name="song_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="song_originName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="song_engName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="song_genre" Type="Int32" Nullable="false" />
+          <Property Name="song_languageId" Type="Int32" Nullable="false" />
+          <Property Name="song_albumId" Type="Int32" Nullable="false" />
+          <Property Name="song_artistId" Type="Int32" Nullable="false" />
+          <Property Name="song_length" Type="Decimal" Nullable="false" />
+          <Property Name="song_keywords" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="song_lyrics" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="song_contentPartnerId" Type="Int32" Nullable="false" />
+          <Property Name="song_recordLabelId" Type="Int32" Nullable="false" />
+          <Property Name="song_releasedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="song_thumbnail" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="song_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="song_status" Type="Int32" Nullable="false" />
+          <Property Name="song_addedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="song_filePathId" Type="Int32" Nullable="false" />
+          <Property Name="song_price" Type="Decimal" />
+          <Property Name="song_view" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status_description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_status" Type="SByte" Nullable="false" />
+          <Property Name="usergroup_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="Int32" Nullable="false" />
+          <Property Name="user_fbUserId" Type="Int32" Nullable="false" />
+          <Property Name="user_firstname" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="user_lastname" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="user_login" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="user_password" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="user_email" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="user_createdDatetime" Type="DateTime" />
+          <Property Name="user_modifiedDatetime" Type="DateTime" />
+          <Property Name="user_lastlogin" Type="DateTime" />
+          <Property Name="user_avartar" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="singspazeModelStoreContainer" CdmEntityContainer="singspazeEntities">
+          <EntitySetMapping Name="album">
+            <EntityTypeMapping TypeName="singspazeModel.album">
+              <MappingFragment StoreEntitySet="album">
+                <ScalarProperty Name="album_id" ColumnName="album_id" />
+                <ScalarProperty Name="album_description" ColumnName="album_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="artist">
+            <EntityTypeMapping TypeName="singspazeModel.artist">
+              <MappingFragment StoreEntitySet="artist">
+                <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+                <ScalarProperty Name="artist_description" ColumnName="artist_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contentpartner">
+            <EntityTypeMapping TypeName="singspazeModel.contentpartner">
+              <MappingFragment StoreEntitySet="contentpartner">
+                <ScalarProperty Name="contentpartner_id" ColumnName="contentpartner_id" />
+                <ScalarProperty Name="contentpartner_description" ColumnName="contentpartner_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genre">
+            <EntityTypeMapping TypeName="singspazeModel.genre">
+              <MappingFragment StoreEntitySet="genre">
+                <ScalarProperty Name="genre_id" ColumnName="genre_id" />
+                <ScalarProperty Name="genre_description" ColumnName="genre_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="language">
+            <EntityTypeMapping TypeName="singspazeModel.language">
+              <MappingFragment StoreEntitySet="language">
+                <ScalarProperty Name="language_id" ColumnName="language_id" />
+                <ScalarProperty Name="language_description" ColumnName="language_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playlist">
+            <EntityTypeMapping TypeName="singspazeModel.playlist">
+              <MappingFragment StoreEntitySet="playlist">
+                <ScalarProperty Name="playlist_id" ColumnName="playlist_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="playlist_description" ColumnName="playlist_description" />
+                <ScalarProperty Name="playlist_createdDatetime" ColumnName="playlist_createdDatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playlisttosong">
+            <EntityTypeMapping TypeName="singspazeModel.playlisttosong">
+              <MappingFragment StoreEntitySet="playlisttosong">
+                <ScalarProperty Name="playlisttosong_id" ColumnName="playlisttosong_id" />
+                <ScalarProperty Name="playlist_id" ColumnName="playlist_id" />
+                <ScalarProperty Name="song_id" ColumnName="song_id" />
+                <ScalarProperty Name="playlistToSong_sequence" ColumnName="playlistToSong_sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recordlabel">
+            <EntityTypeMapping TypeName="singspazeModel.recordlabel">
+              <MappingFragment StoreEntitySet="recordlabel">
+                <ScalarProperty Name="recordlabel_id" ColumnName="recordlabel_id" />
+                <ScalarProperty Name="recordlabel_description" ColumnName="recordlabel_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="singinghistory">
+            <EntityTypeMapping TypeName="singspazeModel.singinghistory">
+              <MappingFragment StoreEntitySet="singinghistory">
+                <ScalarProperty Name="singinghistory_id" ColumnName="singinghistory_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="song_id" ColumnName="song_id" />
+                <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+                <ScalarProperty Name="singinghistory_date" ColumnName="singinghistory_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="song">
+            <EntityTypeMapping TypeName="singspazeModel.song">
+              <MappingFragment StoreEntitySet="song">
+                <ScalarProperty Name="song_id" ColumnName="song_id" />
+                <ScalarProperty Name="song_originName" ColumnName="song_originName" />
+                <ScalarProperty Name="song_engName" ColumnName="song_engName" />
+                <ScalarProperty Name="song_genre" ColumnName="song_genre" />
+                <ScalarProperty Name="song_languageId" ColumnName="song_languageId" />
+                <ScalarProperty Name="song_albumId" ColumnName="song_albumId" />
+                <ScalarProperty Name="song_artistId" ColumnName="song_artistId" />
+                <ScalarProperty Name="song_length" ColumnName="song_length" />
+                <ScalarProperty Name="song_keywords" ColumnName="song_keywords" />
+                <ScalarProperty Name="song_lyrics" ColumnName="song_lyrics" />
+                <ScalarProperty Name="song_contentPartnerId" ColumnName="song_contentPartnerId" />
+                <ScalarProperty Name="song_recordLabelId" ColumnName="song_recordLabelId" />
+                <ScalarProperty Name="song_releasedDate" ColumnName="song_releasedDate" />
+                <ScalarProperty Name="song_thumbnail" ColumnName="song_thumbnail" />
+                <ScalarProperty Name="song_picture" ColumnName="song_picture" />
+                <ScalarProperty Name="song_status" ColumnName="song_status" />
+                <ScalarProperty Name="song_addedDate" ColumnName="song_addedDate" />
+                <ScalarProperty Name="song_filePathId" ColumnName="song_filePathId" />
+                <ScalarProperty Name="song_price" ColumnName="song_price" />
+                <ScalarProperty Name="song_view" ColumnName="song_view" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="singspazeModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="status_description" ColumnName="status_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="singspazeModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+                <ScalarProperty Name="usergroup_id" ColumnName="usergroup_id" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_fbUserId" ColumnName="user_fbUserId" />
+                <ScalarProperty Name="user_firstname" ColumnName="user_firstname" />
+                <ScalarProperty Name="user_lastname" ColumnName="user_lastname" />
+                <ScalarProperty Name="user_login" ColumnName="user_login" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_createdDatetime" ColumnName="user_createdDatetime" />
+                <ScalarProperty Name="user_modifiedDatetime" ColumnName="user_modifiedDatetime" />
+                <ScalarProperty Name="user_lastlogin" ColumnName="user_lastlogin" />
+                <ScalarProperty Name="user_avartar" ColumnName="user_avartar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MySql">
+        <EntityTypeShape EntityType="singspazeModel.album" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4033821614583331" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583335" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.contentpartner" Width="1.5" PointX="0.75" PointY="3.75" Height="1.4033821614583322" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.genre" Width="1.5" PointX="2.75" PointY="3.75" Height="1.4033821614583335" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.language" Width="1.5" PointX="4.75" PointY="0.75" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.playlist" Width="1.5" PointX="4.75" PointY="3.75" Height="1.787985026041667" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.playlisttosong" Width="1.5" PointX="6.75" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.recordlabel" Width="1.5" PointX="0.75" PointY="6.75" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.singinghistory" Width="1.5" PointX="2.75" PointY="6.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.song" Width="1.5" PointX="6.75" PointY="3.75" Height="4.8648079427083353" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.status" Width="1.5" PointX="8.75" PointY="0.75" Height="1.4033821614583353" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.user" Width="1.5" PointX="8.75" PointY="3.75" Height="3.7109993489583317" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
