@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="singspazeModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="singspazeModelStoreContainer">
+    <EntitySet Name="playlist" EntityType="singspazeModel.Store.playlist" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="playlisttosong" EntityType="singspazeModel.Store.playlisttosong" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="singinghistory" EntityType="singspazeModel.Store.singinghistory" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="song" EntityType="singspazeModel.Store.song" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="user" EntityType="singspazeModel.Store.user" store:Type="Tables" Schema="singspaze" />
+  </EntityContainer>
+  <EntityType Name="playlist">
+    <Key>
+      <PropertyRef Name="playlist_id" />
+    </Key>
+    <Property Name="playlist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="playlist_description" Type="varchar" MaxLength="255" />
+    <Property Name="playlist_createdDatetime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="playlisttosong">
+    <Key>
+      <PropertyRef Name="playlisttosong_id" />
+    </Key>
+    <Property Name="playlisttosong_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="playlist_id" Type="int" Nullable="false" />
+    <Property Name="song_id" Type="int" Nullable="false" />
+    <Property Name="playlistToSong_sequence" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="singinghistory">
+    <Key>
+      <PropertyRef Name="singinghistory_id" />
+    </Key>
+    <Property Name="singinghistory_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="song_id" Type="int" Nullable="false" />
+    <Property Name="singinghistory_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="song">
+    <Key>
+      <PropertyRef Name="song_id" />
+    </Key>
+    <Property Name="song_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="recordLabel_id" Type="int" Nullable="false" />
+    <Property Name="song_originName" Type="varchar" MaxLength="255" />
+    <Property Name="song_engName" Type="varchar" MaxLength="255" />
+    <Property Name="song_genre" Type="int" Nullable="false" />
+    <Property Name="song_language" Type="varchar" MaxLength="255" />
+    <Property Name="song_albumId" Type="int" Nullable="false" />
+    <Property Name="song_artistId" Type="int" Nullable="false" />
+    <Property Name="song_length" Type="int" Nullable="false" />
+    <Property Name="song_keywords" Type="varchar" MaxLength="255" />
+    <Property Name="song_lyrics" Type="varchar" MaxLength="255" />
+    <Property Name="song_contentPartnerId" Type="int" Nullable="false" />
+    <Property Name="song_recordLabelId" Type="int" Nullable="false" />
+    <Property Name="song_releasedDate" Type="datetime" />
+    <Property Name="song_thumbnail" Type="varchar" MaxLength="255" />
+    <Property Name="song_picture" Type="varchar" MaxLength="255" />
+    <Property Name="song_status" Type="int" Nullable="false" />
+    <Property Name="song_addedDate" Type="datetime" />
+    <Property Name="song_filePathId" Type="int" Nullable="false" />
+    <Property Name="song_price" Type="decimal" />
+    <Property Name="song_view" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="user_status" Type="varchar" MaxLength="255" />
+    <Property Name="usergroup_id" Type="int" Nullable="false" />
+    <Property Name="user_type" Type="int" Nullable="false" />
+    <Property Name="user_fbUserId" Type="int" Nullable="false" />
+    <Property Name="user_firstname" Type="varchar" MaxLength="255" />
+    <Property Name="user_lastname" Type="varchar" MaxLength="255" />
+    <Property Name="user_login" Type="varchar" MaxLength="255" />
+    <Property Name="user_password" Type="varchar" MaxLength="255" />
+    <Property Name="user_email" Type="varchar" MaxLength="255" />
+    <Property Name="user_createdDatetime" Type="datetime" />
+    <Property Name="user_modifiedDatetime" Type="datetime" />
+    <Property Name="user_lastlogin" Type="datetime" />
+    <Property Name="user_avartar" Type="varchar" MaxLength="255" />
+  </EntityType>
+</Schema>

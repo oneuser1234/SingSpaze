@@ -1,0 +1,74 @@
+﻿@model SingSpaze.Models.Management.editaccount
+@{
+    ViewBag.Title = "Create";
+}
+
+<div style="padding-top: 25px;padding-bottom: 30px;">
+<div style="padding-left: 30px;border: 1px solid black;">
+@Scripts.Render("~/bundles/jqueryui")
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <table style="width:100%;">
+    <tr>
+        <td>Username</td>
+        <td>
+            @Html.EditorFor(model => model.username)
+            @Html.ValidationMessageFor(model => model.username)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>
+            @Html.PasswordFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Firstname</td>
+        <td>
+            @Html.EditorFor(model => model.firstname)
+            @Html.ValidationMessageFor(model => model.firstname)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Lastname</td>
+        <td>
+           @Html.EditorFor(model => model.lastname)
+           @Html.ValidationMessageFor(model => model.lastname)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>
+           @Html.EditorFor(model => model.email)
+           @Html.ValidationMessageFor(model => model.email)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>FacebookId</td>
+        <td>
+           @Html.EditorFor(model => model.facebookid)
+           @Html.ValidationMessageFor(model => model.facebookid)
+        </td>
+        <td></td>    </tr>
+    
+    
+    <tr>
+         <td colspan="3" style="text-align: right;">
+           <input type="submit" value="Edit" />
+           <input type="button" value="Cancel" onclick="location.href='@Url.Action("index", "account")'"  />
+           
+         </td>
+    </tr>    
+    </table>
+}
+
+</div>
+</div>

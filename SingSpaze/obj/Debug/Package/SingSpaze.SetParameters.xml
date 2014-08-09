@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Default Web Site/SingSpaze_deploy" />
+  <setParameter name="singspazeEntities-Web.config Connection String" value="metadata=res://*/Models.MySql.csdl|res://*/Models.MySql.ssdl|res://*/Models.MySql.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=localhost;User Id=singspaze;database=singspaze;password=p@ssw0rd;Charset=utf8;Persist Security Info=True&quot;" />
+</parameters>

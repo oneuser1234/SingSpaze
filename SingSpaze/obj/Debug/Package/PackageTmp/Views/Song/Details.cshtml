@@ -1,0 +1,148 @@
+﻿@model SingSpaze.Models.song
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>song</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_originName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_originName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_engName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_engName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_genre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_genre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_languageId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_languageId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_albumId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_albumId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_artistId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_artistId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_length)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_length)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_keywords)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_keywords)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_lyrics)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_lyrics)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_contentPartnerId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_contentPartnerId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_recordLabelId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_recordLabelId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_releasedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_releasedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_thumbnail)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_thumbnail)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_picture)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_picture)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_status)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_addedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_addedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_filePath)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_filePath)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_price)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_price)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.song_view)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.song_view)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.song_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

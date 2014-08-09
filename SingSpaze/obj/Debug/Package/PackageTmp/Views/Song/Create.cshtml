@@ -1,0 +1,130 @@
+﻿@model SingSpaze.Models.Management.editsong
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div style="padding-top: 25px;padding-bottom: 30px;">
+<div style="padding-left: 30px;border: 1px solid black;">
+@Scripts.Render("~/bundles/jqueryui")
+<script >
+    $(function () {
+        $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <table style="width:100%;">
+    <tr>
+        <td>Song Title-TH</td>
+        <td>
+            @Html.EditorFor(model => model.Name_TH)
+            @Html.ValidationMessageFor(model => model.Name_TH)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Song Title-EN</td>
+        <td>
+            @Html.EditorFor(model => model.Name_EN)
+            @Html.ValidationMessageFor(model => model.Name_EN)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Artist</td>
+        <td>
+           @* @Html.DropDownList("Artist", (SelectList)ViewBag.Artist)*@
+           @Html.DropDownListFor(model => model.Artist, Model.ArtistList)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Album</td>
+        <td>
+           @*@Html.DropDownList("Album", (SelectList)ViewBag.Album)*@
+           @Html.DropDownListFor(model => model.Album, Model.AlbumList)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Released date</td>
+        <td>
+           @Html.TextBoxFor(model => model.ReleasedDate, new { id = "datepicker" })
+           @*<input type="text" id="datepicker" />*@
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Length</td>
+        <td>
+           @Html.EditorFor(model => model.Length)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Language</td>
+        <td>
+           @*@Html.DropDownList("Language", (SelectList)ViewBag.Language)*@
+           @Html.DropDownListFor(model => model.Language, Model.LanguageList) 
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Genre</td>
+        <td>
+           @*@Html.DropDownList("Genre", (SelectList)ViewBag.Genre) *@
+           @*@Html.DropDownListFor(model => model.Genre, (SelectList)ViewBag.Genre)*@
+           @Html.DropDownListFor(model => model.Genre, Model.GenreList) 
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>RecordLabel</td>
+        <td>
+          @* @Html.DropDownList("Recordlabel", (SelectList)ViewBag.RecordLabel)*@
+           @Html.DropDownListFor(model => model.RecordLabel, Model.RecordLabelList)  
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top;">Lyrics</td>
+        <td>
+           @Html.TextAreaFor(model => model.Lyrics, new { cols = "20", rows = "30" }) 
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="3"><hr /></td>
+    </tr>
+    <tr>
+        <td colspan="3">Status</td>
+    </tr>
+    <tr>
+         <td colspan="3">
+            <label style="padding-top:10px;padding-left:10px;">@Html.RadioButtonFor(model => model.Status, (int)1, new { style = "width: 10px;margin-right: 10px;" })Active</label>
+            <label style="padding-top:10px;padding-left:10px;">@Html.RadioButtonFor(model => model.Status, (int)0, new { style = "width: 10px;margin-right: 10px;" })Deactive</label>
+         </td>
+    </tr>
+    <tr>
+        <td colspan="3"><hr /></td>
+    </tr>
+    <tr>
+         <td colspan="3" style="text-align: right;">
+           <input type="submit" value="Edit" />
+           <input type="button" value="Cancel" onclick="location.href='@Url.Action("index", "song")'"  />
+           
+         </td>
+    </tr>    
+    </table>
+}
+
+</div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -24,14 +24,16 @@
             <PropertyRef Name="album_id" />
           </Key>
           <Property Name="album_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="album_description" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="album_description_th" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="album_description_en" Type="varchar" Nullable="false" MaxLength="200" />
         </EntityType>
         <EntityType Name="artist">
           <Key>
             <PropertyRef Name="artist_id" />
           </Key>
           <Property Name="artist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="artist_description" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="artist_description_th" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="artist_description_en" Type="varchar" Nullable="false" MaxLength="30" />
         </EntityType>
         <EntityType Name="contentpartner">
           <Key>
@@ -52,7 +54,7 @@
             <PropertyRef Name="language_id" />
           </Key>
           <Property Name="language_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="language_description" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="language_description" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <EntityType Name="playlist">
           <Key>
@@ -105,14 +107,14 @@
           <Property Name="song_lyrics" Type="text" />
           <Property Name="song_contentPartnerId" Type="int" Nullable="false" />
           <Property Name="song_recordLabelId" Type="int" Nullable="false" />
-          <Property Name="song_releasedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="song_releasedDate" Type="datetime" Nullable="false" />
           <Property Name="song_thumbnail" Type="varchar" MaxLength="255" />
           <Property Name="song_picture" Type="varchar" MaxLength="255" />
           <Property Name="song_status" Type="int" Nullable="false" />
-          <Property Name="song_addedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="song_filePath" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="song_addedDate" Type="datetime" Nullable="false" />
+          <Property Name="song_filePath" Type="varchar" MaxLength="200" />
           <Property Name="song_price" Type="decimal" />
-          <Property Name="song_view" Type="int" Nullable="false" />
+          <Property Name="song_view" Type="int" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -164,14 +166,16 @@
             <PropertyRef Name="album_id" />
           </Key>
           <Property Name="album_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="album_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="album_description_th" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="album_description_en" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="artist">
           <Key>
             <PropertyRef Name="artist_id" />
           </Key>
           <Property Name="artist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="artist_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="artist_description_th" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="artist_description_en" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="contentpartner">
           <Key>
@@ -192,7 +196,7 @@
             <PropertyRef Name="language_id" />
           </Key>
           <Property Name="language_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="language_description" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="language_description" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="playlist">
           <Key>
@@ -245,14 +249,14 @@
           <Property Name="song_lyrics" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
           <Property Name="song_contentPartnerId" Type="Int32" Nullable="false" />
           <Property Name="song_recordLabelId" Type="Int32" Nullable="false" />
-          <Property Name="song_releasedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="song_releasedDate" Type="DateTime" Nullable="false" />
           <Property Name="song_thumbnail" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="song_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="song_status" Type="Int32" Nullable="false" />
-          <Property Name="song_addedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="song_filePath" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="song_addedDate" Type="DateTime" Nullable="false" />
+          <Property Name="song_filePath" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="song_price" Type="Decimal" />
-          <Property Name="song_view" Type="Int32" Nullable="false" />
+          <Property Name="song_view" Type="Int32" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -290,7 +294,8 @@
             <EntityTypeMapping TypeName="singspazeModel.album">
               <MappingFragment StoreEntitySet="album">
                 <ScalarProperty Name="album_id" ColumnName="album_id" />
-                <ScalarProperty Name="album_description" ColumnName="album_description" />
+                <ScalarProperty Name="album_description_th" ColumnName="album_description_th" />
+                <ScalarProperty Name="album_description_en" ColumnName="album_description_en" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -298,7 +303,8 @@
             <EntityTypeMapping TypeName="singspazeModel.artist">
               <MappingFragment StoreEntitySet="artist">
                 <ScalarProperty Name="artist_id" ColumnName="artist_id" />
-                <ScalarProperty Name="artist_description" ColumnName="artist_description" />
+                <ScalarProperty Name="artist_description_th" ColumnName="artist_description_th" />
+                <ScalarProperty Name="artist_description_en" ColumnName="artist_description_en" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -439,9 +445,9 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MySql">
-        <EntityTypeShape EntityType="singspazeModel.album" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4033821614583331" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583335" IsExpanded="true" />
+      <Diagram Name="Mysql">
+        <EntityTypeShape EntityType="singspazeModel.album" Width="1.5" PointX="0.75" PointY="0.75" Height="1.59568359375" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="2.75" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.contentpartner" Width="1.5" PointX="0.75" PointY="3.75" Height="1.4033821614583322" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.genre" Width="1.5" PointX="2.75" PointY="3.75" Height="1.4033821614583335" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.language" Width="1.5" PointX="4.75" PointY="0.75" Height="1.4033821614583317" IsExpanded="true" />

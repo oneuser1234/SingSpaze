@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SingSpaze.Models.Management;
+using System.Web.Security;
 
 namespace SingSpaze.Controllers
 {
@@ -14,11 +15,19 @@ namespace SingSpaze.Controllers
            return View();
         }
 
+        /// <summary>
+        /// backend login
+        /// </summary>
+        /// <param name="input">class Account</param>
+        /// <returns>redirect</returns>
         [HttpPost]
         public ActionResult login(Account input)
         {
-            if(input.user_login == "admin" && input.user_password == "admin")
-                return RedirectToAction("Index", "Song");
+            if (input.user_login == "admin" && input.user_password == "admin")
+            {
+                FormsAuthentication.SetAuthCookie(input.user_login, false);
+                return RedirectToAction("Index", "Account");
+            }
             else
                 return RedirectToAction("Index");
         }

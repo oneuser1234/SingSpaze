@@ -5,7 +5,8 @@
       <EntityTypeMapping TypeName="singspazeModel.album">
         <MappingFragment StoreEntitySet="album">
           <ScalarProperty Name="album_id" ColumnName="album_id" />
-          <ScalarProperty Name="album_description" ColumnName="album_description" />
+          <ScalarProperty Name="album_description_th" ColumnName="album_description_th" />
+          <ScalarProperty Name="album_description_en" ColumnName="album_description_en" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -13,7 +14,8 @@
       <EntityTypeMapping TypeName="singspazeModel.artist">
         <MappingFragment StoreEntitySet="artist">
           <ScalarProperty Name="artist_id" ColumnName="artist_id" />
-          <ScalarProperty Name="artist_description" ColumnName="artist_description" />
+          <ScalarProperty Name="artist_description_th" ColumnName="artist_description_th" />
+          <ScalarProperty Name="artist_description_en" ColumnName="artist_description_en" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

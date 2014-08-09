@@ -1,0 +1,63 @@
+BODY,TD { 
+    FONT-SIZE: 10px; 
+    COLOR: #000000; 
+    FONT-FAMILY: Verdana, Arial, Helvetica;
+    background-position:<%=position_left%>;
+    background-repeat:repeat-y; 
+}
+
+.title1 {
+	text-transform: uppercase;
+	color:#6FA7D1;
+	font-size:15px;
+	font-weight:bold;
+}
+
+.title2 {
+	text-transform: uppercase;
+	color:#8B8B8B;
+	font-weight:bold;
+}
+
+.news {
+	background-color:#E8E8E8;
+	padding:6px;
+	border:1px solid #ffffff;
+}
+	
+
+A:hover { 
+	FONT-SIZE: 10px; 
+	COLOR: #000000; 
+	FONT-FAMILY: Verdana, Arial, Helvetica; 
+	TEXT-DECORATION: none; 
+	background-color: #6FA7D1; 
+	font-weight: bold; 
+}
+
+A:link { 
+	FONT-SIZE: 10px; 
+	COLOR: #000000; 
+	FONT-FAMILY: Verdana, Arial, Helvetica; 
+	TEXT-DECORATION: none; 
+	font-weight: bold 
+}
+
+A:visited {        
+	FONT-SIZE: 10px; 
+	COLOR: #000000; 
+	FONT-FAMILY: Verdana, Arial, Helvetica; 
+	TEXT-DECORATION: none; 
+	font-weight: bold 
+}
+
+A:visited:hover {        
+	FONT-SIZE: 10px; 
+	COLOR: #000000; 
+	FONT-FAMILY: Verdana, Arial, Helvetica; 
+	TEXT-DECORATION: none; 
+	background-color: #6FA7D1; 
+	font-weight: bold;
+	}
+	
+	.felder { FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;  BORDER: 1px #000000 solid }

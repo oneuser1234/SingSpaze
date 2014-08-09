@@ -379,12 +379,14 @@ namespace SingSpaze.Models
         /// Create a new album object.
         /// </summary>
         /// <param name="album_id">Initial value of the album_id property.</param>
-        /// <param name="album_description">Initial value of the album_description property.</param>
-        public static album Createalbum(global::System.Int32 album_id, global::System.String album_description)
+        /// <param name="album_description_th">Initial value of the album_description_th property.</param>
+        /// <param name="album_description_en">Initial value of the album_description_en property.</param>
+        public static album Createalbum(global::System.Int32 album_id, global::System.String album_description_th, global::System.String album_description_en)
         {
             album album = new album();
             album.album_id = album_id;
-            album.album_description = album_description;
+            album.album_description_th = album_description_th;
+            album.album_description_en = album_description_en;
             return album;
         }
 
@@ -424,24 +426,48 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String album_description
+        public global::System.String album_description_th
         {
             get
             {
-                return _album_description;
+                return _album_description_th;
             }
             set
             {
-                Onalbum_descriptionChanging(value);
-                ReportPropertyChanging("album_description");
-                _album_description = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("album_description");
-                Onalbum_descriptionChanged();
+                Onalbum_description_thChanging(value);
+                ReportPropertyChanging("album_description_th");
+                _album_description_th = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("album_description_th");
+                Onalbum_description_thChanged();
             }
         }
-        private global::System.String _album_description;
-        partial void Onalbum_descriptionChanging(global::System.String value);
-        partial void Onalbum_descriptionChanged();
+        private global::System.String _album_description_th;
+        partial void Onalbum_description_thChanging(global::System.String value);
+        partial void Onalbum_description_thChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String album_description_en
+        {
+            get
+            {
+                return _album_description_en;
+            }
+            set
+            {
+                Onalbum_description_enChanging(value);
+                ReportPropertyChanging("album_description_en");
+                _album_description_en = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("album_description_en");
+                Onalbum_description_enChanged();
+            }
+        }
+        private global::System.String _album_description_en;
+        partial void Onalbum_description_enChanging(global::System.String value);
+        partial void Onalbum_description_enChanged();
 
         #endregion
 
@@ -462,12 +488,14 @@ namespace SingSpaze.Models
         /// Create a new artist object.
         /// </summary>
         /// <param name="artist_id">Initial value of the artist_id property.</param>
-        /// <param name="artist_description">Initial value of the artist_description property.</param>
-        public static artist Createartist(global::System.Int32 artist_id, global::System.String artist_description)
+        /// <param name="artist_description_th">Initial value of the artist_description_th property.</param>
+        /// <param name="artist_description_en">Initial value of the artist_description_en property.</param>
+        public static artist Createartist(global::System.Int32 artist_id, global::System.String artist_description_th, global::System.String artist_description_en)
         {
             artist artist = new artist();
             artist.artist_id = artist_id;
-            artist.artist_description = artist_description;
+            artist.artist_description_th = artist_description_th;
+            artist.artist_description_en = artist_description_en;
             return artist;
         }
 
@@ -507,24 +535,48 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String artist_description
+        public global::System.String artist_description_th
         {
             get
             {
-                return _artist_description;
+                return _artist_description_th;
             }
             set
             {
-                Onartist_descriptionChanging(value);
-                ReportPropertyChanging("artist_description");
-                _artist_description = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("artist_description");
-                Onartist_descriptionChanged();
+                Onartist_description_thChanging(value);
+                ReportPropertyChanging("artist_description_th");
+                _artist_description_th = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("artist_description_th");
+                Onartist_description_thChanged();
             }
         }
-        private global::System.String _artist_description;
-        partial void Onartist_descriptionChanging(global::System.String value);
-        partial void Onartist_descriptionChanged();
+        private global::System.String _artist_description_th;
+        partial void Onartist_description_thChanging(global::System.String value);
+        partial void Onartist_description_thChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String artist_description_en
+        {
+            get
+            {
+                return _artist_description_en;
+            }
+            set
+            {
+                Onartist_description_enChanging(value);
+                ReportPropertyChanging("artist_description_en");
+                _artist_description_en = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("artist_description_en");
+                Onartist_description_enChanged();
+            }
+        }
+        private global::System.String _artist_description_en;
+        partial void Onartist_description_enChanging(global::System.String value);
+        partial void Onartist_description_enChanged();
 
         #endregion
 
@@ -1312,9 +1364,7 @@ namespace SingSpaze.Models
         /// <param name="song_releasedDate">Initial value of the song_releasedDate property.</param>
         /// <param name="song_status">Initial value of the song_status property.</param>
         /// <param name="song_addedDate">Initial value of the song_addedDate property.</param>
-        /// <param name="song_filePath">Initial value of the song_filePath property.</param>
-        /// <param name="song_view">Initial value of the song_view property.</param>
-        public static song Createsong(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.Decimal song_length, global::System.Int32 song_contentPartnerId, global::System.Int32 song_recordLabelId, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate, global::System.String song_filePath, global::System.Int32 song_view)
+        public static song Createsong(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.Decimal song_length, global::System.Int32 song_contentPartnerId, global::System.Int32 song_recordLabelId, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate)
         {
             song song = new song();
             song.song_id = song_id;
@@ -1328,8 +1378,6 @@ namespace SingSpaze.Models
             song.song_releasedDate = song_releasedDate;
             song.song_status = song_status;
             song.song_addedDate = song_addedDate;
-            song.song_filePath = song_filePath;
-            song.song_view = song_view;
             return song;
         }
 
@@ -1751,7 +1799,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String song_filePath
         {
@@ -1763,7 +1811,7 @@ namespace SingSpaze.Models
             {
                 Onsong_filePathChanging(value);
                 ReportPropertyChanging("song_filePath");
-                _song_filePath = StructuralObject.SetValidValue(value, false);
+                _song_filePath = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("song_filePath");
                 Onsong_filePathChanged();
             }
@@ -1799,9 +1847,9 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 song_view
+        public Nullable<global::System.Int32> song_view
         {
             get
             {
@@ -1816,8 +1864,8 @@ namespace SingSpaze.Models
                 Onsong_viewChanged();
             }
         }
-        private global::System.Int32 _song_view;
-        partial void Onsong_viewChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _song_view;
+        partial void Onsong_viewChanging(Nullable<global::System.Int32> value);
         partial void Onsong_viewChanged();
 
         #endregion

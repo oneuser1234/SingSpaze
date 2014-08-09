@@ -19,14 +19,16 @@
       <PropertyRef Name="album_id" />
     </Key>
     <Property Name="album_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="album_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="album_description_th" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="album_description_en" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
   </EntityType>
   <EntityType Name="artist">
     <Key>
       <PropertyRef Name="artist_id" />
     </Key>
     <Property Name="artist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="artist_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="artist_description_th" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="artist_description_en" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
   </EntityType>
   <EntityType Name="contentpartner">
     <Key>
@@ -47,7 +49,7 @@
       <PropertyRef Name="language_id" />
     </Key>
     <Property Name="language_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="language_description" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="language_description" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
   </EntityType>
   <EntityType Name="playlist">
     <Key>
@@ -100,14 +102,14 @@
     <Property Name="song_lyrics" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
     <Property Name="song_contentPartnerId" Type="Int32" Nullable="false" />
     <Property Name="song_recordLabelId" Type="Int32" Nullable="false" />
-    <Property Name="song_releasedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="song_releasedDate" Type="DateTime" Nullable="false" />
     <Property Name="song_thumbnail" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
     <Property Name="song_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
     <Property Name="song_status" Type="Int32" Nullable="false" />
-    <Property Name="song_addedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="song_filePath" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="song_addedDate" Type="DateTime" Nullable="false" />
+    <Property Name="song_filePath" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
     <Property Name="song_price" Type="Decimal" />
-    <Property Name="song_view" Type="Int32" Nullable="false" />
+    <Property Name="song_view" Type="Int32" />
   </EntityType>
   <EntityType Name="status">
     <Key>

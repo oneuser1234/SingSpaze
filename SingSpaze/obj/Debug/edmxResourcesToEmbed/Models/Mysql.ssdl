@@ -19,14 +19,16 @@
       <PropertyRef Name="album_id" />
     </Key>
     <Property Name="album_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="album_description" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="album_description_th" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="album_description_en" Type="varchar" Nullable="false" MaxLength="200" />
   </EntityType>
   <EntityType Name="artist">
     <Key>
       <PropertyRef Name="artist_id" />
     </Key>
     <Property Name="artist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="artist_description" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="artist_description_th" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="artist_description_en" Type="varchar" Nullable="false" MaxLength="30" />
   </EntityType>
   <EntityType Name="contentpartner">
     <Key>
@@ -47,7 +49,7 @@
       <PropertyRef Name="language_id" />
     </Key>
     <Property Name="language_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="language_description" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="language_description" Type="varchar" Nullable="false" MaxLength="20" />
   </EntityType>
   <EntityType Name="playlist">
     <Key>
@@ -100,14 +102,14 @@
     <Property Name="song_lyrics" Type="text" />
     <Property Name="song_contentPartnerId" Type="int" Nullable="false" />
     <Property Name="song_recordLabelId" Type="int" Nullable="false" />
-    <Property Name="song_releasedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="song_releasedDate" Type="datetime" Nullable="false" />
     <Property Name="song_thumbnail" Type="varchar" MaxLength="255" />
     <Property Name="song_picture" Type="varchar" MaxLength="255" />
     <Property Name="song_status" Type="int" Nullable="false" />
-    <Property Name="song_addedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="song_filePath" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="song_addedDate" Type="datetime" Nullable="false" />
+    <Property Name="song_filePath" Type="varchar" MaxLength="200" />
     <Property Name="song_price" Type="decimal" />
-    <Property Name="song_view" Type="int" Nullable="false" />
+    <Property Name="song_view" Type="int" />
   </EntityType>
   <EntityType Name="status">
     <Key>

@@ -23,11 +23,16 @@ namespace SingSpaze.Controllers.API
     {
         private singspazeEntities db = new singspazeEntities();
 
-        
+        /// <summary>
+        /// Register
+        /// </summary>
+        /// <param name="i_data">class I_Register</param>
+        /// <returns>class O_Register</returns>
         [HttpPost]
         [ActionName("Register")]
         public O_Register Register(I_Register i_data)
         {
+            /// testttt
             //if (ModelState.IsValid)
             //{
             Boolean errorinput = false;
@@ -69,7 +74,7 @@ namespace SingSpaze.Controllers.API
                                     } 
                     };
                 }
-                
+                /// end
                 
                 user userdata = new user()
                 {
@@ -111,6 +116,11 @@ namespace SingSpaze.Controllers.API
             //}
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="i_data">class I_login</param>
+        /// <returns>class O_login</returns>
         [HttpPost]
         [ActionName("Login")]
         public O_Login Login(I_Login i_data)
@@ -245,6 +255,11 @@ namespace SingSpaze.Controllers.API
 
         //[Authorize]
 
+        /// <summary>
+        /// Profile
+        /// </summary>
+        /// <param name="i_data">class I_Profile</param>
+        /// <returns>clas O_Profile</returns>
         [HttpPost]
         [ActionName("Profile")]
         public O_Profile Profile(I_Profile i_data)

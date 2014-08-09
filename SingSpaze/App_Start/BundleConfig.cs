@@ -9,7 +9,9 @@ namespace SingSpaze
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -23,7 +25,7 @@ namespace SingSpaze
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css", "~/Content/themes/base/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
@@ -37,7 +39,13 @@ namespace SingSpaze
                         "~/Content/themes/base/jquery.ui.tabs.css",
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
+                        "~/Content/themes/base/jquery.ui.theme.css",
+                        "~/Content/bootstrap*"));
+
+            bundles.Add(new StyleBundle("~/bootstrap").Include("~/Content/bootstrap*"));
+
+            bundles.Add(new StyleBundle("~/iCampus").IncludeDirectory("~/Content/css/","*.css",true));
+             
         }
     }
 }

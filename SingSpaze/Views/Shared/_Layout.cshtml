@@ -7,12 +7,15 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+       @* @Scripts.Render("~/iCampus")*@
+        @Scripts.Render("~/bundles/jquery")
     </head>
     <body>
+    <div style="display: inline-block;width: 100%;">
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                    <p class="site-title">@Html.ActionLink("SingSpaze Backend", "Index", "Home")</p>
                 </div>
                 <div class="float-right">
                     <section id="login">
@@ -28,21 +31,41 @@
                 </div>
             </div>
         </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
+    </div>
+    <div>
+        <div style="width:200px;float:left;display:inline-block;padding-left: 10px;padding-top: 10px;">
+            <table style="width:100%">
+                <tr>
+                    <td><hr /></td>
+                </tr>
+                <tr>
+                    <td>User Account</td>
+                </tr>                
+                <tr>
+                    <td><a href="@Url.Action("index", "account")">User list</a></td>
+                </tr>
+                <tr>
+                    <td><hr /></td>
+                </tr>
+                <tr>
+                    <td>Song</td>
+                </tr>                
+                <tr>
+                    <td><a href="@Url.Action("index", "song")">Song list</a></td>
+                </tr>
+                <tr>
+                    <td><hr /></td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-left:200px;background-color: #efeeef;padding-bottom: 35px;">
+            <section style="padding-left: 50px;padding-right: 50px;">
                 @RenderBody()
             </section>
         </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
-            </div>
-        </footer>
-
-        @Scripts.Render("~/bundles/jquery")
+    </div>
+        
+        
         @RenderSection("scripts", required: false)
     </body>
 </html>
