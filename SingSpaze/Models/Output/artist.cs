@@ -5,9 +5,18 @@ using System.Web;
 
 namespace SingSpaze.Models.Output
 {
+    /// <summary>
+    /// Class output data for artistlist
+    /// </summary>
     public class O_ArtistList
     {
-        public IEnumerable<artistdata> listartist { get; set; }
-        public errordata errordata { get; set; }
+        /// <summary>
+        /// List class artistdata 
+        /// </summary>
+        public List<Artistdata> listartist { get; set; }
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
     }
 }

@@ -36,11 +36,11 @@ namespace SingSpaze.Controllers
 
         public ActionResult Create()
         {
-            return View(new editaccount());
+            return View(new Editaccount());
         }
 
         [HttpPost]
-        public ActionResult Create(editaccount user)
+        public ActionResult Create(Editaccount user)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace SingSpaze.Controllers
                 return HttpNotFound();
             }
 
-            editaccount edituser = new editaccount()
+            Editaccount edituser = new Editaccount()
             {
                 id = user.user_id,
                 username = user.user_login,
@@ -88,7 +88,7 @@ namespace SingSpaze.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(editaccount user)
+        public ActionResult Edit(Editaccount user)
         {
             if (ModelState.IsValid)
             {

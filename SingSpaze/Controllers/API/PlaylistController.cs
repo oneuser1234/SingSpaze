@@ -14,30 +14,33 @@ using SingSpaze.Models.Input;
 
 namespace SingSpaze.Controllers.API
 {
+    /// <summary>
+    /// Playlist api
+    /// </summary>
     public class PlaylistController : ApiController
     {
         private singspazeEntities db = new singspazeEntities();
 
-        //[Authorize]
+        /// <summary>
+        /// Send data to get List playlist
+        /// </summary>
+        /// <param name="i_data">Class I_ListPlayList</param>
+        /// <returns>Class O_ListPlayList</returns>
         [HttpPost]
-        [ActionName("List")]
+        [ActionName("ListPlayList")]
         public O_ListPlayList ListPlayList(I_ListPlayList i_data)
         {
-           
-            if (!Useful.checklogin(i_data.logindata))
+
+            if (Useful.checklogin(i_data.logindata) != null)
             {
                 return new O_ListPlayList()
                 {
-                    errordata = new errordata()
-                    {
-                        code = 5,
-                        Detail = Useful.geterrordata(5)
-                    }
+                    errordata = Useful.checklogin(i_data.logindata)
                 };
             }
 
             List<playlistdata> o_listdata = new List<playlistdata>();
-            List<playlist> listplaylistdata = db.playlist.OrderBy(p => p.playlist_id).Skip(i_data.selectdata.skip).Take(i_data.selectdata.take).ToList();
+            List<playlist> listplaylistdata = db.playlist.OrderBy(p => p.playlist_id).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
 
             foreach (playlist data in listplaylistdata)
             {
@@ -55,32 +58,31 @@ namespace SingSpaze.Controllers.API
         }
 
        
-
-        //[Authorize]
+        /// <summary>
+        /// Send data to get playlist
+        /// </summary>
+        /// <param name="i_data">Class I_PlayList</param>
+        /// <returns>Class O_PlayList</returns>
         [HttpPost]
-        [ActionName("Data")]
-        public O_PlayList playlist(int id,I_PlayList i_data) //playlist_id
+        [ActionName("Playlist")]
+        public O_PlayList Playlist(I_PlayList i_data) //playlist_id
         {
-            
-            if (!Useful.checklogin(i_data.logindata))
+
+            if (Useful.checklogin(i_data.logindata) != null)
             {
                 return new O_PlayList()
                 {
-                    errordata = new errordata()
-                    {
-                        code = 5,
-                        Detail = Useful.geterrordata(5)
-                    }
+                    errordata = Useful.checklogin(i_data.logindata)
                 };
             }
 
-            List<playlisttosong> listplaylisttosong = db.playlisttosong.Where(p => p.playlist_id == id).OrderBy(p => p.song_id).Skip(i_data.selectdata.skip).Take(i_data.selectdata.take).ToList();
+            List<playlisttosong> listplaylisttosong = db.playlisttosong.Where(p => p.playlist_id == i_data.id).OrderBy(p => p.song_id).ToList();
 
             if (listplaylisttosong == null)
             {
                 return new O_PlayList()
                 {
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 10,
                         Detail = Useful.geterrordata(10)
@@ -95,12 +97,12 @@ namespace SingSpaze.Controllers.API
                 songlist.Add(data.song_id);
             }
 
-            List<songdata> o_listdata = new List<songdata>();
+            List<Songdata> o_listdata = new List<Songdata>();
 
-            List<song> listsong = db.song.Where(s => songlist.Contains(s.song_id)).ToList();
-            foreach (song data in listsong)
+            List<publisher_song> listsong = db.publisher_song.Where(s => songlist.Contains(s.song_id)).OrderBy(p => p.song_id).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            foreach (publisher_song data in listsong)
             {
-                songdata songdata = new songdata()
+                Songdata songdata = new Songdata()
                 {
                     id = data.song_id,
                     engName = data.song_engName,
@@ -116,7 +118,7 @@ namespace SingSpaze.Controllers.API
                     albumdata = Useful.getalbumdata(data.song_albumId),
                     artistdata = Useful.getartistdata(data.song_artistId),
                     genredata = Useful.getgenredata(data.song_genre),
-                    recordlabeldata = Useful.getrecordlabeldata(data.song_recordLabelId),
+                    publisherdata = Useful.getpublisherdata(data.song_publisherId),
                     contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
                 };
                 o_listdata.Add(songdata);
@@ -130,7 +132,11 @@ namespace SingSpaze.Controllers.API
         }
 
 
-
+        /// <summary>
+        /// Create new list
+        /// </summary>
+        /// <param name="i_data">Class I_AddList</param>
+        /// <returns>Class O_AddList</returns>
         [HttpPost]
         [ActionName("AddList")]
         public O_AddList AddList(I_AddList i_data)
@@ -140,7 +146,7 @@ namespace SingSpaze.Controllers.API
                 return new O_AddList()
                 {
                     result = false,
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 11,
                         Detail = Useful.geterrordata(11)
@@ -148,23 +154,18 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            if (!Useful.checklogin(i_data.logindata))
+            if (Useful.checklogin(i_data.logindata) != null)
             {
                 return new O_AddList()
                 {
-                    result = false,
-                    errordata = new errordata()
-                    {
-                        code = 5,
-                        Detail = Useful.geterrordata(5)
-                    }
+                    errordata = Useful.checklogin(i_data.logindata)
                 };
             }
-
+            
             playlist playlistdata = new playlist()
             {
                  playlist_description = i_data.description,
-                 user_id = i_data.logindata.id,
+                 user_id = Useful.getuserid(i_data.logindata.token),
                  playlist_createdDatetime = DateTime.Now
 
             };
@@ -179,7 +180,11 @@ namespace SingSpaze.Controllers.API
 
         }
 
-
+        /// <summary>
+        /// Add song to playlist
+        /// </summary>
+        /// <param name="i_data">Class I_AddSong</param>
+        /// <returns>Class O_AddSong</returns>
         [HttpPost]
         [ActionName("AddSong")]
         public O_AddSong AddSong(I_AddSong i_data)
@@ -189,7 +194,7 @@ namespace SingSpaze.Controllers.API
                 return new O_AddSong()
                 {
                     result = false,
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 11,
                         Detail = Useful.geterrordata(11)
@@ -197,16 +202,11 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            if (!Useful.checklogin(i_data.logindata))
+            if (Useful.checklogin(i_data.logindata) != null)
             {
                 return new O_AddSong()
                 {
-                    result = false,
-                    errordata = new errordata()
-                    {
-                        code = 5,
-                        Detail = Useful.geterrordata(5)
-                    }
+                    errordata = Useful.checklogin(i_data.logindata)
                 };
             }
 
@@ -217,7 +217,7 @@ namespace SingSpaze.Controllers.API
                 return new O_AddSong()
                 {
                     result = false,
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 12,
                         Detail = Useful.geterrordata(12)

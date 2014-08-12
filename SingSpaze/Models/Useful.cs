@@ -5,9 +5,13 @@ using System.Web;
 using System.Security.Cryptography;
 using System.Text;
 using SingSpaze.Models.Input;
+using System.Runtime.Serialization;
 
 namespace SingSpaze.Models
 {
+    /// <summary>
+    /// Class Useful
+    /// </summary>
     public static class Useful
     {
         public static string geterrordata(int code_id)
@@ -41,6 +45,8 @@ namespace SingSpaze.Models
                 response = "facebook account can not do this";
             else if (code_id == 14)
                 response = "input data was wrong";
+            else if (code_id == 15)
+                response = "your account was multiple login";
 
             return response;
 
@@ -85,24 +91,32 @@ namespace SingSpaze.Models
             }
         }
 
-        public static Boolean checklogin(logindata logindata)
+        public static Errordata checklogin(Logindata logindata)
         {
-            if (logindata == null || string.IsNullOrEmpty(logindata.id.ToString()) || string.IsNullOrEmpty(logindata.token))
-                return false;
-            
-            if (VerifyMd5Hash(MD5.Create(), logindata.id.ToString() + "sing", logindata.token))
-                return true;
+            if (logindata == null || string.IsNullOrEmpty(logindata.token))
+                return new Errordata()
+                           {
+                               code = 5,
+                               Detail = Useful.geterrordata(5)
+                           };
+
+            if (getuserid(logindata.token) != 0)
+                return null;
             else
-                return false;
+                return new Errordata()
+                {
+                    code = 15,
+                    Detail = Useful.geterrordata(15)
+                }; ;
 
         }
 
-        public static selectdata getbaseselectdata()
+        public static Selectdata getbaseselectdata()
         {
-            return new selectdata()
+            return new Selectdata()
             {
-                skip = 0,
-                take = 5
+                startindex = 1,
+                endindex = 5
             };
         }
 
@@ -117,11 +131,13 @@ namespace SingSpaze.Models
             return response;
         }
 
-        public static albumdata getalbumdata(int id)
+        public static Albumdata getalbumdata(int id)
         {
             singspazeEntities db = new singspazeEntities();
             album data = db.album.Where(a => a.album_id == id).SingleOrDefault();
-            return new albumdata()
+            if (data == null)
+                return null;
+            return new Albumdata()
             {
                 id = id,
                 description_TH = data.album_description_th,
@@ -130,11 +146,13 @@ namespace SingSpaze.Models
                        
         }
 
-        public static artistdata getartistdata(int id)
+        public static Artistdata getartistdata(int id)
         {
             singspazeEntities db = new singspazeEntities();
-            artist data = db.artist.Where(a => a.artist_id == id).SingleOrDefault();
-            return new artistdata()
+            publisher_artist data = db.publisher_artist.Where(a => a.artist_id == id).SingleOrDefault();
+            if (data == null)
+                return null;
+            return new Artistdata()
             {
                 id = id,
                 description_TH = data.artist_description_th,
@@ -143,11 +161,13 @@ namespace SingSpaze.Models
 
         }
 
-        public static genredata getgenredata(int id)
+        public static Genredata getgenredata(int id)
         {
             singspazeEntities db = new singspazeEntities();
             genre data = db.genre.Where(a => a.genre_id == id).SingleOrDefault();
-            return new genredata()
+            if (data == null)
+                return null;
+            return new Genredata()
             {
                 id = id,
                 description = data.genre_description
@@ -155,11 +175,13 @@ namespace SingSpaze.Models
 
         }
 
-        public static recordlabeldata getrecordlabeldata(int id)
+        public static Publisherdata getpublisherdata(int id)
         {
             singspazeEntities db = new singspazeEntities();
-            recordlabel data = db.recordlabel.Where(a => a.recordlabel_id == id).SingleOrDefault();
-            return new recordlabeldata()
+            publisher data = db.publisher.Where(a => a.recordlabel_id == id).SingleOrDefault();
+            if (data == null)
+                return null;
+            return new Publisherdata()
             {
                 id = id,
                 description = data.recordlabel_description
@@ -167,11 +189,13 @@ namespace SingSpaze.Models
 
         }
 
-        public static contentpartnerdata getcontentpartnerdata(int id)
+        public static Contentpartnerdata getcontentpartnerdata(int id)
         {
             singspazeEntities db = new singspazeEntities();
             contentpartner data = db.contentpartner.Where(a => a.contentpartner_id == id).SingleOrDefault();
-            return new contentpartnerdata()
+            if (data == null)
+                return null;
+            return new Contentpartnerdata()
             {
                 id = id,
                 description = data.contentpartner_description
@@ -179,144 +203,397 @@ namespace SingSpaze.Models
 
         }
 
-        public static languagedata getlanguagedata(int id)
+        public static Languagedata getlanguagedata(int id)
         {
             singspazeEntities db = new singspazeEntities();
             language data = db.language.Where(a => a.language_id == id).SingleOrDefault();
-            return new languagedata()
+            if (data == null)
+                return null;
+            return new Languagedata()
             {
                 id = id,
                 description = data.language_description
             };
 
         }
-        
+
+        public static int getuserid(string token)
+        {
+            singspazeEntities db = new singspazeEntities();
+            user getuser = db.user.SingleOrDefault(u => u.user_token == token);
+            if (getuser != null)
+                return getuser.user_id;
+            else
+                return 0;
+        }
     }
 
     //useful
-    public class errordata
+    /// <summary>
+    /// Class for get error(ex.code,detail)
+    /// </summary>
+    public class Errordata
     {
+        /// <summary>
+        /// number error
+        /// </summary>
         public int code { get; set; }
+        /// <summary>
+        /// detail error
+        /// </summary>
         public string Detail { get; set; }
 
     }
 
-    public class logindata
+    /// <summary>
+    /// Class for get logindata (ex.id,token)
+    /// </summary>
+    [DataContract]
+    public class Logindata
     {
-        public int id { get; set; }
+        /// <summary>
+        /// Unique string for connection
+        /// </summary>
+        [DataMember(Name = "token")]
         public string token { get; set; }
     }
     
-    public class selectdata
+    /// <summary>
+    /// Class for get how many data
+    /// </summary>
+    [DataContract]
+    public class Selectdata
     {
-        public int skip { get; set; }
-        public int take { get; set; }
+        /// <summary>
+        /// Start data
+        /// </summary>
+        [DataMember(Name = "startindex")]
+        public int startindex { get; set; }
+        /// <summary>
+        /// End data
+        /// </summary>
+        [DataMember(Name = "endindex")]
+        public int endindex { get; set; }
     }
 
     //data
+    /// <summary>
+    /// Class data user (ex.id,username,firstname)
+    /// </summary>
     public class userdata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Username
+        /// </summary>
         public string username { get; set; }
+        /// <summary>
+        /// FacebookId
+        /// </summary>
         public int fbUserId { get; set; }
+        /// <summary>
+        /// Firstname
+        /// </summary>
         public string Firstname { get; set; }
+        /// <summary>
+        /// Lastname
+        /// </summary>
         public string Lastname { get; set; }
+        /// <summary>
+        /// Email
+        /// </summary>
         public string Email { get; set; }
+        /// <summary>
+        /// Url avatar file
+        /// </summary>
         public string avatar { get; set; }
     }    
-
+    /// <summary>
+    /// Class data platlist (ex.id,description)
+    /// </summary>
     public class playlistdata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Description
+        /// </summary>
         public string description { get; set; }
 
     }
 
-    public class listsongdata
+    /// <summary>
+    /// Class data listsong data (ex.id,originname,engname)
+    /// </summary>
+    public class Listsongdata
     {
+        /// <summary>
+        /// Song id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Origin name
+        /// </summary>
         public string originName { get; set; }
-        public string engName { get; set; }       
+        /// <summary>
+        /// English name
+        /// </summary>
+        public string engName { get; set; }
+        /// <summary>
+        /// Url path for small picture
+        /// </summary>
         public string thumbnail { get; set; }
-        public string picture { get; set; }      
-        public decimal? price { get; set; }
-        public int? view { get; set; }
-
-        public genredata genredata { get; set; }
-        public languagedata languagedata { get; set; }
-        public albumdata albumdata { get; set; }
-        public artistdata artistdata { get; set; }
-        public contentpartnerdata contentpartnerdata { get; set; }
-        public recordlabeldata recordlabeldata { get; set; }
-    }
-
-    public class songdata
-    {
-        public int id { get; set; }
-        public string originName { get; set; }
-        public string engName { get; set; }        
-        public string thumbnail { get; set; }
+        /// <summary>
+        /// Url picture
+        /// </summary>
         public string picture { get; set; }
-        public int status { get; set; }
-        public string filePath { get; set; }
+        /// <summary>
+        /// Price(decimal)
+        /// </summary>
         public decimal? price { get; set; }
+        /// <summary>
+        /// View
+        /// </summary>
         public int? view { get; set; }
+        /// <summary>
+        /// Class genredata
+        /// </summary>
+        public Genredata genredata { get; set; }
+        /// <summary>
+        /// Class languagedata
+        /// </summary>
+        public Languagedata languagedata { get; set; }
+        /// <summary>
+        /// Class albumdata
+        /// </summary>
+        public Albumdata albumdata { get; set; }
+        /// <summary>
+        /// Class artistdata
+        /// </summary>
+        public Artistdata artistdata { get; set; }
+        /// <summary>
+        /// Class contentpartnerdata
+        /// </summary>
+        public Contentpartnerdata contentpartnerdata { get; set; }
+        /// <summary>
+        /// Class publisherdata
+        /// </summary>
+        public Publisherdata publisherdata { get; set; }
+    }
+
+    /// <summary>
+    /// Class data song (ex.id,originName,Url)
+    /// </summary>
+    public class Songdata
+    {
+        /// <summary>
+        /// Id
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// Origin name
+        /// </summary>
+        public string originName { get; set; }
+        /// <summary>
+        /// English name
+        /// </summary>
+        public string engName { get; set; }
+        /// <summary>
+        /// Url path for small picture
+        /// </summary>
+        public string thumbnail { get; set; }
+        /// <summary>
+        /// Url picture
+        /// </summary>
+        public string picture { get; set; }
+        /// <summary>
+        /// Status (1=Active,0=Deactive)
+        /// </summary>
+        public int status { get; set; }
+        /// <summary>
+        /// FilePath (No use for now)
+        /// </summary>
+        public string filePath { get; set; }
+        /// <summary>
+        /// Price(decimal)
+        /// </summary>
+        public decimal? price { get; set; }
+        /// <summary>
+        /// Views
+        /// </summary>
+        public int? view { get; set; }
+        /// <summary>
+        /// Song length(decimal)
+        /// </summary>
         public decimal length { get; set; }
+        /// <summary>
+        /// Keywords(No user for now)
+        /// </summary>
         public string keywords { get; set; }
+        /// <summary>
+        /// Lyrics
+        /// </summary>
         public string lyrics { get; set; }
+        /// <summary>
+        /// ReleasedDate(only day,month,year)
+        /// </summary>
         public DateTime? releasedDate { get; set; }
+        /// <summary>
+        /// Url iOS
+        /// </summary>
+        public string url_iOS { get; set; }
+        /// <summary>
+        /// Url Andriod and other
+        /// </summary>
+        public string url_Android_Other { get; set; }
+        /// <summary>
+        /// Url RMTP
+        /// </summary>
+        public string url_RTMP { get; set; }
 
-        public genredata genredata { get; set; }
-        public languagedata languagedata { get; set; }
-        public albumdata albumdata { get; set; }
-        public artistdata artistdata { get; set; }
-        public contentpartnerdata contentpartnerdata { get; set; }
-        public recordlabeldata recordlabeldata { get; set; }
+        /// <summary>
+        /// Class Genredata
+        /// </summary>
+        public Genredata genredata { get; set; }
+        /// <summary>
+        /// Class Languagedata
+        /// </summary>
+        public Languagedata languagedata { get; set; }
+        /// <summary>
+        /// Class Albumdata
+        /// </summary>
+        public Albumdata albumdata { get; set; }
+        /// <summary>
+        /// Class Artistdata
+        /// </summary>
+        public Artistdata artistdata { get; set; }
+        /// <summary>
+        /// Class Contentpartnerdata
+        /// </summary>
+        public Contentpartnerdata contentpartnerdata { get; set; }
+        /// <summary>
+        /// Class Publisherdata
+        /// </summary>
+        public Publisherdata publisherdata { get; set; }
 
     }
 
-    public class albumdata
+    /// <summary>
+    /// Class data album (ex.id,description_TH)
+    /// </summary>
+    public class Albumdata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Thai description
+        /// </summary>
         public string description_TH { get; set; }
+        /// <summary>
+        /// English description
+        /// </summary>
         public string description_EN { get; set; }
     }
 
-    public class artistdata
+    /// <summary>
+    /// Class data artist (ex.id,description)
+    /// </summary>
+    public class Artistdata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
-        public string description_TH { get; set; }
+        /// <summary>
+        /// Thai description
+        /// </summary>
+        public string description_TH { get; set; }        
+        /// /// <summary>
+        /// English description
+        /// </summary>
         public string description_EN { get; set; }
     }
 
-    public class contentpartnerdata
+    /// <summary>
+    /// Class data contentpartner (ex.id,description)
+    /// </summary>
+    public class Contentpartnerdata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// /// <summary>
+        /// Description
+        /// </summary>
         public string description { get; set; }
     }
 
-    public class genredata
+    /// <summary>
+    /// Class data genre (ex.id,description)
+    /// </summary>
+    public class Genredata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Description
+        /// </summary>
         public string description { get; set; }
     }
 
-    public class recordlabeldata
+    /// <summary>
+    /// Class data publisher (ex.id,description)
+    /// </summary>
+    public class Publisherdata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Description
+        /// </summary>
         public string description { get; set; }
     }
 
-    public class languagedata
+    /// <summary>
+    /// Class data language (ex.id,description)
+    /// </summary>
+    public class Languagedata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Description
+        /// </summary>
         public string description { get; set; }
                
     }
 
-    public class bannerdata
+    /// <summary>
+    /// Class data banner (ex.id,path)
+    /// </summary>
+    public class Bannerdata
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// Url path
+        /// </summary>
         public string path { get; set; }
 
     }

@@ -1,4 +1,4 @@
-﻿@model SingSpaze.Models.Management.editsong
+﻿@model SingSpaze.Models.Management.Editsong
 
 @{
     ViewBag.Title = "Create";
@@ -86,7 +86,7 @@
         <td>RecordLabel</td>
         <td>
           @* @Html.DropDownList("Recordlabel", (SelectList)ViewBag.RecordLabel)*@
-           @Html.DropDownListFor(model => model.RecordLabel, Model.RecordLabelList)  
+           @Html.DropDownListFor(model => model.Publisher, Model.PublisherList)  
         </td>
         <td></td>
     </tr>

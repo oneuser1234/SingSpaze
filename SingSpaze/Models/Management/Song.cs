@@ -6,7 +6,20 @@ using System.Web.Mvc;
 
 namespace SingSpaze.Models.Management
 {
-    public class editsong
+    public class Song
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Album { get; set; }
+        public string Artist { get; set; }
+        public string Language { get; set; }
+        public string Genre { get; set; }
+        public string Publisher { get; set; }
+        public decimal Length { get; set; }
+        public int Status { get; set; }
+    }
+
+    public class Editsong
     {
         
         public int Id { get; set; }
@@ -18,7 +31,7 @@ namespace SingSpaze.Models.Management
         public string ReleasedDate { get; set; }
         public decimal Length { get; set; }
         public int Genre { get; set; }
-        public int RecordLabel { get; set; }
+        public int Publisher { get; set; }
         public string Lyrics { get; set; }
         public int Status { get; set; }
 
@@ -29,7 +42,7 @@ namespace SingSpaze.Models.Management
         public SelectList LanguageList { get; set; }
         public SelectList GenreList { get; set; }
         public SelectList ContentPartnerList { get; set; }
-        public SelectList RecordLabelList { get; set; }
+        public SelectList PublisherList { get; set; }
         
         
     }

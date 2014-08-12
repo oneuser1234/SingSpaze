@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SingSpaze.Models.songdata>
+﻿@model List<SingSpaze.Models.Management.Song>
 
 @{
     ViewBag.Title = "Song Lists";
@@ -32,7 +32,7 @@
             Genre
         </th>
         <th style="border: 1px solid black;text-align: center;">
-            Recordlabel
+            Publisher 
         </th>
         <th style="border: 1px solid black;text-align: center;">
             Length
@@ -77,34 +77,34 @@
             @Html.DisplayFor(modelItem => item.originName)
         </td>*@
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.engName)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.albumdata.description_TH)
+            @Html.DisplayFor(modelItem => item.Album)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.artistdata.description_TH)
+            @Html.DisplayFor(modelItem => item.Artist)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.languagedata.description)
+            @Html.DisplayFor(modelItem => item.Language)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.genredata.description)
+            @Html.DisplayFor(modelItem => item.Genre)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.recordlabeldata.description)
+            @Html.DisplayFor(modelItem => item.Publisher)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.length)
+            @Html.DisplayFor(modelItem => item.Length)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
            @* @Html.ActionLink("Edit", "Edit", new { id = item.id })*@
-           <a style="color:Blue;" href="@Url.Action("edit", "song", new { id = item.id })">Edit</a>
+           <a style="color:Blue;" href="@Url.Action("edit", "song", new { id = item.Id })">Edit</a>
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
             @*@Html.DisplayFor(modelItem => item)*@
            @* @if (item.status == 1) { Response.Write("active"); } else { Response.Write("deactive"); }*@ 
-            @if (item.status == 1)
+            @if (item.Status == 1)
               {
               <label style="color:Blue;">Active</label>
               }

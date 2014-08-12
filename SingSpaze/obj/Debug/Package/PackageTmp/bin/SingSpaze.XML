@@ -1,0 +1,1868 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SingSpaze</name>
+    </assembly>
+    <members>
+        <member name="T:SingSpaze.Models.singspazeEntities">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.#ctor">
+            <summary>
+            Initializes a new singspazeEntities object using the connection string found in the 'singspazeEntities' section of the application configuration file.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.#ctor(System.String)">
+            <summary>
+            Initialize a new singspazeEntities object.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.#ctor(System.Data.EntityClient.EntityConnection)">
+            <summary>
+            Initialize a new singspazeEntities object.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddToalbum(SingSpaze.Models.album)">
+            <summary>
+            Deprecated Method for adding a new object to the album EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTocontentpartner(SingSpaze.Models.contentpartner)">
+            <summary>
+            Deprecated Method for adding a new object to the contentpartner EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTocontentpartnerforartist(SingSpaze.Models.contentpartnerforartist)">
+            <summary>
+            Deprecated Method for adding a new object to the contentpartnerforartist EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTocontentpartnerforsong(SingSpaze.Models.contentpartnerforsong)">
+            <summary>
+            Deprecated Method for adding a new object to the contentpartnerforsong EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTogenre(SingSpaze.Models.genre)">
+            <summary>
+            Deprecated Method for adding a new object to the genre EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTolanguage(SingSpaze.Models.language)">
+            <summary>
+            Deprecated Method for adding a new object to the language EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddToplaylist(SingSpaze.Models.playlist)">
+            <summary>
+            Deprecated Method for adding a new object to the playlist EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddToplaylisttosong(SingSpaze.Models.playlisttosong)">
+            <summary>
+            Deprecated Method for adding a new object to the playlisttosong EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTopublisher(SingSpaze.Models.publisher)">
+            <summary>
+            Deprecated Method for adding a new object to the publisher EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTopublisher_artist(SingSpaze.Models.publisher_artist)">
+            <summary>
+            Deprecated Method for adding a new object to the publisher_artist EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTopublisher_song(SingSpaze.Models.publisher_song)">
+            <summary>
+            Deprecated Method for adding a new object to the publisher_song EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTosinginghistory(SingSpaze.Models.singinghistory)">
+            <summary>
+            Deprecated Method for adding a new object to the singinghistory EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTostatus(SingSpaze.Models.status)">
+            <summary>
+            Deprecated Method for adding a new object to the status EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singspazeEntities.AddTouser(SingSpaze.Models.user)">
+            <summary>
+            Deprecated Method for adding a new object to the user EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.album">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.contentpartner">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.contentpartnerforartist">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.contentpartnerforsong">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.genre">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.language">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.playlist">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.playlisttosong">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.publisher">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.publisher_artist">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.publisher_song">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.singinghistory">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.status">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singspazeEntities.user">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.album">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.album.Createalbum(System.Int32,System.String,System.String)">
+            <summary>
+            Create a new album object.
+            </summary>
+            <param name="album_id">Initial value of the album_id property.</param>
+            <param name="album_description_th">Initial value of the album_description_th property.</param>
+            <param name="album_description_en">Initial value of the album_description_en property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.album.album_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.album.album_description_th">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.album.album_description_en">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.contentpartner">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.contentpartner.Createcontentpartner(System.Int32,System.String)">
+            <summary>
+            Create a new contentpartner object.
+            </summary>
+            <param name="contentpartner_id">Initial value of the contentpartner_id property.</param>
+            <param name="contentpartner_description">Initial value of the contentpartner_description property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartner.contentpartner_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartner.contentpartner_description">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.contentpartnerforartist">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.contentpartnerforartist.Createcontentpartnerforartist(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a new contentpartnerforartist object.
+            </summary>
+            <param name="id">Initial value of the Id property.</param>
+            <param name="contentPartnerId">Initial value of the contentPartnerId property.</param>
+            <param name="artistId">Initial value of the artistId property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartnerforartist.Id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartnerforartist.contentPartnerId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartnerforartist.artistId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.contentpartnerforsong">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.contentpartnerforsong.Createcontentpartnerforsong(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a new contentpartnerforsong object.
+            </summary>
+            <param name="id">Initial value of the id property.</param>
+            <param name="contentPartnerId">Initial value of the contentPartnerId property.</param>
+            <param name="songId">Initial value of the songId property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartnerforsong.id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartnerforsong.contentPartnerId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.contentpartnerforsong.songId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.genre">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.genre.Creategenre(System.Int32,System.String)">
+            <summary>
+            Create a new genre object.
+            </summary>
+            <param name="genre_id">Initial value of the genre_id property.</param>
+            <param name="genre_description">Initial value of the genre_description property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.genre.genre_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.genre.genre_description">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.language">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.language.Createlanguage(System.Int32,System.String)">
+            <summary>
+            Create a new language object.
+            </summary>
+            <param name="language_id">Initial value of the language_id property.</param>
+            <param name="language_description">Initial value of the language_description property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.language.language_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.language.language_description">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.playlist">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.playlist.Createplaylist(System.Int32)">
+            <summary>
+            Create a new playlist object.
+            </summary>
+            <param name="playlist_id">Initial value of the playlist_id property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.playlist.playlist_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlist.user_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlist.playlist_description">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlist.playlist_createdDatetime">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.playlisttosong">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.playlisttosong.Createplaylisttosong(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a new playlisttosong object.
+            </summary>
+            <param name="playlisttosong_id">Initial value of the playlisttosong_id property.</param>
+            <param name="playlist_id">Initial value of the playlist_id property.</param>
+            <param name="song_id">Initial value of the song_id property.</param>
+            <param name="playlistToSong_sequence">Initial value of the playlistToSong_sequence property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.playlisttosong.playlisttosong_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlisttosong.playlist_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlisttosong.song_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlisttosong.playlistToSong_sequence">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.publisher">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.publisher.Createpublisher(System.Int32,System.String)">
+            <summary>
+            Create a new publisher object.
+            </summary>
+            <param name="recordlabel_id">Initial value of the recordlabel_id property.</param>
+            <param name="recordlabel_description">Initial value of the recordlabel_description property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.publisher.recordlabel_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher.recordlabel_description">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.publisher_artist">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.publisher_artist.Createpublisher_artist(System.Int32,System.String,System.String)">
+            <summary>
+            Create a new publisher_artist object.
+            </summary>
+            <param name="artist_id">Initial value of the artist_id property.</param>
+            <param name="artist_description_th">Initial value of the artist_description_th property.</param>
+            <param name="artist_description_en">Initial value of the artist_description_en property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_artist.artist_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_artist.artist_description_th">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_artist.artist_description_en">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.publisher_song">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.publisher_song.Createpublisher_song(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Decimal,System.Int32,System.Int32,System.DateTime,System.Int32,System.DateTime,System.Int32)">
+            <summary>
+            Create a new publisher_song object.
+            </summary>
+            <param name="song_id">Initial value of the song_id property.</param>
+            <param name="song_genre">Initial value of the song_genre property.</param>
+            <param name="song_languageId">Initial value of the song_languageId property.</param>
+            <param name="song_albumId">Initial value of the song_albumId property.</param>
+            <param name="song_artistId">Initial value of the song_artistId property.</param>
+            <param name="song_length">Initial value of the song_length property.</param>
+            <param name="song_contentPartnerId">Initial value of the song_contentPartnerId property.</param>
+            <param name="song_publisherId">Initial value of the song_publisherId property.</param>
+            <param name="song_releasedDate">Initial value of the song_releasedDate property.</param>
+            <param name="song_status">Initial value of the song_status property.</param>
+            <param name="song_addedDate">Initial value of the song_addedDate property.</param>
+            <param name="song_Track_Number_">Initial value of the song_Track_Number_ property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_originName">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_engName">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_genre">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_languageId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_albumId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_artistId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_length">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_keywords">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_lyrics">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_contentPartnerId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_publisherId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_releasedDate">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_thumbnail">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_picture">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_status">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_addedDate">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_filePath">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_price">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_view">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_URL_iOS">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_URL_Android_Other">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_URL_RTMP">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_Copyright">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_Track_Number_">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.song_streamURLWithVocal">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.publisher_song.streamURLWithoutVocal">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.singinghistory">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.singinghistory.Createsinginghistory(System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            Create a new singinghistory object.
+            </summary>
+            <param name="singinghistory_id">Initial value of the singinghistory_id property.</param>
+            <param name="user_id">Initial value of the user_id property.</param>
+            <param name="song_id">Initial value of the song_id property.</param>
+            <param name="artist_id">Initial value of the artist_id property.</param>
+            <param name="singinghistory_date">Initial value of the singinghistory_date property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.singinghistory.singinghistory_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singinghistory.user_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singinghistory.song_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singinghistory.artist_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.singinghistory.singinghistory_date">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.status">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.status.Createstatus(System.Int32,System.String)">
+            <summary>
+            Create a new status object.
+            </summary>
+            <param name="status_id">Initial value of the status_id property.</param>
+            <param name="status_description">Initial value of the status_description property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.status.status_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.status.status_description">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.user">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Models.user.Createuser(System.Int32,System.SByte,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a new user object.
+            </summary>
+            <param name="user_id">Initial value of the user_id property.</param>
+            <param name="user_status">Initial value of the user_status property.</param>
+            <param name="usergroup_id">Initial value of the usergroup_id property.</param>
+            <param name="user_type">Initial value of the user_type property.</param>
+            <param name="user_fbUserId">Initial value of the user_fbUserId property.</param>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_status">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.usergroup_id">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_type">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_fbUserId">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_firstname">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_lastname">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_login">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_password">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_email">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_createdDatetime">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_modifiedDatetime">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_lastlogin">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_avartar">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_token">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.user.user_retoken">
+            <summary>
+            No Metadata Documentation available.
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Controllers.API.SongController">
+            <summary>
+            Song api 
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.SongController.SongList(SingSpaze.Models.Input.I_SongList)">
+            <summary>
+            For show listsong about hot song,new song
+            </summary>
+            <param name="i_data">Class I_SongList</param>
+            <returns>Class O_SongList</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.SongController.PlaySong(SingSpaze.Models.Input.I_PlaySong)">
+            <summary>
+            For get song url and update viewdata
+            </summary>
+            <param name="id">Song_id</param>
+            <param name="i_data">Class I_PlaySong</param>
+            <returns>Class O_PlaySong</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.SongController.SearchSong(SingSpaze.Models.Input.I_SearchSong)">
+            <summary>
+            For searchsong with keyword
+            </summary>
+            <param name="i_data">Class I_SearchSong</param>
+            <returns>Class O_SearchSong</returns>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_Register">
+            <summary>
+            Class input data for register
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Register.Username">
+            <summary>
+            Username 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Register.Password">
+            <summary>
+            Password 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Register.Firstname">
+            <summary>
+            Firstname
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Register.Lastname">
+            <summary>
+            Lastname
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Register.Email">
+            <summary>
+            Email 
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_Login">
+            <summary>
+            Class input data for login
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Login.Username">
+            <summary>
+            Username
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Login.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Login.Mac_Address">
+            <summary>
+            Mac address 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Login.Device_ID">
+            <summary>
+            Device ID
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_FBLogin">
+            <summary>
+            Class input data for Fblogin
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_FBLogin.fbUserId">
+            <summary>
+            Facebook Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_FBLogin.Firstname">
+            <summary>
+            Firstname 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_FBLogin.Lastname">
+            <summary>
+            Lastname 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_FBLogin.Email">
+            <summary>
+            Email 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_FBLogin.Mac_Address">
+            <summary>
+            Mac address 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_FBLogin.Device_ID">
+            <summary>
+            Device ID
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_Profile">
+            <summary>
+            Class input data for profile
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Profile.logindata">
+            <summary>
+            Class logindata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_EditProfile">
+            <summary>
+            Class input data for editprofile
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_EditProfile.oldPassword">
+            <summary>
+            Old password
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_EditProfile.newPassword">
+            <summary>
+            New password
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_EditProfile.Firstname">
+            <summary>
+            Firstname
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_EditProfile.Lastname">
+            <summary>
+            Lastname
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_EditProfile.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_EditProfile.logindata">
+            <summary>
+            Class logindata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_Forgot">
+            <summary>
+            Class input data for forgot
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Forgot.email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_Reset">
+            <summary>
+            Class input data for reset
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Reset.retoken">
+            <summary>
+            Reset token get from Forgot
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_Reset.newpassword">
+            <summary>
+            New password
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Controllers.API.ArtistController">
+            <summary>
+            Artist api
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.ArtistController.List(SingSpaze.Models.Input.I_ArtistList)">
+            <summary>
+            Send data to get list artist
+            </summary>
+            <param name="i_data">Class I_ArtistList</param>
+            <returns>Class O_ArtistList</returns>
+        </member>
+        <member name="T:SingSpaze.Models.Useful">
+            <summary>
+            Class Useful
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Errordata">
+            <summary>
+            Class for get error(ex.code,detail)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Errordata.code">
+            <summary>
+            number error
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Errordata.Detail">
+            <summary>
+            detail error
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Logindata">
+            <summary>
+            Class for get logindata (ex.id,token)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Logindata.token">
+            <summary>
+            Unique string for connection
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Selectdata">
+            <summary>
+            Class for get how many data
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Selectdata.startindex">
+            <summary>
+            Start data
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Selectdata.endindex">
+            <summary>
+            End data
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.userdata">
+            <summary>
+            Class data user (ex.id,username,firstname)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.userdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.userdata.username">
+            <summary>
+            Username
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.userdata.fbUserId">
+            <summary>
+            FacebookId
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.userdata.Firstname">
+            <summary>
+            Firstname
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.userdata.Lastname">
+            <summary>
+            Lastname
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.userdata.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.userdata.avatar">
+            <summary>
+            Url avatar file
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.playlistdata">
+            <summary>
+            Class data platlist (ex.id,description)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlistdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.playlistdata.description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Listsongdata">
+            <summary>
+            Class data listsong data (ex.id,originname,engname)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.id">
+            <summary>
+            Song id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.originName">
+            <summary>
+            Origin name
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.engName">
+            <summary>
+            English name
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.thumbnail">
+            <summary>
+            Url path for small picture
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.picture">
+            <summary>
+            Url picture
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.price">
+            <summary>
+            Price(decimal)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.view">
+            <summary>
+            View
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.genredata">
+            <summary>
+            Class genredata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.languagedata">
+            <summary>
+            Class languagedata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.albumdata">
+            <summary>
+            Class albumdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.artistdata">
+            <summary>
+            Class artistdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.contentpartnerdata">
+            <summary>
+            Class contentpartnerdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Listsongdata.publisherdata">
+            <summary>
+            Class publisherdata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Songdata">
+            <summary>
+            Class data song (ex.id,originName,Url)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.originName">
+            <summary>
+            Origin name
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.engName">
+            <summary>
+            English name
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.thumbnail">
+            <summary>
+            Url path for small picture
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.picture">
+            <summary>
+            Url picture
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.status">
+            <summary>
+            Status (1=Active,0=Deactive)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.filePath">
+            <summary>
+            FilePath (No use for now)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.price">
+            <summary>
+            Price(decimal)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.view">
+            <summary>
+            Views
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.length">
+            <summary>
+            Song length(decimal)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.keywords">
+            <summary>
+            Keywords(No user for now)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.lyrics">
+            <summary>
+            Lyrics
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.releasedDate">
+            <summary>
+            ReleasedDate(only day,month,year)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.url_iOS">
+            <summary>
+            Url iOS
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.url_Android_Other">
+            <summary>
+            Url Andriod and other
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.url_RTMP">
+            <summary>
+            Url RMTP
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.genredata">
+            <summary>
+            Class Genredata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.languagedata">
+            <summary>
+            Class Languagedata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.albumdata">
+            <summary>
+            Class Albumdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.artistdata">
+            <summary>
+            Class Artistdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.contentpartnerdata">
+            <summary>
+            Class Contentpartnerdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Songdata.publisherdata">
+            <summary>
+            Class Publisherdata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Albumdata">
+            <summary>
+            Class data album (ex.id,description_TH)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Albumdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Albumdata.description_TH">
+            <summary>
+            Thai description
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Albumdata.description_EN">
+            <summary>
+            English description
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Artistdata">
+            <summary>
+            Class data artist (ex.id,description)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Artistdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Artistdata.description_TH">
+            <summary>
+            Thai description
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Artistdata.description_EN">
+            /// <summary>
+            English description
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Contentpartnerdata">
+            <summary>
+            Class data contentpartner (ex.id,description)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Contentpartnerdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Contentpartnerdata.description">
+            /// <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Genredata">
+            <summary>
+            Class data genre (ex.id,description)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Genredata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Genredata.description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Publisherdata">
+            <summary>
+            Class data publisher (ex.id,description)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Publisherdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Publisherdata.description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Languagedata">
+            <summary>
+            Class data language (ex.id,description)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Languagedata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Languagedata.description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Bannerdata">
+            <summary>
+            Class data banner (ex.id,path)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Bannerdata.id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Bannerdata.path">
+            <summary>
+            Url path
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_SongList">
+            <summary>
+            Class output for songlist (ex.resultNumber ,listsong)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_SongList.resultNumber">
+            <summary>
+            Number of this result
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_SongList.listsong">
+            <summary>
+            List class Listsongdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_SongList.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_PlaySong">
+            <summary>
+            Class output for playsong  (ex.Songdata ,Errordata)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_PlaySong.songdata">
+            <summary>
+            Class songdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_PlaySong.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_SearchSong">
+            <summary>
+            Class output for searchsong (ex.resultNumber ,listsong)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_SearchSong.resultNumber">
+            <summary>
+            Number of this result
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_SearchSong.listsong">
+            <summary>
+            List class listsongdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_SearchSong.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_SongList">
+            <summary>
+            Class input data for songlist (ex.type,time,ablum_id)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SongList.type">
+            <summary>
+            Type of order this list allow "new,hot" (defult was null)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SongList.genre_id">
+            <summary>
+            Focus in genere_id (optinal)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SongList.album_id">
+            <summary>
+            Focus in album_id (optinal)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SongList.artist_id">
+            <summary>
+            Focus in artist_id (optinal)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SongList.language_id">
+            <summary>
+            Focus in language_id (optinal)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SongList.time">
+            <summary>
+            Number or day to focus (defult was 30)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SongList.selectdata">
+            <summary>
+            Class selectdata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_PlaySong">
+            <summary>
+            Class input data for playsong 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_PlaySong.id">
+            <summary>
+            Song Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_PlaySong.logindata">
+            <summary>
+            Class logindata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_SearchSong">
+            <summary>
+            Class input data for searchsong (ex.keyword ,type)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SearchSong.keyword">
+            <summary>
+            Keywoard data (defult was null)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SearchSong.type">
+            <summary>
+            Type of search allow "Artist,Album,Lyrics,Song name" (defult was Song name)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_SearchSong.selectdata">
+            <summary>
+            Class selectdata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Controllers.API.UsefulController">
+            <summary>
+            Useful api (Data from database)
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.UsefulController.Language">
+            <summary>
+            Get Language data 
+            </summary>
+            <returns>List class Languagedata</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.UsefulController.Genre">
+            <summary>
+            Get Genre data
+            </summary>
+            <returns>List class Genredata</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.UsefulController.Banner">
+            <summary>
+            Get Banner data (no data for now)
+            </summary>
+            <returns>List class Bannerdata</returns>
+        </member>
+        <member name="T:SingSpaze.Controllers.API.AccountController">
+            <summary>
+            Account api
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.AccountController.register(SingSpaze.Models.Input.I_Register)">
+            <summary>
+            Send data for register (ex.username,password,firstname,facebookId)
+            </summary>
+            <param name="i_data">class I_Register</param>
+            <returns>class O_Register</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.AccountController.Login(SingSpaze.Models.Input.I_Login)">
+            <summary>
+            Send data for login(ex.username,password)
+            </summary>
+            <param name="i_data">Class I_Login</param>
+            <returns>Class O_Login</returns>        
+        </member>
+        <member name="M:SingSpaze.Controllers.API.AccountController.FBlogin(SingSpaze.Models.Input.I_FBLogin)">
+            <summary>
+            Send data for FBlogin(ex.fbuserid,firstname)
+            </summary>
+            <param name="i_data">Class I_Login</param>
+            <returns>Class O_Login</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.AccountController.Profile(SingSpaze.Models.Input.I_Profile)">
+            <summary>
+            Profile
+            </summary>
+            <param name="i_data">Class I_Profile</param>
+            <returns>Clas O_Profile</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.AccountController.EditProfile(SingSpaze.Models.Input.I_EditProfile)">
+            <summary>
+            Send data to change user data (Facebook account cannot use this)
+            </summary>
+            <param name="i_data">Class I_EditProfile</param>
+            <returns>Class O_EditProfile</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.AccountController.Forgot(SingSpaze.Models.Input.I_Forgot)">
+            <summary>
+            Send data to get token for set new password (Facebook account cannot use this)
+            </summary>
+            <param name="i_data">Class I_Forgot</param>
+            <returns>Class O_Forgot</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.AccountController.Reset(SingSpaze.Models.Input.I_Reset)">
+            <summary>
+            Send data with reset Token to set new password (Facebook account cannot use this)
+            </summary>
+            <param name="i_data">Class I_Reset</param>
+            <returns>Class O_Reset</returns>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_ListPlayList">
+            <summary>
+            Class output data for list playlist
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_ListPlayList.playlists">
+            <summary>
+            List class playlistdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_ListPlayList.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_PlayList">
+            <summary>
+            Class output data for playlist
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_PlayList.playlists">
+            <summary>
+            List class songdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_PlayList.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_AddList">
+            <summary>
+            Class output data for addlist
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_AddList.result">
+            <summary>
+            Return True or False
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_AddList.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_AddSong">
+            <summary>
+            Class output data for addsong to playlist
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_AddSong.result">
+            <summary>
+            Reture True or False
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_AddSong.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_ArtistList">
+            <summary>
+            Class output data for artistlist
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_ArtistList.listartist">
+            <summary>
+            List class artistdata 
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_ArtistList.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_Register">
+            <summary>
+            Class output data for register
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Register.result">
+            <summary>
+            Return True or False
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Register.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_Login">
+            <summary>
+            Class output data for login
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Login.Token">
+            <summary>
+            Unique string for connection
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Login.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_FBLogin">
+            <summary>
+            Class output data for FBlogin
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_FBLogin.Token">
+            <summary>
+            Unique string for connection
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_FBLogin.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_Profile">
+            <summary>
+            Class output data for profile
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Profile.userdata">
+            <summary>
+            Class userdata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Profile.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_EditProfile">
+            <summary>
+            Class output data for editprofile
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_EditProfile.result">
+            <summary>
+            Return True or False
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_EditProfile.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_Forgot">
+            <summary>
+            Class output data for forgot
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Forgot.retoken">
+            <summary>
+            Reset Token
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Forgot.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Output.O_Reset">
+            <summary>
+            Class output data for reset
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Reset.result">
+            <summary>
+            Return True or False
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Output.O_Reset.errordata">
+            <summary>
+            Class errordata
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Controllers.HomeController.login(SingSpaze.Models.Management.Login)">
+            <summary>
+            backend login
+            </summary>
+            <param name="input">class Account</param>
+            <returns>redirect</returns>
+        </member>
+        <member name="T:SingSpaze.Controllers.API.PlaylistController">
+            <summary>
+            Playlist api
+            </summary>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.PlaylistController.ListPlayList(SingSpaze.Models.Input.I_ListPlayList)">
+            <summary>
+            Send data to get List playlist
+            </summary>
+            <param name="i_data">Class I_ListPlayList</param>
+            <returns>Class O_ListPlayList</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.PlaylistController.Playlist(SingSpaze.Models.Input.I_PlayList)">
+            <summary>
+            Send data to get playlist
+            </summary>
+            <param name="i_data">Class I_PlayList</param>
+            <returns>Class O_PlayList</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.PlaylistController.AddList(SingSpaze.Models.Input.I_AddList)">
+            <summary>
+            Create new list
+            </summary>
+            <param name="i_data">Class I_AddList</param>
+            <returns>Class O_AddList</returns>
+        </member>
+        <member name="M:SingSpaze.Controllers.API.PlaylistController.AddSong(SingSpaze.Models.Input.I_AddSong)">
+            <summary>
+            Add song to playlist
+            </summary>
+            <param name="i_data">Class I_AddSong</param>
+            <returns>Class O_AddSong</returns>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_ListPlayList">
+            <summary>
+            Class input data for list platlist (ex.logindata,selectdata)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_ListPlayList.logindata">
+            <summary>
+            Class logindata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_ListPlayList.selectdata">
+            <summary>
+            Class selectdata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_PlayList">
+            <summary>
+            Class input data for playlist (ex.logindata,selectdata)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_PlayList.id">
+            <summary>
+            Playlist id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_PlayList.logindata">
+            <summary>
+            Class logindata
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_PlayList.selectdata">
+            <summary>
+            Class selectdata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_AddList">
+            <summary>
+            Class input data for addlist
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_AddList.description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_AddList.logindata">
+            <summary>
+            Class logindata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_AddSong">
+            <summary>
+            Class input to addsong to playlist
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_AddSong.song_id">
+            <summary>
+            Song Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_AddSong.playlist_id">
+            <summary>
+            Playlist Id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_AddSong.logindata">
+            <summary>
+            Class logindata
+            </summary>
+        </member>
+        <member name="T:SingSpaze.Models.Input.I_ArtistList">
+            <summary>
+            Class input data for artistlist (ex.type,artist_id)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_ArtistList.type">
+            <summary>
+            Data for order allow "hot" (optional)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_ArtistList.artist_id">
+            <summary>
+            Focus artist_id
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_ArtistList.time">
+            <summary>
+            This is ago days to calulation for hot artisit (if type was null it's will be ignore) (defult was 30)
+            </summary>
+        </member>
+        <member name="P:SingSpaze.Models.Input.I_ArtistList.selectdata">
+            <summary>
+            Class selectdata
+            </summary>
+        </member>
+    </members>
+</doc>

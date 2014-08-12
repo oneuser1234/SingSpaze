@@ -2,15 +2,17 @@
 <Schema Namespace="singspazeModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="singspazeModelStoreContainer">
     <EntitySet Name="album" EntityType="singspazeModel.Store.album" store:Type="Tables" Schema="singspaze" />
-    <EntitySet Name="artist" EntityType="singspazeModel.Store.artist" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="contentpartner" EntityType="singspazeModel.Store.contentpartner" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="contentpartnerforartist" EntityType="singspazeModel.Store.contentpartnerforartist" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="contentpartnerforsong" EntityType="singspazeModel.Store.contentpartnerforsong" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="genre" EntityType="singspazeModel.Store.genre" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="language" EntityType="singspazeModel.Store.language" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="playlist" EntityType="singspazeModel.Store.playlist" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="playlisttosong" EntityType="singspazeModel.Store.playlisttosong" store:Type="Tables" Schema="singspaze" />
-    <EntitySet Name="recordlabel" EntityType="singspazeModel.Store.recordlabel" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="publisher" EntityType="singspazeModel.Store.publisher" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="publisher_artist" EntityType="singspazeModel.Store.publisher_artist" store:Type="Tables" Schema="singspaze" />
+    <EntitySet Name="publisher_song" EntityType="singspazeModel.Store.publisher_song" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="singinghistory" EntityType="singspazeModel.Store.singinghistory" store:Type="Tables" Schema="singspaze" />
-    <EntitySet Name="song" EntityType="singspazeModel.Store.song" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="status" EntityType="singspazeModel.Store.status" store:Type="Tables" Schema="singspaze" />
     <EntitySet Name="user" EntityType="singspazeModel.Store.user" store:Type="Tables" Schema="singspaze" />
   </EntityContainer>
@@ -22,20 +24,28 @@
     <Property Name="album_description_th" Type="varchar" Nullable="false" MaxLength="200" />
     <Property Name="album_description_en" Type="varchar" Nullable="false" MaxLength="200" />
   </EntityType>
-  <EntityType Name="artist">
-    <Key>
-      <PropertyRef Name="artist_id" />
-    </Key>
-    <Property Name="artist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="artist_description_th" Type="varchar" Nullable="false" MaxLength="30" />
-    <Property Name="artist_description_en" Type="varchar" Nullable="false" MaxLength="30" />
-  </EntityType>
   <EntityType Name="contentpartner">
     <Key>
       <PropertyRef Name="contentpartner_id" />
     </Key>
     <Property Name="contentpartner_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="contentpartner_description" Type="varchar" Nullable="false" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="contentpartnerforartist">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="contentPartnerId" Type="int" Nullable="false" />
+    <Property Name="artistId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contentpartnerforsong">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="contentPartnerId" Type="int" Nullable="false" />
+    <Property Name="songId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="genre">
     <Key>
@@ -69,24 +79,22 @@
     <Property Name="song_id" Type="int" Nullable="false" />
     <Property Name="playlistToSong_sequence" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="recordlabel">
+  <EntityType Name="publisher">
     <Key>
       <PropertyRef Name="recordlabel_id" />
     </Key>
     <Property Name="recordlabel_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="recordlabel_description" Type="varchar" Nullable="false" MaxLength="40" />
   </EntityType>
-  <EntityType Name="singinghistory">
+  <EntityType Name="publisher_artist">
     <Key>
-      <PropertyRef Name="singinghistory_id" />
+      <PropertyRef Name="artist_id" />
     </Key>
-    <Property Name="singinghistory_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="user_id" Type="int" Nullable="false" />
-    <Property Name="song_id" Type="int" Nullable="false" />
-    <Property Name="artist_id" Type="int" Nullable="false" />
-    <Property Name="singinghistory_date" Type="datetime" Nullable="false" />
+    <Property Name="artist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="artist_description_th" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="artist_description_en" Type="varchar" Nullable="false" MaxLength="30" />
   </EntityType>
-  <EntityType Name="song">
+  <EntityType Name="publisher_song">
     <Key>
       <PropertyRef Name="song_id" />
     </Key>
@@ -97,11 +105,11 @@
     <Property Name="song_languageId" Type="int" Nullable="false" />
     <Property Name="song_albumId" Type="int" Nullable="false" />
     <Property Name="song_artistId" Type="int" Nullable="false" />
-    <Property Name="song_length" Type="decimal" Nullable="false" Precision="11" />
+    <Property Name="song_length" Type="decimal" Nullable="false" Precision="11" Scale="2" />
     <Property Name="song_keywords" Type="varchar" MaxLength="255" />
     <Property Name="song_lyrics" Type="text" />
     <Property Name="song_contentPartnerId" Type="int" Nullable="false" />
-    <Property Name="song_recordLabelId" Type="int" Nullable="false" />
+    <Property Name="song_publisherId" Type="int" Nullable="false" />
     <Property Name="song_releasedDate" Type="datetime" Nullable="false" />
     <Property Name="song_thumbnail" Type="varchar" MaxLength="255" />
     <Property Name="song_picture" Type="varchar" MaxLength="255" />
@@ -110,6 +118,23 @@
     <Property Name="song_filePath" Type="varchar" MaxLength="200" />
     <Property Name="song_price" Type="decimal" />
     <Property Name="song_view" Type="int" />
+    <Property Name="song_URL_iOS" Type="varchar" MaxLength="200" />
+    <Property Name="song_URL_Android/Other" Type="varchar" MaxLength="200" />
+    <Property Name="song_URL_RTMP" Type="varchar" MaxLength="200" />
+    <Property Name="song_Copyright" Type="varchar" MaxLength="100" />
+    <Property Name="song_Track Number’" Type="int" Nullable="false" />
+    <Property Name="song_streamURLWithVocal" Type="varchar" MaxLength="200" />
+    <Property Name="streamURLWithoutVocal" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="singinghistory">
+    <Key>
+      <PropertyRef Name="singinghistory_id" />
+    </Key>
+    <Property Name="singinghistory_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="song_id" Type="int" Nullable="false" />
+    <Property Name="artist_id" Type="int" Nullable="false" />
+    <Property Name="singinghistory_date" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="status">
     <Key>
@@ -136,5 +161,7 @@
     <Property Name="user_modifiedDatetime" Type="datetime" />
     <Property Name="user_lastlogin" Type="datetime" />
     <Property Name="user_avartar" Type="varchar" MaxLength="255" />
+    <Property Name="user_token" Type="varchar" MaxLength="200" />
+    <Property Name="user_retoken" Type="varchar" MaxLength="200" />
   </EntityType>
 </Schema>

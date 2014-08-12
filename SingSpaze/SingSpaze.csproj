@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\SingSpaze.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -180,10 +181,10 @@
     <Compile Include="Models\Management\Account.cs" />
     <Compile Include="Models\Management\Helper.cs" />
     <Compile Include="Models\Management\Song.cs" />
-    <Compile Include="Models\Mysql.Designer.cs">
+    <Compile Include="Models\MySql.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Mysql.edmx</DependentUpon>
+      <DependentUpon>MySql.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Output\account.cs" />
     <Compile Include="Models\Input\account.cs" />
@@ -406,16 +407,16 @@
     <Content Include="Views\Account\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\Mysql.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Mysql.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\MySql.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MySql.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

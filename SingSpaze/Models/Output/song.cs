@@ -5,22 +5,58 @@ using System.Web;
 
 namespace SingSpaze.Models.Output
 {
+    /// <summary>
+    /// Class output for songlist (ex.resultNumber ,listsong)
+    /// </summary>
     public class O_SongList
     {
-        public IEnumerable<listsongdata> listsong { get; set; }
-        public errordata errordata { get; set; }
+        /// <summary>
+        /// Number of this result
+        /// </summary>
+        public int resultNumber { get; set; }
+        /// <summary>
+        /// List class Listsongdata
+        /// </summary>
+        public List<Listsongdata> listsong { get; set; }
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
     }
 
-    //public class O_Song
-    //{
-        
-    //    public errordata errordata { get; set; }
-    //}
-
+    /// <summary>
+    /// Class output for playsong  (ex.Songdata ,Errordata)
+    /// </summary>
     public class O_PlaySong
     {
-        public songdata songdata { get; set; }        
-        public errordata errordata { get; set; }
+        /// <summary>
+        /// Class songdata
+        /// </summary>
+        public Songdata songdata { get; set; }
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
+
+    /// <summary>
+    /// Class output for searchsong (ex.resultNumber ,listsong)
+    /// </summary>
+    public class O_SearchSong
+    {
+        /// <summary>
+        /// Number of this result
+        /// </summary>
+        public int resultNumber { get; set; }
+        /// <summary>
+        /// List class listsongdata
+        /// </summary>
+        public List<Listsongdata> listsong { get; set; }
+        
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
     }
 
 }

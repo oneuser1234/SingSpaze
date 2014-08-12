@@ -8,20 +8,26 @@ using SingSpaze.Models;
 
 namespace SingSpaze.Controllers.API
 {
+    /// <summary>
+    /// Useful api (Data from database)
+    /// </summary>
     public class UsefulController : ApiController
     {
         private singspazeEntities db = new singspazeEntities();
-
+        /// <summary>
+        /// Get Language data 
+        /// </summary>
+        /// <returns>List class Languagedata</returns>
         [HttpGet]
         [ActionName("Language")]
-        public IEnumerable<languagedata> Language()
+        public List<Languagedata> Language()
         {
-            List<languagedata> response = new List<languagedata>();
+            List<Languagedata> response = new List<Languagedata>();
             List<language> listlanguagedata = db.language.ToList();
 
             foreach(language data in listlanguagedata)
             {
-                languagedata o_languagedata =  new languagedata()
+                Languagedata o_languagedata =  new Languagedata()
                 {
                     id = data.language_id,
                     description = data.language_description
@@ -32,17 +38,20 @@ namespace SingSpaze.Controllers.API
 
             return response;            
         }
-
+        /// <summary>
+        /// Get Genre data
+        /// </summary>
+        /// <returns>List class Genredata</returns>
         [HttpGet]
         [ActionName("Genre")]
-        public IEnumerable<genredata> Genre()
+        public List<Genredata> Genre()
         {
-            List<genredata> response = new List<genredata>();
+            List<Genredata> response = new List<Genredata>();
             List<genre> listgenredata = db.genre.ToList();
 
             foreach (genre data in listgenredata)
             {
-                genredata o_genredata = new genredata()
+                Genredata o_genredata = new Genredata()
                 {
                     id = data.genre_id,
                     description = data.genre_description
@@ -53,14 +62,17 @@ namespace SingSpaze.Controllers.API
 
             return response;
         }
-
+        /// <summary>
+        /// Get Banner data (no data for now)
+        /// </summary>
+        /// <returns>List class Bannerdata</returns>
         [HttpGet]
         [ActionName("Banner")]
-        public IEnumerable<bannerdata> Banner()
+        public List<Bannerdata> Banner()
         {
-            List<bannerdata> response = new List<bannerdata>();
+            List<Bannerdata> response = new List<Bannerdata>();
             //no data
-            bannerdata testdata = new bannerdata()
+            Bannerdata testdata = new Bannerdata()
             {
                 id = 1,
                 path = "no data"

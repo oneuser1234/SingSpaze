@@ -21,7 +21,7 @@ namespace SingSpaze.Controllers
         /// <param name="input">class Account</param>
         /// <returns>redirect</returns>
         [HttpPost]
-        public ActionResult login(Account input)
+        public ActionResult login(Login input)
         {
             if (input.user_login == "admin" && input.user_password == "admin")
             {

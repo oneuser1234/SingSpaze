@@ -14,42 +14,34 @@ using WebMatrix.WebData;
 using SingSpaze.Models.Output;
 using System.Security.Cryptography;
 using System.Text;
-using SingSpaze.Models.Parameter;
+using SingSpaze.Models.Input;
 
 
 namespace SingSpaze.Controllers.API
 {
+    /// <summary>
+    /// Account api
+    /// </summary>
     public class AccountController : ApiController
     {
         private singspazeEntities db = new singspazeEntities();
 
         /// <summary>
-        /// Register
+        /// Send data for register (ex.username,password,firstname,facebookId)
         /// </summary>
         /// <param name="i_data">class I_Register</param>
         /// <returns>class O_Register</returns>
         [HttpPost]
         [ActionName("Register")]
-        public O_Register Register(I_Register i_data)
+        public O_Register register(I_Register i_data)
         {
-            /// testttt
-            //if (ModelState.IsValid)
-            //{
-            Boolean errorinput = false;
-            if (i_data == null)
-                errorinput = true;
-            if (i_data.fbUserId == 0)
-            {
-                if(string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password))
-                    errorinput = true;
-            }
 
-            if (errorinput || string.IsNullOrEmpty(i_data.Firstname) || string.IsNullOrEmpty(i_data.Lastname) || string.IsNullOrEmpty(i_data.Email))
+            if (i_data == null || string.IsNullOrEmpty(i_data.Firstname) || string.IsNullOrEmpty(i_data.Lastname) || string.IsNullOrEmpty(i_data.Email))
             {
                 return new O_Register()
                 {
                     result = false,
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 11,
                         Detail = Useful.geterrordata(11)
@@ -57,17 +49,15 @@ namespace SingSpaze.Controllers.API
                 };
             }
                 user checkuser = new user();
-                if(i_data.fbUserId == 0)
-                    checkuser = db.user.FirstOrDefault(u => u.user_login == i_data.Username || u.user_email == i_data.Email);
-                else
-                    checkuser = db.user.FirstOrDefault(u => u.user_fbUserId == i_data.fbUserId || u.user_email == i_data.Email);
+                checkuser = db.user.FirstOrDefault(u => u.user_login == i_data.Username || u.user_email == i_data.Email);
+               
 
                 if (checkuser != null)
                 {
                     return new O_Register()
                     {
                         result = false,
-                        errordata = new errordata()
+                        errordata = new Errordata()
                                     {
                                         code = 2,
                                         Detail = Useful.geterrordata(2)
@@ -78,7 +68,7 @@ namespace SingSpaze.Controllers.API
                 
                 user userdata = new user()
                 {
-                    user_fbUserId = i_data.fbUserId,
+                    user_fbUserId = 0,
                     user_firstname = i_data.Firstname,
                     user_lastname = i_data.Lastname,
                     user_login = i_data.Username,
@@ -116,70 +106,115 @@ namespace SingSpaze.Controllers.API
             //}
         }
 
+        private O_FBRegister FBregister(I_FBRegister i_data)
+        {
+           
+            if (i_data == null || string.IsNullOrEmpty(i_data.Lastname) || string.IsNullOrEmpty(i_data.Email))
+            {
+                return new O_FBRegister()
+                {
+                    result = false,
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
+            
+
+            
+            user checkuser = new user();
+            checkuser = db.user.FirstOrDefault(u => u.user_fbUserId == i_data.fbUserId || u.user_email == i_data.Email);
+
+            if (checkuser != null)
+            {
+                return new O_FBRegister()
+                {
+                    result = false,
+                    errordata = new Errordata()
+                    {
+                        code = 2,
+                        Detail = Useful.geterrordata(2)
+                    }
+                };
+            }
+            /// end
+
+            user userdata = new user()
+            {
+                user_fbUserId = i_data.fbUserId,
+                user_firstname = i_data.Firstname,
+                user_lastname = i_data.Lastname,
+                user_login = "",
+                user_password = "",
+                user_email = i_data.Email,
+                user_createdDatetime = DateTime.Now,
+
+                user_avartar = null,
+                user_lastlogin = null,
+                user_modifiedDatetime = null,
+                user_status = 1,
+                user_type = 0,
+                usergroup_id = 0
+            };
+            db.user.AddObject(userdata);
+            db.SaveChanges();
+
+            return new O_FBRegister()
+            {
+                result = true
+            };
+            //}
+            //else
+            // {
+
+            //     return new O_Register()
+            //     {
+            //         result = false,
+            //         errordata = new errordata()
+            //         {
+            //             code = 1,
+            //             Detail = Useful.geterrordata(1)
+            //         }
+            //     };
+            //}
+        }
+
         /// <summary>
-        /// Login
+        /// Send data for login(ex.username,password)
         /// </summary>
-        /// <param name="i_data">class I_login</param>
-        /// <returns>class O_login</returns>
+        /// <param name="i_data">Class I_Login</param>
+        /// <returns>Class O_Login</returns>        
         [HttpPost]
         [ActionName("Login")]
         public O_Login Login(I_Login i_data)
         {
-            Boolean errorinput = false;            
+                       
             user datauser = new user();
-            if (i_data == null)
-                errorinput = true;
-            //normal
-            if (i_data.fbUserId == 0)
-            {
-                if (string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password))
-                    errorinput = true;
-
-                datauser = db.user.FirstOrDefault(u => u.user_login == i_data.Username && u.user_password == i_data.Password);
-            }
-            else  //facebook
-            {
-                user checkfacebook = db.user.FirstOrDefault(u => u.user_email == i_data.Email && u.user_fbUserId == i_data.fbUserId);
-                if (checkfacebook == null) //no databefore => new register
-                {
-                    I_Register newregister = new I_Register()
-                    {
-                        fbUserId = i_data.fbUserId,
-                        Email = i_data.Email,
-                        Firstname = i_data.Firstname,
-                        Lastname = i_data.Lastname
-                    };
-
-                    O_Register response = Register(newregister);
-                    if (!response.result) // cannot register
-                        errorinput = true;
-                }
-
-                datauser = db.user.FirstOrDefault(u => u.user_fbUserId == i_data.fbUserId && u.user_email == i_data.Email);
-            }
-
-            if (errorinput)
+            if (i_data == null || string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password) || string.IsNullOrEmpty(i_data.Mac_Address) || string.IsNullOrEmpty(i_data.Device_ID))
             {
                 return new O_Login()
                 {
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 3,
                         Detail = Useful.geterrordata(3)
                     }
                 };
             }
+            //normal
+            //if (string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password))
+            //        errorinput = true;
 
-           
-           
-                       
-
+            datauser = db.user.FirstOrDefault(u => u.user_login == i_data.Username && u.user_password == i_data.Password);
+            
           
            if (datauser == null)
            {
                return new O_Login()
                {
-                   errordata = new errordata()
+                   errordata = new Errordata()
                    {
                        code = 4,
                        Detail = Useful.geterrordata(4)
@@ -188,101 +223,115 @@ namespace SingSpaze.Controllers.API
            }
            else
            {
-               //FormsAuthentication.SetAuthCookie(datauser.user_login, true);
+               //date + mac + device + sing (md5)
+               string Token = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString() + i_data.Mac_Address.ToString() + i_data.Device_ID.ToString() + "sing");
+               datauser.user_lastlogin = DateTime.Now;
+               datauser.user_token = Token;
+               db.SaveChanges();
+               //datauser 
                return new O_Login()
                {
-                   Id = datauser.user_id,
-                   Token = Useful.GetMd5Hash(MD5.Create(), datauser.user_id.ToString() + "sing")
+                   Token = Token
                };
            }
         }
 
-        //[Authorize]
-        //[HttpGet]
-        //[ActionName("Logout")]
-        //public void Logout()
-        //{
-        //  FormsAuthentication.SignOut();
-        //}
-
-
-        //[Authorize]
-        
-        //[HttpPost]
-        //[ActionName("Profile")]
-        //public O_ListProfile ListProfile(I_ListProfile i_data)
-        //{
+        /// <summary>
+        /// Send data for FBlogin(ex.fbuserid,firstname)
+        /// </summary>
+        /// <param name="i_data">Class I_Login</param>
+        /// <returns>Class O_Login</returns>
+        [HttpPost]
+        [ActionName("FBlogin")]
+        public O_FBLogin FBlogin(I_FBLogin i_data)
+        {
+            user datauser = new user();
+            if (i_data == null || string.IsNullOrEmpty(i_data.Email))
+            {
+                return new O_FBLogin()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 3,
+                        Detail = Useful.geterrordata(3)
+                    }
+                };
             
-        //    if (Useful.checklogin(i_data.logindata))
-        //    {
+            }
+            
+                user checkfacebook = db.user.FirstOrDefault(u => u.user_email == i_data.Email && u.user_fbUserId == i_data.fbUserId);
+                if (checkfacebook == null) //no databefore => new register
+                {
+                    I_FBRegister newregister = new I_FBRegister()
+                    {
+                        fbUserId = i_data.fbUserId,
+                        Email = i_data.Email,
+                        Firstname = i_data.Firstname,
+                        Lastname = i_data.Lastname
+                    };
 
-        //        List<user> listuserdata = db.user.OrderBy(u => u.user_id).Skip(i_data.selectdata.skip).Take(i_data.selectdata.take).ToList();
+                    O_FBRegister response = FBregister(newregister);
+                    if (!response.result) // cannot register
+                    {
+                        return new O_FBLogin()
+                        {
+                            errordata = response.errordata
+                        };
+                    }
+                }
 
-        //        List<userdata> o_listdata = new List<userdata>();
+                datauser = db.user.FirstOrDefault(u => u.user_fbUserId == i_data.fbUserId && u.user_email == i_data.Email);
+            
+            if (datauser == null)
+            {
+                return new O_FBLogin()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 4,
+                        Detail = Useful.geterrordata(4)
+                    }
+                };
+            }
+            else
+            {
+                string Token = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString() + i_data.Mac_Address.ToString() + i_data.Device_ID.ToString() + "sing");
+                datauser.user_lastlogin = DateTime.Now;
+                datauser.user_token = Token;
+                db.SaveChanges();
+                return new O_FBLogin()
+                {
+                    Token = Token
+                };
+            }
+        }
 
-               
-
-        //        foreach (user data in listuserdata)
-        //        {
-        //            userdata userdata = new userdata();
-        //            userdata.Email = data.user_email;
-        //            userdata.fbUserId = data.user_fbUserId;
-        //            userdata.Firstname = data.user_firstname;
-        //            userdata.Lastname = data.user_lastname;
-        //            userdata.username = data.user_login;
-
-        //            o_listdata.Add(userdata);
-        //        }
-
-        //        return new O_ListProfile()
-        //        {
-        //            userdata = o_listdata.AsEnumerable()
-        //        };
-        //    }
-        //    else
-        //    {
-        //        return new O_ListProfile()
-        //               {
-        //                   errordata = new errordata()
-        //                   {
-        //                       code = 5,
-        //                       Detail = Useful.geterrordata(5)
-        //                   }
-        //               };
-        //    }
-        //}
-
-
-        //[Authorize]
+        
 
         /// <summary>
         /// Profile
         /// </summary>
-        /// <param name="i_data">class I_Profile</param>
-        /// <returns>clas O_Profile</returns>
+        /// <param name="i_data">Class I_Profile</param>
+        /// <returns>Clas O_Profile</returns>
         [HttpPost]
         [ActionName("Profile")]
         public O_Profile Profile(I_Profile i_data)
         {
-            if (!Useful.checklogin(i_data.logindata))
+            if (Useful.checklogin(i_data.logindata) != null)
             {
                 return new O_Profile()
                        {
-                           errordata = new errordata()
-                           {
-                               code = 5,
-                               Detail = Useful.geterrordata(5)
-                           }
+                           errordata = Useful.checklogin(i_data.logindata)
                        };
             }
             
-            user userdata = db.user.SingleOrDefault(u => u.user_id == i_data.logindata.id);
+            user userdata = db.user.SingleOrDefault(u => u.user_token == i_data.logindata.token);
 
             if (userdata == null)
             {
                 return new O_Profile()
                 {
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 6,
                         Detail = Useful.geterrordata(6)
@@ -308,20 +357,21 @@ namespace SingSpaze.Controllers.API
             }
         }
 
-        //[Authorize]
+        
+        /// <summary>
+        /// Send data to change user data (Facebook account cannot use this)
+        /// </summary>
+        /// <param name="i_data">Class I_EditProfile</param>
+        /// <returns>Class O_EditProfile</returns>
         [HttpPut]
-        [ActionName("Edit")]
+        [ActionName("EditProfile")]
         public O_EditProfile EditProfile(I_EditProfile i_data)//user_id
         {
-            if (!Useful.checklogin(i_data.logindata))
+            if (Useful.checklogin(i_data.logindata) != null)
             {
                 return new O_EditProfile()
                 {
-                    errordata = new errordata()
-                    {
-                        code = 5,
-                        Detail = Useful.geterrordata(5)
-                    }
+                    errordata = Useful.checklogin(i_data.logindata)
                 };
             }
 
@@ -339,7 +389,7 @@ namespace SingSpaze.Controllers.API
                 return new O_EditProfile()
                 {
                     result = false,
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 9,
                         Detail = Useful.geterrordata(9)
@@ -348,7 +398,7 @@ namespace SingSpaze.Controllers.API
 
             }
 
-                user edituser = db.user.SingleOrDefault(u => u.user_id == i_data.logindata.id);
+                user edituser = db.user.SingleOrDefault(u => u.user_token == i_data.logindata.token);
                 if(edituser != null)
                 {
 
@@ -357,7 +407,7 @@ namespace SingSpaze.Controllers.API
                         return new O_EditProfile()
                         {
                             result = false,
-                            errordata = new errordata()
+                            errordata = new Errordata()
                             {
                                 code = 13,
                                 Detail = Useful.geterrordata(13)
@@ -371,7 +421,7 @@ namespace SingSpaze.Controllers.API
                         return new O_EditProfile()
                         {
                             result = false,
-                            errordata = new errordata()
+                            errordata = new Errordata()
                             {
                                 code = 2,
                                 Detail = Useful.geterrordata(2)
@@ -385,7 +435,7 @@ namespace SingSpaze.Controllers.API
                         return new O_EditProfile()
                         {
                             result = false,
-                            errordata = new errordata()
+                            errordata = new Errordata()
                             {
                                 code = 7,
                                 Detail = Useful.geterrordata(7)
@@ -411,7 +461,7 @@ namespace SingSpaze.Controllers.API
                     return new O_EditProfile()
                     {
                         result = false,
-                        errordata = new errordata()
+                        errordata = new Errordata()
                         {
                             code = 8,
                             Detail = Useful.geterrordata(8)
@@ -424,7 +474,11 @@ namespace SingSpaze.Controllers.API
             
         }
 
-
+        /// <summary>
+        /// Send data to get token for set new password (Facebook account cannot use this)
+        /// </summary>
+        /// <param name="i_data">Class I_Forgot</param>
+        /// <returns>Class O_Forgot</returns>
         [HttpPost]
         [ActionName("Forgot")]
         public O_Forgot Forgot(I_Forgot i_data)
@@ -435,7 +489,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_Forgot()
                 {
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 6,
                         Detail = Useful.geterrordata(6)
@@ -447,7 +501,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_Forgot()
                 {
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 13,
                         Detail = Useful.geterrordata(13)
@@ -455,15 +509,23 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
+            /// time + reset md5
+            string Retoken = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString()  + "reset");
+            userdata.user_retoken = Retoken;
+            db.SaveChanges();
             return new O_Forgot()
             {
-                id = userdata.user_id,
-                retoken = Useful.GetMd5Hash(MD5.Create(), userdata.user_id.ToString() + "reset")
+                retoken = Retoken
             };
             
             
         }
 
+        /// <summary>
+        /// Send data with reset Token to set new password (Facebook account cannot use this)
+        /// </summary>
+        /// <param name="i_data">Class I_Reset</param>
+        /// <returns>Class O_Reset</returns>
         [HttpPost]
         [ActionName("Reset")]
         public O_Reset Reset(I_Reset i_data)
@@ -473,7 +535,7 @@ namespace SingSpaze.Controllers.API
                 return new O_Reset()
                 {
                     result = false,
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 11,
                         Detail = Useful.geterrordata(11)
@@ -481,12 +543,13 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            if (Useful.VerifyMd5Hash(MD5.Create(), i_data.id.ToString() + "reset", i_data.retoken))
+            user edituser = db.user.Where(u => u.user_retoken == i_data.retoken).SingleOrDefault();
+            if (edituser != null)
             {
-                user edituser = db.user.Where(u => u.user_id == i_data.id).SingleOrDefault();
+               
 
                 edituser.user_password = i_data.newpassword;
-
+                edituser.user_retoken = null;
                 db.SaveChanges();
 
                 return new O_Reset()
@@ -499,7 +562,7 @@ namespace SingSpaze.Controllers.API
                 return new O_Reset()
                 {
                     result = false,
-                    errordata = new errordata()
+                    errordata = new Errordata()
                     {
                         code = 14,
                         Detail = Useful.geterrordata(14)

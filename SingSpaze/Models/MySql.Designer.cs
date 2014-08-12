@@ -84,22 +84,6 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<artist> artist
-        {
-            get
-            {
-                if ((_artist == null))
-                {
-                    _artist = base.CreateObjectSet<artist>("artist");
-                }
-                return _artist;
-            }
-        }
-        private ObjectSet<artist> _artist;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<contentpartner> contentpartner
         {
             get
@@ -112,6 +96,38 @@ namespace SingSpaze.Models
             }
         }
         private ObjectSet<contentpartner> _contentpartner;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<contentpartnerforartist> contentpartnerforartist
+        {
+            get
+            {
+                if ((_contentpartnerforartist == null))
+                {
+                    _contentpartnerforartist = base.CreateObjectSet<contentpartnerforartist>("contentpartnerforartist");
+                }
+                return _contentpartnerforartist;
+            }
+        }
+        private ObjectSet<contentpartnerforartist> _contentpartnerforartist;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<contentpartnerforsong> contentpartnerforsong
+        {
+            get
+            {
+                if ((_contentpartnerforsong == null))
+                {
+                    _contentpartnerforsong = base.CreateObjectSet<contentpartnerforsong>("contentpartnerforsong");
+                }
+                return _contentpartnerforsong;
+            }
+        }
+        private ObjectSet<contentpartnerforsong> _contentpartnerforsong;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -180,18 +196,50 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<recordlabel> recordlabel
+        public ObjectSet<publisher> publisher
         {
             get
             {
-                if ((_recordlabel == null))
+                if ((_publisher == null))
                 {
-                    _recordlabel = base.CreateObjectSet<recordlabel>("recordlabel");
+                    _publisher = base.CreateObjectSet<publisher>("publisher");
                 }
-                return _recordlabel;
+                return _publisher;
             }
         }
-        private ObjectSet<recordlabel> _recordlabel;
+        private ObjectSet<publisher> _publisher;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<publisher_artist> publisher_artist
+        {
+            get
+            {
+                if ((_publisher_artist == null))
+                {
+                    _publisher_artist = base.CreateObjectSet<publisher_artist>("publisher_artist");
+                }
+                return _publisher_artist;
+            }
+        }
+        private ObjectSet<publisher_artist> _publisher_artist;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<publisher_song> publisher_song
+        {
+            get
+            {
+                if ((_publisher_song == null))
+                {
+                    _publisher_song = base.CreateObjectSet<publisher_song>("publisher_song");
+                }
+                return _publisher_song;
+            }
+        }
+        private ObjectSet<publisher_song> _publisher_song;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -208,22 +256,6 @@ namespace SingSpaze.Models
             }
         }
         private ObjectSet<singinghistory> _singinghistory;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<song> song
-        {
-            get
-            {
-                if ((_song == null))
-                {
-                    _song = base.CreateObjectSet<song>("song");
-                }
-                return _song;
-            }
-        }
-        private ObjectSet<song> _song;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -270,19 +302,27 @@ namespace SingSpaze.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the artist EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToartist(artist artist)
-        {
-            base.AddObject("artist", artist);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the contentpartner EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTocontentpartner(contentpartner contentpartner)
         {
             base.AddObject("contentpartner", contentpartner);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the contentpartnerforartist EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocontentpartnerforartist(contentpartnerforartist contentpartnerforartist)
+        {
+            base.AddObject("contentpartnerforartist", contentpartnerforartist);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the contentpartnerforsong EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocontentpartnerforsong(contentpartnerforsong contentpartnerforsong)
+        {
+            base.AddObject("contentpartnerforsong", contentpartnerforsong);
         }
     
         /// <summary>
@@ -318,11 +358,27 @@ namespace SingSpaze.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the recordlabel EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the publisher EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTorecordlabel(recordlabel recordlabel)
+        public void AddTopublisher(publisher publisher)
         {
-            base.AddObject("recordlabel", recordlabel);
+            base.AddObject("publisher", publisher);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the publisher_artist EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTopublisher_artist(publisher_artist publisher_artist)
+        {
+            base.AddObject("publisher_artist", publisher_artist);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the publisher_song EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTopublisher_song(publisher_song publisher_song)
+        {
+            base.AddObject("publisher_song", publisher_song);
         }
     
         /// <summary>
@@ -331,14 +387,6 @@ namespace SingSpaze.Models
         public void AddTosinginghistory(singinghistory singinghistory)
         {
             base.AddObject("singinghistory", singinghistory);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the song EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTosong(song song)
-        {
-            base.AddObject("song", song);
         }
     
         /// <summary>
@@ -477,115 +525,6 @@ namespace SingSpaze.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="artist")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class artist : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new artist object.
-        /// </summary>
-        /// <param name="artist_id">Initial value of the artist_id property.</param>
-        /// <param name="artist_description_th">Initial value of the artist_description_th property.</param>
-        /// <param name="artist_description_en">Initial value of the artist_description_en property.</param>
-        public static artist Createartist(global::System.Int32 artist_id, global::System.String artist_description_th, global::System.String artist_description_en)
-        {
-            artist artist = new artist();
-            artist.artist_id = artist_id;
-            artist.artist_description_th = artist_description_th;
-            artist.artist_description_en = artist_description_en;
-            return artist;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 artist_id
-        {
-            get
-            {
-                return _artist_id;
-            }
-            set
-            {
-                if (_artist_id != value)
-                {
-                    Onartist_idChanging(value);
-                    ReportPropertyChanging("artist_id");
-                    _artist_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("artist_id");
-                    Onartist_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _artist_id;
-        partial void Onartist_idChanging(global::System.Int32 value);
-        partial void Onartist_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String artist_description_th
-        {
-            get
-            {
-                return _artist_description_th;
-            }
-            set
-            {
-                Onartist_description_thChanging(value);
-                ReportPropertyChanging("artist_description_th");
-                _artist_description_th = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("artist_description_th");
-                Onartist_description_thChanged();
-            }
-        }
-        private global::System.String _artist_description_th;
-        partial void Onartist_description_thChanging(global::System.String value);
-        partial void Onartist_description_thChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String artist_description_en
-        {
-            get
-            {
-                return _artist_description_en;
-            }
-            set
-            {
-                Onartist_description_enChanging(value);
-                ReportPropertyChanging("artist_description_en");
-                _artist_description_en = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("artist_description_en");
-                Onartist_description_enChanged();
-            }
-        }
-        private global::System.String _artist_description_en;
-        partial void Onartist_description_enChanging(global::System.String value);
-        partial void Onartist_description_enChanged();
-
-        #endregion
-
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="contentpartner")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -660,6 +599,224 @@ namespace SingSpaze.Models
         private global::System.String _contentpartner_description;
         partial void Oncontentpartner_descriptionChanging(global::System.String value);
         partial void Oncontentpartner_descriptionChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="contentpartnerforartist")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class contentpartnerforartist : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new contentpartnerforartist object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="contentPartnerId">Initial value of the contentPartnerId property.</param>
+        /// <param name="artistId">Initial value of the artistId property.</param>
+        public static contentpartnerforartist Createcontentpartnerforartist(global::System.Int32 id, global::System.Int32 contentPartnerId, global::System.Int32 artistId)
+        {
+            contentpartnerforartist contentpartnerforartist = new contentpartnerforartist();
+            contentpartnerforartist.Id = id;
+            contentpartnerforartist.contentPartnerId = contentPartnerId;
+            contentpartnerforartist.artistId = artistId;
+            return contentpartnerforartist;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 contentPartnerId
+        {
+            get
+            {
+                return _contentPartnerId;
+            }
+            set
+            {
+                OncontentPartnerIdChanging(value);
+                ReportPropertyChanging("contentPartnerId");
+                _contentPartnerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("contentPartnerId");
+                OncontentPartnerIdChanged();
+            }
+        }
+        private global::System.Int32 _contentPartnerId;
+        partial void OncontentPartnerIdChanging(global::System.Int32 value);
+        partial void OncontentPartnerIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 artistId
+        {
+            get
+            {
+                return _artistId;
+            }
+            set
+            {
+                OnartistIdChanging(value);
+                ReportPropertyChanging("artistId");
+                _artistId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("artistId");
+                OnartistIdChanged();
+            }
+        }
+        private global::System.Int32 _artistId;
+        partial void OnartistIdChanging(global::System.Int32 value);
+        partial void OnartistIdChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="contentpartnerforsong")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class contentpartnerforsong : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new contentpartnerforsong object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="contentPartnerId">Initial value of the contentPartnerId property.</param>
+        /// <param name="songId">Initial value of the songId property.</param>
+        public static contentpartnerforsong Createcontentpartnerforsong(global::System.Int32 id, global::System.Int32 contentPartnerId, global::System.Int32 songId)
+        {
+            contentpartnerforsong contentpartnerforsong = new contentpartnerforsong();
+            contentpartnerforsong.id = id;
+            contentpartnerforsong.contentPartnerId = contentPartnerId;
+            contentpartnerforsong.songId = songId;
+            return contentpartnerforsong;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 contentPartnerId
+        {
+            get
+            {
+                return _contentPartnerId;
+            }
+            set
+            {
+                OncontentPartnerIdChanging(value);
+                ReportPropertyChanging("contentPartnerId");
+                _contentPartnerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("contentPartnerId");
+                OncontentPartnerIdChanged();
+            }
+        }
+        private global::System.Int32 _contentPartnerId;
+        partial void OncontentPartnerIdChanging(global::System.Int32 value);
+        partial void OncontentPartnerIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 songId
+        {
+            get
+            {
+                return _songId;
+            }
+            set
+            {
+                OnsongIdChanging(value);
+                ReportPropertyChanging("songId");
+                _songId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("songId");
+                OnsongIdChanged();
+            }
+        }
+        private global::System.Int32 _songId;
+        partial void OnsongIdChanging(global::System.Int32 value);
+        partial void OnsongIdChanged();
 
         #endregion
 
@@ -1099,24 +1256,24 @@ namespace SingSpaze.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="recordlabel")]
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="publisher")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class recordlabel : EntityObject
+    public partial class publisher : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new recordlabel object.
+        /// Create a new publisher object.
         /// </summary>
         /// <param name="recordlabel_id">Initial value of the recordlabel_id property.</param>
         /// <param name="recordlabel_description">Initial value of the recordlabel_description property.</param>
-        public static recordlabel Createrecordlabel(global::System.Int32 recordlabel_id, global::System.String recordlabel_description)
+        public static publisher Createpublisher(global::System.Int32 recordlabel_id, global::System.String recordlabel_description)
         {
-            recordlabel recordlabel = new recordlabel();
-            recordlabel.recordlabel_id = recordlabel_id;
-            recordlabel.recordlabel_description = recordlabel_description;
-            return recordlabel;
+            publisher publisher = new publisher();
+            publisher.recordlabel_id = recordlabel_id;
+            publisher.recordlabel_description = recordlabel_description;
+            return publisher;
         }
 
         #endregion
@@ -1182,30 +1339,26 @@ namespace SingSpaze.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="singinghistory")]
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="publisher_artist")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class singinghistory : EntityObject
+    public partial class publisher_artist : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new singinghistory object.
+        /// Create a new publisher_artist object.
         /// </summary>
-        /// <param name="singinghistory_id">Initial value of the singinghistory_id property.</param>
-        /// <param name="user_id">Initial value of the user_id property.</param>
-        /// <param name="song_id">Initial value of the song_id property.</param>
         /// <param name="artist_id">Initial value of the artist_id property.</param>
-        /// <param name="singinghistory_date">Initial value of the singinghistory_date property.</param>
-        public static singinghistory Createsinginghistory(global::System.Int32 singinghistory_id, global::System.Int32 user_id, global::System.Int32 song_id, global::System.Int32 artist_id, global::System.DateTime singinghistory_date)
+        /// <param name="artist_description_th">Initial value of the artist_description_th property.</param>
+        /// <param name="artist_description_en">Initial value of the artist_description_en property.</param>
+        public static publisher_artist Createpublisher_artist(global::System.Int32 artist_id, global::System.String artist_description_th, global::System.String artist_description_en)
         {
-            singinghistory singinghistory = new singinghistory();
-            singinghistory.singinghistory_id = singinghistory_id;
-            singinghistory.user_id = user_id;
-            singinghistory.song_id = song_id;
-            singinghistory.artist_id = artist_id;
-            singinghistory.singinghistory_date = singinghistory_date;
-            return singinghistory;
+            publisher_artist publisher_artist = new publisher_artist();
+            publisher_artist.artist_id = artist_id;
+            publisher_artist.artist_description_th = artist_description_th;
+            publisher_artist.artist_description_en = artist_description_en;
+            return publisher_artist;
         }
 
         #endregion
@@ -1217,81 +1370,6 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 singinghistory_id
-        {
-            get
-            {
-                return _singinghistory_id;
-            }
-            set
-            {
-                if (_singinghistory_id != value)
-                {
-                    Onsinginghistory_idChanging(value);
-                    ReportPropertyChanging("singinghistory_id");
-                    _singinghistory_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("singinghistory_id");
-                    Onsinginghistory_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _singinghistory_id;
-        partial void Onsinginghistory_idChanging(global::System.Int32 value);
-        partial void Onsinginghistory_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 user_id
-        {
-            get
-            {
-                return _user_id;
-            }
-            set
-            {
-                Onuser_idChanging(value);
-                ReportPropertyChanging("user_id");
-                _user_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("user_id");
-                Onuser_idChanged();
-            }
-        }
-        private global::System.Int32 _user_id;
-        partial void Onuser_idChanging(global::System.Int32 value);
-        partial void Onuser_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 song_id
-        {
-            get
-            {
-                return _song_id;
-            }
-            set
-            {
-                Onsong_idChanging(value);
-                ReportPropertyChanging("song_id");
-                _song_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("song_id");
-                Onsong_idChanged();
-            }
-        }
-        private global::System.Int32 _song_id;
-        partial void Onsong_idChanging(global::System.Int32 value);
-        partial void Onsong_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Int32 artist_id
         {
             get
@@ -1300,11 +1378,14 @@ namespace SingSpaze.Models
             }
             set
             {
-                Onartist_idChanging(value);
-                ReportPropertyChanging("artist_id");
-                _artist_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("artist_id");
-                Onartist_idChanged();
+                if (_artist_id != value)
+                {
+                    Onartist_idChanging(value);
+                    ReportPropertyChanging("artist_id");
+                    _artist_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("artist_id");
+                    Onartist_idChanged();
+                }
             }
         }
         private global::System.Int32 _artist_id;
@@ -1316,24 +1397,48 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.DateTime singinghistory_date
+        public global::System.String artist_description_th
         {
             get
             {
-                return _singinghistory_date;
+                return _artist_description_th;
             }
             set
             {
-                Onsinginghistory_dateChanging(value);
-                ReportPropertyChanging("singinghistory_date");
-                _singinghistory_date = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("singinghistory_date");
-                Onsinginghistory_dateChanged();
+                Onartist_description_thChanging(value);
+                ReportPropertyChanging("artist_description_th");
+                _artist_description_th = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("artist_description_th");
+                Onartist_description_thChanged();
             }
         }
-        private global::System.DateTime _singinghistory_date;
-        partial void Onsinginghistory_dateChanging(global::System.DateTime value);
-        partial void Onsinginghistory_dateChanged();
+        private global::System.String _artist_description_th;
+        partial void Onartist_description_thChanging(global::System.String value);
+        partial void Onartist_description_thChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String artist_description_en
+        {
+            get
+            {
+                return _artist_description_en;
+            }
+            set
+            {
+                Onartist_description_enChanging(value);
+                ReportPropertyChanging("artist_description_en");
+                _artist_description_en = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("artist_description_en");
+                Onartist_description_enChanged();
+            }
+        }
+        private global::System.String _artist_description_en;
+        partial void Onartist_description_enChanging(global::System.String value);
+        partial void Onartist_description_enChanged();
 
         #endregion
 
@@ -1343,15 +1448,15 @@ namespace SingSpaze.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="song")]
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="publisher_song")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class song : EntityObject
+    public partial class publisher_song : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new song object.
+        /// Create a new publisher_song object.
         /// </summary>
         /// <param name="song_id">Initial value of the song_id property.</param>
         /// <param name="song_genre">Initial value of the song_genre property.</param>
@@ -1360,25 +1465,27 @@ namespace SingSpaze.Models
         /// <param name="song_artistId">Initial value of the song_artistId property.</param>
         /// <param name="song_length">Initial value of the song_length property.</param>
         /// <param name="song_contentPartnerId">Initial value of the song_contentPartnerId property.</param>
-        /// <param name="song_recordLabelId">Initial value of the song_recordLabelId property.</param>
+        /// <param name="song_publisherId">Initial value of the song_publisherId property.</param>
         /// <param name="song_releasedDate">Initial value of the song_releasedDate property.</param>
         /// <param name="song_status">Initial value of the song_status property.</param>
         /// <param name="song_addedDate">Initial value of the song_addedDate property.</param>
-        public static song Createsong(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.Decimal song_length, global::System.Int32 song_contentPartnerId, global::System.Int32 song_recordLabelId, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate)
+        /// <param name="song_Track_Number_">Initial value of the song_Track_Number_ property.</param>
+        public static publisher_song Createpublisher_song(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.Decimal song_length, global::System.Int32 song_contentPartnerId, global::System.Int32 song_publisherId, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate, global::System.Int32 song_Track_Number_)
         {
-            song song = new song();
-            song.song_id = song_id;
-            song.song_genre = song_genre;
-            song.song_languageId = song_languageId;
-            song.song_albumId = song_albumId;
-            song.song_artistId = song_artistId;
-            song.song_length = song_length;
-            song.song_contentPartnerId = song_contentPartnerId;
-            song.song_recordLabelId = song_recordLabelId;
-            song.song_releasedDate = song_releasedDate;
-            song.song_status = song_status;
-            song.song_addedDate = song_addedDate;
-            return song;
+            publisher_song publisher_song = new publisher_song();
+            publisher_song.song_id = song_id;
+            publisher_song.song_genre = song_genre;
+            publisher_song.song_languageId = song_languageId;
+            publisher_song.song_albumId = song_albumId;
+            publisher_song.song_artistId = song_artistId;
+            publisher_song.song_length = song_length;
+            publisher_song.song_contentPartnerId = song_contentPartnerId;
+            publisher_song.song_publisherId = song_publisherId;
+            publisher_song.song_releasedDate = song_releasedDate;
+            publisher_song.song_status = song_status;
+            publisher_song.song_addedDate = song_addedDate;
+            publisher_song.song_Track_Number_ = song_Track_Number_;
+            return publisher_song;
         }
 
         #endregion
@@ -1657,24 +1764,24 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 song_recordLabelId
+        public global::System.Int32 song_publisherId
         {
             get
             {
-                return _song_recordLabelId;
+                return _song_publisherId;
             }
             set
             {
-                Onsong_recordLabelIdChanging(value);
-                ReportPropertyChanging("song_recordLabelId");
-                _song_recordLabelId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("song_recordLabelId");
-                Onsong_recordLabelIdChanged();
+                Onsong_publisherIdChanging(value);
+                ReportPropertyChanging("song_publisherId");
+                _song_publisherId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("song_publisherId");
+                Onsong_publisherIdChanged();
             }
         }
-        private global::System.Int32 _song_recordLabelId;
-        partial void Onsong_recordLabelIdChanging(global::System.Int32 value);
-        partial void Onsong_recordLabelIdChanged();
+        private global::System.Int32 _song_publisherId;
+        partial void Onsong_publisherIdChanging(global::System.Int32 value);
+        partial void Onsong_publisherIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1867,6 +1974,335 @@ namespace SingSpaze.Models
         private Nullable<global::System.Int32> _song_view;
         partial void Onsong_viewChanging(Nullable<global::System.Int32> value);
         partial void Onsong_viewChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String song_URL_iOS
+        {
+            get
+            {
+                return _song_URL_iOS;
+            }
+            set
+            {
+                Onsong_URL_iOSChanging(value);
+                ReportPropertyChanging("song_URL_iOS");
+                _song_URL_iOS = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("song_URL_iOS");
+                Onsong_URL_iOSChanged();
+            }
+        }
+        private global::System.String _song_URL_iOS;
+        partial void Onsong_URL_iOSChanging(global::System.String value);
+        partial void Onsong_URL_iOSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String song_URL_Android_Other
+        {
+            get
+            {
+                return _song_URL_Android_Other;
+            }
+            set
+            {
+                Onsong_URL_Android_OtherChanging(value);
+                ReportPropertyChanging("song_URL_Android_Other");
+                _song_URL_Android_Other = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("song_URL_Android_Other");
+                Onsong_URL_Android_OtherChanged();
+            }
+        }
+        private global::System.String _song_URL_Android_Other;
+        partial void Onsong_URL_Android_OtherChanging(global::System.String value);
+        partial void Onsong_URL_Android_OtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String song_URL_RTMP
+        {
+            get
+            {
+                return _song_URL_RTMP;
+            }
+            set
+            {
+                Onsong_URL_RTMPChanging(value);
+                ReportPropertyChanging("song_URL_RTMP");
+                _song_URL_RTMP = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("song_URL_RTMP");
+                Onsong_URL_RTMPChanged();
+            }
+        }
+        private global::System.String _song_URL_RTMP;
+        partial void Onsong_URL_RTMPChanging(global::System.String value);
+        partial void Onsong_URL_RTMPChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String song_Copyright
+        {
+            get
+            {
+                return _song_Copyright;
+            }
+            set
+            {
+                Onsong_CopyrightChanging(value);
+                ReportPropertyChanging("song_Copyright");
+                _song_Copyright = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("song_Copyright");
+                Onsong_CopyrightChanged();
+            }
+        }
+        private global::System.String _song_Copyright;
+        partial void Onsong_CopyrightChanging(global::System.String value);
+        partial void Onsong_CopyrightChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 song_Track_Number_
+        {
+            get
+            {
+                return _song_Track_Number_;
+            }
+            set
+            {
+                Onsong_Track_Number_Changing(value);
+                ReportPropertyChanging("song_Track_Number_");
+                _song_Track_Number_ = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("song_Track_Number_");
+                Onsong_Track_Number_Changed();
+            }
+        }
+        private global::System.Int32 _song_Track_Number_;
+        partial void Onsong_Track_Number_Changing(global::System.Int32 value);
+        partial void Onsong_Track_Number_Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String song_streamURLWithVocal
+        {
+            get
+            {
+                return _song_streamURLWithVocal;
+            }
+            set
+            {
+                Onsong_streamURLWithVocalChanging(value);
+                ReportPropertyChanging("song_streamURLWithVocal");
+                _song_streamURLWithVocal = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("song_streamURLWithVocal");
+                Onsong_streamURLWithVocalChanged();
+            }
+        }
+        private global::System.String _song_streamURLWithVocal;
+        partial void Onsong_streamURLWithVocalChanging(global::System.String value);
+        partial void Onsong_streamURLWithVocalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String streamURLWithoutVocal
+        {
+            get
+            {
+                return _streamURLWithoutVocal;
+            }
+            set
+            {
+                OnstreamURLWithoutVocalChanging(value);
+                ReportPropertyChanging("streamURLWithoutVocal");
+                _streamURLWithoutVocal = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("streamURLWithoutVocal");
+                OnstreamURLWithoutVocalChanged();
+            }
+        }
+        private global::System.String _streamURLWithoutVocal;
+        partial void OnstreamURLWithoutVocalChanging(global::System.String value);
+        partial void OnstreamURLWithoutVocalChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="singinghistory")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class singinghistory : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new singinghistory object.
+        /// </summary>
+        /// <param name="singinghistory_id">Initial value of the singinghistory_id property.</param>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="song_id">Initial value of the song_id property.</param>
+        /// <param name="artist_id">Initial value of the artist_id property.</param>
+        /// <param name="singinghistory_date">Initial value of the singinghistory_date property.</param>
+        public static singinghistory Createsinginghistory(global::System.Int32 singinghistory_id, global::System.Int32 user_id, global::System.Int32 song_id, global::System.Int32 artist_id, global::System.DateTime singinghistory_date)
+        {
+            singinghistory singinghistory = new singinghistory();
+            singinghistory.singinghistory_id = singinghistory_id;
+            singinghistory.user_id = user_id;
+            singinghistory.song_id = song_id;
+            singinghistory.artist_id = artist_id;
+            singinghistory.singinghistory_date = singinghistory_date;
+            return singinghistory;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 singinghistory_id
+        {
+            get
+            {
+                return _singinghistory_id;
+            }
+            set
+            {
+                if (_singinghistory_id != value)
+                {
+                    Onsinginghistory_idChanging(value);
+                    ReportPropertyChanging("singinghistory_id");
+                    _singinghistory_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("singinghistory_id");
+                    Onsinginghistory_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _singinghistory_id;
+        partial void Onsinginghistory_idChanging(global::System.Int32 value);
+        partial void Onsinginghistory_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private global::System.Int32 _user_id;
+        partial void Onuser_idChanging(global::System.Int32 value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 song_id
+        {
+            get
+            {
+                return _song_id;
+            }
+            set
+            {
+                Onsong_idChanging(value);
+                ReportPropertyChanging("song_id");
+                _song_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("song_id");
+                Onsong_idChanged();
+            }
+        }
+        private global::System.Int32 _song_id;
+        partial void Onsong_idChanging(global::System.Int32 value);
+        partial void Onsong_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 artist_id
+        {
+            get
+            {
+                return _artist_id;
+            }
+            set
+            {
+                Onartist_idChanging(value);
+                ReportPropertyChanging("artist_id");
+                _artist_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("artist_id");
+                Onartist_idChanged();
+            }
+        }
+        private global::System.Int32 _artist_id;
+        partial void Onartist_idChanging(global::System.Int32 value);
+        partial void Onartist_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime singinghistory_date
+        {
+            get
+            {
+                return _singinghistory_date;
+            }
+            set
+            {
+                Onsinginghistory_dateChanging(value);
+                ReportPropertyChanging("singinghistory_date");
+                _singinghistory_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("singinghistory_date");
+                Onsinginghistory_dateChanged();
+            }
+        }
+        private global::System.DateTime _singinghistory_date;
+        partial void Onsinginghistory_dateChanging(global::System.DateTime value);
+        partial void Onsinginghistory_dateChanged();
 
         #endregion
 
@@ -2327,6 +2763,54 @@ namespace SingSpaze.Models
         private global::System.String _user_avartar;
         partial void Onuser_avartarChanging(global::System.String value);
         partial void Onuser_avartarChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String user_token
+        {
+            get
+            {
+                return _user_token;
+            }
+            set
+            {
+                Onuser_tokenChanging(value);
+                ReportPropertyChanging("user_token");
+                _user_token = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("user_token");
+                Onuser_tokenChanged();
+            }
+        }
+        private global::System.String _user_token;
+        partial void Onuser_tokenChanging(global::System.String value);
+        partial void Onuser_tokenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String user_retoken
+        {
+            get
+            {
+                return _user_retoken;
+            }
+            set
+            {
+                Onuser_retokenChanging(value);
+                ReportPropertyChanging("user_retoken");
+                _user_retoken = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("user_retoken");
+                Onuser_retokenChanged();
+            }
+        }
+        private global::System.String _user_retoken;
+        partial void Onuser_retokenChanging(global::System.String value);
+        partial void Onuser_retokenChanged();
 
         #endregion
 
