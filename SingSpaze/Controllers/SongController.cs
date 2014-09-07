@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data.EntityClient;
 using System.Globalization;
+using System.IO;
+
 
 namespace SingSpaze.Controllers
 {
@@ -25,16 +27,16 @@ namespace SingSpaze.Controllers
 
         public ActionResult Index()
         {
-            List<Song> song = (from x in db.publisher_song
+            List<Song> song = (from x in db.song
                               select new Song
                                  {
                                        Id = x.song_id,
                                        Name = x.song_originName,
                                        Album = db.album.FirstOrDefault(a => a.album_id == x.song_albumId ).album_description_th,
-                                       Artist = db.publisher_artist.FirstOrDefault(ar => ar.artist_id == x.song_artistId).artist_description_th,
+                                       Artist = db.artist.FirstOrDefault(ar => ar.artist_id == x.song_artistId).artist_description_th,
                                        Language = db.language.FirstOrDefault(l => l.language_id == x.song_languageId).language_description,
                                        Genre = db.genre.FirstOrDefault(g => g.genre_id == x.song_genre).genre_description,
-                                       Publisher = db.publisher.FirstOrDefault(p => p.recordlabel_id == x.song_publisherId).recordlabel_description,
+                                       Publisher = db.publisher.FirstOrDefault(p => p.publisher_id == x.song_publisherId).publisher_description,
                                        Length = x.song_length,
                                        Status = x.song_status
                                    }).OrderByDescending(x => x.Id).ToList();
@@ -78,7 +80,7 @@ namespace SingSpaze.Controllers
 
             editsong.AlbumList = new SelectList(ListAlbum, "Value", "Text");
 
-            List<SelectListItem> ListArtist = (from x in db.publisher_artist.ToList()
+            List<SelectListItem> ListArtist = (from x in db.artist.ToList()
                                                select new SelectListItem
                                                {
                                                    Value = x.artist_id.ToString(),
@@ -86,21 +88,21 @@ namespace SingSpaze.Controllers
                                                }).ToList();
             editsong.ArtistList = new SelectList(ListArtist, "Value", "Text");
 
-            List<SelectListItem> ListContentPartner = (from x in db.contentpartner.ToList()
-                                                       select new SelectListItem
-                                                       {
-                                                           Value = x.contentpartner_id.ToString(),
-                                                           Text = x.contentpartner_description
-                                                       }).ToList();
+           // List<SelectListItem> ListContentPartner = (from x in db.contentpartner.ToList()
+           //                                            select new SelectListItem
+           //                                            {
+           //                                               Value = x.contentpartner_id.ToString(),
+           //                                                Text = x.contentpartner_description
+           //                                            }).ToList();
 
 
-            editsong.ContentPartnerList = new SelectList(ListContentPartner, "Value", "Text");
+            //editsong.ContentPartnerList = new SelectList(ListContentPartner, "Value", "Text");
 
             List<SelectListItem> ListPublisher = (from x in db.publisher.ToList()
                                                     select new SelectListItem
                                                     {
-                                                        Value = x.recordlabel_id.ToString(),
-                                                        Text = x.recordlabel_description
+                                                        Value = x.publisher_id.ToString(),
+                                                        Text = x.publisher_description
                                                     }).ToList();
 
             editsong.PublisherList = new SelectList(ListPublisher, "Value", "Text");
@@ -116,7 +118,7 @@ namespace SingSpaze.Controllers
         {
             if (ModelState.IsValid)
             {
-                publisher_song addsong = new publisher_song();
+                song addsong = new song();
                 addsong.song_originName = song.Name_TH;
                 addsong.song_engName = song.Name_EN;
                 addsong.song_artistId = song.Artist;
@@ -125,12 +127,12 @@ namespace SingSpaze.Controllers
                 addsong.song_languageId = song.Language;
                 addsong.song_genre = song.Genre;
                 addsong.song_publisherId = song.Publisher;
-                addsong.song_length = Convert.ToDecimal(song.Length); //wrong for linq
+                addsong.song_length = song.Length; //wrong for linq
                 addsong.song_lyrics = song.Lyrics;
                 addsong.song_status = song.Status;
                 addsong.song_addedDate = DateTime.Now;
 
-                db.publisher_song.AddObject(addsong);
+                db.song.AddObject(addsong);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -143,7 +145,7 @@ namespace SingSpaze.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            publisher_song song = db.publisher_song.Single(s => s.song_id == id);
+            song song = db.song.Single(s => s.song_id == id);
             if (song == null)
             {
                 return HttpNotFound();
@@ -194,7 +196,7 @@ namespace SingSpaze.Controllers
 
             editsong.AlbumList = new SelectList(ListAlbum, "Value", "Text");
 
-            List<SelectListItem> ListArtist = (from x in db.publisher_artist.ToList()
+            List<SelectListItem> ListArtist = (from x in db.artist.ToList()
                                                select new SelectListItem
                                                {
                                                    Value = x.artist_id.ToString(),
@@ -202,24 +204,24 @@ namespace SingSpaze.Controllers
                                                }).ToList();
             editsong.ArtistList = new SelectList(ListArtist, "Value", "Text");
 
-            List<SelectListItem> ListContentPartner = (from x in db.contentpartner.ToList()
-                                                       select new SelectListItem
-                                                       {
-                                                           Value = x.contentpartner_id.ToString(),
-                                                           Text = x.contentpartner_description
-                                                       }).ToList();
+            //List<SelectListItem> ListContentPartner = (from x in db.contentpartner.ToList()
+            //                                           select new SelectListItem
+            //                                           {
+            //                                               Value = x.contentpartner_id.ToString(),
+            //                                               Text = x.contentpartner_description
+            //                                           }).ToList();
 
             
-            editsong.ContentPartnerList = new SelectList(ListContentPartner, "Value", "Text");
+            //editsong.ContentPartnerList = new SelectList(ListContentPartner, "Value", "Text");
 
-            List<SelectListItem> ListRecordLabel = (from x in db.publisher.ToList()
+            List<SelectListItem> ListPublisher = (from x in db.publisher.ToList()
                                                     select new SelectListItem
                                                     {
-                                                        Value = x.recordlabel_id.ToString(),
-                                                        Text = x.recordlabel_description
+                                                        Value = x.publisher_id.ToString(),
+                                                        Text = x.publisher_description
                                                     }).ToList();
 
-            editsong.PublisherList = new SelectList(ListRecordLabel, "Value", "Text");
+            editsong.PublisherList = new SelectList(ListPublisher, "Value", "Text");
 
             return View(editsong);
         }
@@ -234,7 +236,7 @@ namespace SingSpaze.Controllers
             {
                 //db.song.Attach(song);
                 //db.ObjectStateManager.ChangeObjectState(song, EntityState.Modified);
-                var updatesong = db.publisher_song.Single(s => s.song_id == song.Id);
+                var updatesong = db.song.Single(s => s.song_id == song.Id);
                 updatesong.song_originName = song.Name_TH;
                 updatesong.song_engName = song.Name_EN;
                 updatesong.song_artistId = song.Artist;
@@ -279,7 +281,7 @@ namespace SingSpaze.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            publisher_song song = db.publisher_song.Single(s => s.song_id == id);
+            song song = db.song.Single(s => s.song_id == id);
             if (song == null)
             {
                 return HttpNotFound();
@@ -293,10 +295,123 @@ namespace SingSpaze.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            publisher_song song = db.publisher_song.Single(s => s.song_id == id);
-            db.publisher_song.DeleteObject(song);
+            song song = db.song.Single(s => s.song_id == id);
+            db.song.DeleteObject(song);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public string import()
+        {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/import/"), fileName);
+                    file.SaveAs(path);
+
+                    singspazeEntities ldb = new singspazeEntities();
+                    var filepath = Path.Combine(Server.MapPath("~/Picture/song"));
+                    var address = Request.ServerVariables["REMOTE_ADDR"] + @"\Picture\song";
+                    var sql = @"LOAD DATA  INFILE  '" + path.Replace(@"\", @"\\") +@"' IGNORE INTO TABLE  `csv` CHARACTER SET 'tis620' FIELDS TERMINATED BY  ',' ENCLOSED BY  '" + '"' + "' ESCAPED BY  '" + @"\\" + "' LINES TERMINATED BY  '" + @"\r\n" + "' IGNORE 1 LINES;";
+                    ldb.ExecuteStoreCommand("TRUNCATE TABLE  `csv`");
+                    ldb.ExecuteStoreCommand(sql);
+
+                    ldb.ExecuteStoreCommand(@"UPDATE `csv` SET `Photo`= concat('" + address.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ',''));");
+                    ldb.ExecuteStoreCommand(@"UPDATE `csv` SET `Lyrics`= concat(concat('" + filepath.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ','')),'\\lyrics.txt');");
+
+                    //Lyrics
+                    string lyrics = "";
+                    string lsql = "";
+                    IEnumerable<string> resultsstring = ldb.ExecuteStoreQuery<string>(@"select Lyrics from csv;");
+                    foreach (string data in resultsstring)
+                    {
+                        try
+                        {
+                            using (StreamReader sr = new StreamReader(data.Replace(@"\", @"\\")))
+                            {
+                                try
+                                {
+                                    lyrics = sr.ReadToEnd();
+
+                                    lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '" + lyrics + "' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
+                                }
+                                catch (Exception e)
+                                {
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
+                        }
+                        
+                    }
+                    ldb.ExecuteStoreCommand(lsql);
+                    
+                    //add artist
+                    ldb.ExecuteStoreCommand(@"ALTER TABLE  `artist`ADD UNIQUE (`artist_description_th`,`artist_description_en`);");
+                    lsql = @"INSERT INTO artist (`artist_description_th`,`artist_description_en`) 
+                             SELECT distinct c.`Artist - TH`, c.`Artist - EN` 
+                             FROM csv as c
+                             ON DUPLICATE KEY UPDATE `artist_description_th`= c.`Artist - TH`,`artist_description_en`= c.`Artist - EN`;";
+                    ldb.ExecuteStoreCommand(lsql);
+
+                    //add album
+                    ldb.ExecuteStoreCommand(@"ALTER TABLE  `album`ADD UNIQUE (`album_description_th`,`album_description_en`);");
+                    lsql = @"INSERT INTO album (`album_description_th`,`album_description_en`) 
+                             SELECT distinct c.`Album - TH`, c.`Album - EN` 
+                             FROM csv as c
+                             ON DUPLICATE KEY UPDATE `album_description_th`= c.`Album - TH`,`album_description_en`= c.`Album - EN`;";
+                    ldb.ExecuteStoreCommand(lsql);
+
+                    //add language
+                    ldb.ExecuteStoreCommand(@"ALTER TABLE  `language`ADD UNIQUE (`language_description`);");
+                    lsql = @"INSERT INTO language (`language_description`) 
+                             SELECT distinct c.`Language` 
+                             FROM csv as c
+                             ON DUPLICATE KEY UPDATE `language_description`= c.`Language`;";
+                    ldb.ExecuteStoreCommand(lsql);
+
+                    //add genres
+                    ldb.ExecuteStoreCommand(@"ALTER TABLE  `genre`ADD UNIQUE (`genre_description`);");
+                    lsql = @"INSERT INTO genre (`genre_description`) 
+                             SELECT distinct c.`Genres` 
+                             FROM csv as c
+                             ON DUPLICATE KEY UPDATE `genre_description`= c.`Genres`;";
+                    ldb.ExecuteStoreCommand(lsql);
+
+                    //add publisher
+                    ldb.ExecuteStoreCommand(@"ALTER TABLE  `publisher`ADD UNIQUE (`publisher_description`);");
+                    lsql = @"INSERT INTO publisher (`publisher_description`) 
+                             SELECT distinct c.`Publisher` 
+                             FROM csv as c
+                             ON DUPLICATE KEY UPDATE `publisher_description`= c.`Publisher`;";
+                    ldb.ExecuteStoreCommand(lsql);
+
+                    //add song
+                    lsql = @"INSERT INTO `song`(`song_originName`, `song_engName`, `song_genre`, `song_languageId`, `song_albumId`, `song_artistId`, `song_length`, `song_lyrics`, `song_publisherId`, `song_picture`, `song_status`, `song_addedDate`, `song_price`, `song_URL_iOS`, `song_URL_Android/Other`, `song_URL_RTMP`, `song_Copyright`, `song_Track Number`,`song_releasedDate`)   
+                             SELECT distinct c.`Title - TH`,c.`Title - EN`,
+                             (select genre_id from genre where genre_description = c.Genres),
+                             (select language_id from language where language_description = c.Language),
+                             (select album_id from album where album_description_th = c.`Album - TH`),
+                             (select artist_id from artist where artist_description_th = c.`Artist - TH`),
+                             c.Length,c.Lyrics,
+                             (select publisher_id from publisher where publisher_description = c.`Publisher`),
+                             c.Photo,1,now(),c.Price,c.`URL iOS`, c.`URL Android/Other`, c.`URL RTMP`, c.`Copyright`, c.`Track Number`,now()
+                             FROM csv as c;";
+                    ldb.ExecuteStoreCommand(lsql);
+
+                    return "Export complete";
+                    
+                }
+            }
+
+            return "tester";
         }
 
         protected override void Dispose(bool disposing)

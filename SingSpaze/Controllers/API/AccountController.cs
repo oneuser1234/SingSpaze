@@ -15,6 +15,9 @@ using SingSpaze.Models.Output;
 using System.Security.Cryptography;
 using System.Text;
 using SingSpaze.Models.Input;
+using System.Diagnostics;
+using System.IO;
+
 
 
 namespace SingSpaze.Controllers.API
@@ -125,7 +128,7 @@ namespace SingSpaze.Controllers.API
 
             
             user checkuser = new user();
-            checkuser = db.user.FirstOrDefault(u => u.user_fbUserId == i_data.fbUserId || u.user_email == i_data.Email);
+            checkuser = db.user.FirstOrDefault(u => u.user_fbUserId == i_data.fbUserId);
 
             if (checkuser != null)
             {
@@ -343,13 +346,13 @@ namespace SingSpaze.Controllers.API
                 
                 return new O_Profile()
                 {
-                    userdata =  new userdata()
+                    userdata =  new Userdata()
                     {
                         id = userdata.user_id,
-                        Email = userdata.user_email,
+                        email = userdata.user_email,
                         fbUserId = userdata.user_fbUserId,
-                        Firstname = userdata.user_firstname,
-                        Lastname = userdata.user_lastname,
+                        firstname = userdata.user_firstname,
+                        lastname = userdata.user_lastname,
                         username = userdata.user_login,
                         avatar = userdata.user_avartar
                     }
@@ -571,5 +574,103 @@ namespace SingSpaze.Controllers.API
             }
             
         }
+
+
+        /// <summary>
+        /// Upload Profile Picture
+        /// </summary>
+        /// <returns>Class O_upload</returns>
+        [HttpPost]
+        [ActionName("UploadProfilePic")]
+        public O_Upload UploadProfilePic()
+        {
+            Logindata logindata = new Logindata();
+            var httpRequest = HttpContext.Current.Request;
+
+
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return new O_Upload()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
+
+
+            foreach (var val in httpRequest.Form.GetValues("token"))
+                {
+                    logindata = new Logindata()
+                            {
+                                token = val
+                            };                    
+                }
+            
+
+
+            if (Useful.checklogin(logindata) != null)
+            {
+                return new O_Upload()
+                {
+                    errordata = Useful.checklogin(logindata)
+                };
+            }
+
+            user userdata = db.user.SingleOrDefault(u => u.user_token == logindata.token);
+
+            if (userdata == null)
+            {
+                return new O_Upload()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 6,
+                        Detail = Useful.geterrordata(6)
+                    }
+                };
+            }
+
+            if (httpRequest.Files.Count > 0)
+            {
+                
+                var docfiles = new List<string>();
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    string filename = userdata.user_id + "_profile_256_256.jpg";
+                    var filePath = HttpContext.Current.Server.MapPath("~/Picture/" + filename);
+                    postedFile.SaveAs(filePath);
+
+                    docfiles.Add(filePath);
+
+                    //add database
+                    userdata.user_avartar = "Picture/" + filename;
+
+                    db.SaveChanges();
+                }
+                return new O_Upload()
+                {
+                    result = true   
+                };
+            }
+            else
+            {
+                return new O_Upload()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
+            
+        }
+
+        
+        
     }
 }

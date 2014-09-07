@@ -39,12 +39,12 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<playlistdata> o_listdata = new List<playlistdata>();
+            List<Playlistdata> o_listdata = new List<Playlistdata>();
             List<playlist> listplaylistdata = db.playlist.OrderBy(p => p.playlist_id).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
 
             foreach (playlist data in listplaylistdata)
             {
-                playlistdata playlistdata = new playlistdata();
+                Playlistdata playlistdata = new Playlistdata();
                 playlistdata.id = data.playlist_id;
                 playlistdata.description = data.playlist_description;
 
@@ -97,36 +97,35 @@ namespace SingSpaze.Controllers.API
                 songlist.Add(data.song_id);
             }
 
-            List<Songdata> o_listdata = new List<Songdata>();
+            List<Listsongdata> o_listdata = new List<Listsongdata>();
 
-            List<publisher_song> listsong = db.publisher_song.Where(s => songlist.Contains(s.song_id)).OrderBy(p => p.song_id).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
-            foreach (publisher_song data in listsong)
+            List<song> listsong = db.song.Where(s => songlist.Contains(s.song_id)).OrderBy(p => p.song_id).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            foreach (song data in listsong)
             {
-                Songdata songdata = new Songdata()
+                Listsongdata songdata = new Listsongdata()
                 {
                     id = data.song_id,
+                    originName = data.song_originName,
                     engName = data.song_engName,
-                    originName = data.song_originName,                    
-                    lyrics = data.song_lyrics,
-                    picture = data.song_picture,
                     price = data.song_price,
-                    releasedDate = data.song_releasedDate,
-                    thumbnail = data.song_thumbnail,
-                    view = data.song_view,
+                    //thumbnail = data.song_thumbnail,
+                    URL_picture = data.song_URL_picture,
+                    view = Useful.getview(data.song_id),
 
-                    languagedata = Useful.getlanguagedata(data.song_languageId),
+                    //languagedata = Useful.getlanguagedata(data.song_languageId),
                     albumdata = Useful.getalbumdata(data.song_albumId),
                     artistdata = Useful.getartistdata(data.song_artistId),
                     genredata = Useful.getgenredata(data.song_genre),
                     publisherdata = Useful.getpublisherdata(data.song_publisherId),
-                    contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
+                    //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId),
+                    
                 };
                 o_listdata.Add(songdata);
             }
 
             return new O_PlayList()
             {
-                playlists = o_listdata 
+                songlists = o_listdata 
             };
 
         }

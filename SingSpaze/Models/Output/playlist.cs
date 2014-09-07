@@ -13,7 +13,7 @@ namespace SingSpaze.Models.Output
         /// <summary>
         /// List class playlistdata
         /// </summary>
-        public List<playlistdata> playlists { get; set; }
+        public List<Playlistdata> playlists { get; set; }
         /// <summary>
         /// Class errordata
         /// </summary>
@@ -25,9 +25,9 @@ namespace SingSpaze.Models.Output
     public class O_PlayList
     {
         /// <summary>
-        /// List class songdata
+        /// List class Listsongdata
         /// </summary>
-        public List<Songdata> playlists { get; set; }
+        public List<Listsongdata> songlists { get; set; }
         /// <summary>
         /// Class errordata
         /// </summary>

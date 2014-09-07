@@ -5,6 +5,8 @@ using System.Web.Http;
 using SingSpaze.Models;
 using SingSpaze.Models.Input;
 using SingSpaze.Models.Output;
+using System.Security.Cryptography;
+using System.Web;
 
 namespace SingSpaze.Controllers.API
 {
@@ -37,23 +39,29 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<publisher_song> listsong = new List<publisher_song>();
+            List<song> listsong = new List<song>();
 
             var before = DateTime.Now.AddDays(-i_data.time);
+            var grouphistorysong = from history in db.viewhistory
+                                   where history.ViewHistory_Date > before
+                                   group history by history.Song_Id into ghistory
+                                   select new { song_id = ghistory.Key, count = ghistory.Count() };
 
             // order
             if (string.IsNullOrEmpty(i_data.type))
-                listsong = db.publisher_song.OrderByDescending(s => s.song_id).ToList();
-            else if (i_data.type == "new")
-                listsong = db.publisher_song.Where(s => s.song_releasedDate > before).OrderByDescending(s => s.song_releasedDate).ToList();
-            else if (i_data.type == "hot")
+                listsong = db.song.OrderBy(s => s.song_originName).ToList();
+            else if (i_data.type.ToLower() == "new")
+                listsong = db.song.Where(s => s.song_releasedDate > before).OrderByDescending(s => s.song_releasedDate).ToList();
+            else if (i_data.type.ToLower() == "hot")
             {
-               var grouphistorysong = from history in db.singinghistory
-                                      where history.singinghistory_date > before
-                                      group history by history.song_id into ghistory
-                                      select new { song_id = ghistory.Key, count = ghistory.Count()};
+               //var grouphistorysong = from history in db.singinghistory
+               //                        where history.singinghistory_date > before
+               //                        group history by history.song_id into ghistory
+               //                        select new { song_id = ghistory.Key, count = ghistory.Count() };
 
-               var joinhistory = from dbsong in db.publisher_song.AsEnumerable()
+               
+
+               var joinhistory = from dbsong in db.song.AsEnumerable()
                                   join history in grouphistorysong.AsEnumerable()
                                   on dbsong.song_id equals history.song_id
                                   orderby history.count descending
@@ -66,16 +74,43 @@ namespace SingSpaze.Controllers.API
             //else if (i_data.type == "recommend")
             //    listsong = db.song.ToList();
 
-            
+            //active and langage
+            listsong = listsong.Where(s => s.song_status == 1 && s.song_languageId == i_data.language_id).ToList();
+
+
             // where 
-            if (i_data.genre_id != null)
-                listsong = listsong.Where(s => Useful.getlistdata(i_data.genre_id).Contains(s.song_genre)).ToList();
+            //if (i_data.genre_id != null)
+            //    listsong = listsong.Where(s => Useful.getlistdata(i_data.genre_id).Contains(s.song_genre)).ToList();
             if (i_data.artist_id != null)
                 listsong = listsong.Where(s => Useful.getlistdata(i_data.artist_id).Contains(s.song_artistId)).ToList();
             if (i_data.album_id != null)
                 listsong = listsong.Where(s => Useful.getlistdata(i_data.album_id).Contains(s.song_albumId)).ToList();
-            if (i_data.language_id != null)
-                listsong = listsong.Where(s => Useful.getlistdata(i_data.language_id).Contains(s.song_languageId)).ToList();
+            //if (i_data.language_id != null)
+            //    listsong = listsong.Where(s => Useful.getlistdata(i_data.language_id).Contains(s.song_languageId)).ToList();
+            if(i_data.categories != null)
+            {
+                List<int> categories_id = new List<int>();
+                if(i_data.categories.ToLower() == "others")
+                {
+                    //others
+                    //categories_id = db.genre.Select(g => g.genre_id).ToList();
+                    string data = "pop,rock,classic";
+                    List<string> others = new List<string>();
+                    string[] arraydata = data.Split(',');
+
+                    foreach (string stringdata in arraydata)
+                        others.Add(stringdata);
+
+                    categories_id = db.genre.Where(g => others.Contains(g.genre_description.ToLower())).Select(g => g.genre_id).ToList();
+                    listsong = listsong.Where(s => !categories_id.Contains(s.song_genre)).ToList();
+                }else
+                {
+                    categories_id = db.genre.Where(g => g.genre_description.ToLower() == i_data.categories.ToLower()).Select(g => g.genre_id).ToList();
+                    if (categories_id.Count != 0)
+                        listsong = listsong.Where(s => categories_id.Contains(s.song_genre)).ToList();
+                }
+                
+            }
 
             int resultNumber = listsong.Count();
             // skip take
@@ -95,24 +130,29 @@ namespace SingSpaze.Controllers.API
 
             List<Listsongdata> o_song = new List<Listsongdata>();
 
-            foreach (publisher_song data in listsong)
+            foreach (song data in listsong)
             {
+                int view = Useful.getview(data.song_id); //all time
+                if (i_data.type == "hot")
+                    view = grouphistorysong.Where(s => s.song_id == data.song_id).Select(s => s.count).SingleOrDefault();
+
                 o_song.Add(new Listsongdata()
                     {
                         id = data.song_id,
                         originName = data.song_originName,
                         engName = data.song_engName,
                         price = data.song_price,
-                        thumbnail = data.song_thumbnail,
-                        picture = data.song_picture,
-                        view = data.song_view,
+                        //thumbnail = data.song_thumbnail,
+                        URL_picture = data.song_URL_picture,
+                        view = view,
+                        length = data.song_length,
 
-                        languagedata = Useful.getlanguagedata(data.song_languageId),
+                        //languagedata = Useful.getlanguagedata(data.song_languageId),
                         albumdata = Useful.getalbumdata(data.song_albumId),
                         artistdata = Useful.getartistdata(data.song_artistId),
                         genredata = Useful.getgenredata(data.song_genre),
                         publisherdata = Useful.getpublisherdata(data.song_publisherId),
-                        contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
+                        //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
                     });
             }
 
@@ -153,8 +193,8 @@ namespace SingSpaze.Controllers.API
                     errordata = Useful.checklogin(i_data.logindata)
                 };
             }
-
-            publisher_song datasong = db.publisher_song.FirstOrDefault(u => u.song_id == i_data.id);
+            int user_id = Useful.getuserid(i_data.logindata.token);
+            song datasong = db.song.FirstOrDefault(u => u.song_id == i_data.id);
 
             //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, datauser);
 
@@ -172,18 +212,55 @@ namespace SingSpaze.Controllers.API
             }
 
             //update song
-            datasong.song_view = datasong.song_view + 1;
+            //datasong.song_view = datasong.song_view + 1;
+            //update artist
+            //artist dataartist = db.artist.FirstOrDefault(a => a.artist_id == datasong.song_artistId);
+            //dataartist.artist_view = dataartist.artist_view + 1;
 
             //add singinghistory
-            singinghistory history = new singinghistory()
+            singinghistory singhistory = new singinghistory()
             {
                 song_id = i_data.id,
-                user_id = Useful.getuserid(i_data.logindata.token),
+                user_id = user_id,
                 artist_id = datasong.song_artistId,
                 singinghistory_date = DateTime.Now
             };
-            db.singinghistory.AddObject(history);
+            db.singinghistory.AddObject(singhistory);
 
+            viewhistory lastview = db.viewhistory.Where(v =>  v.Song_Id == i_data.id).OrderByDescending(v => v.ViewHistory_Date).FirstOrDefault();
+            //DateTime lastview = view.ViewHistory_Date;
+
+            if (lastview == null || lastview.ViewHistory_Date.Day != DateTime.Now.Day || lastview.ViewHistory_Date.Month != DateTime.Now.Month)
+            {
+                //add viewhistory
+                viewhistory viewhistory = new viewhistory()
+                {
+                    Song_Id = i_data.id,
+                    User_Id = user_id,
+                    ViewHistory_Date = DateTime.Now
+                };
+                db.viewhistory.AddObject(viewhistory);
+            }
+
+            //add WTBtoken
+
+            string Token = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString() + i_data.id.ToString() + user_id.ToString() + "song");
+            wtbtokens wtbtokens = new wtbtokens()
+            {
+                user_id = user_id,
+                WTBTokens_token = Token,
+                WTBTokens_ipaddress = HttpContext.Current.Request.UserHostAddress,
+                //WTBTokens_timestamp = DateTime.Now
+            };
+            wtbtokens lasttoken = db.wtbtokens.Where(w => w.user_id == user_id).FirstOrDefault();
+            if (lasttoken != null)
+            {
+                lasttoken.user_id = wtbtokens.user_id;
+                lasttoken.WTBTokens_token = wtbtokens.WTBTokens_token;
+                lasttoken.WTBTokens_ipaddress = wtbtokens.WTBTokens_ipaddress;
+            }
+            else
+                db.wtbtokens.AddObject(wtbtokens);
             //save
             db.SaveChanges();
             
@@ -194,27 +271,27 @@ namespace SingSpaze.Controllers.API
                 engName = datasong.song_engName,
                 originName = datasong.song_originName,
                 lyrics = datasong.song_lyrics,
-                picture = datasong.song_picture,
+                URL_picture = datasong.song_URL_picture,
                 price = datasong.song_price,
                 releasedDate = datasong.song_releasedDate,
-                thumbnail = datasong.song_thumbnail,
-                view = datasong.song_view,
-                filePath = datasong.song_filePath,
+                //thumbnail = datasong.song_thumbnail,
+                view = Useful.getview(datasong.song_id),
+                //filePath = datasong.song_filePath,
                 length = datasong.song_length,
-                keywords = datasong.song_keywords,
+                //keywords = datasong.song_keywords,
 
                 //url
-                url_iOS = datasong.song_URL_iOS,
-                url_Android_Other = datasong.song_URL_Android_Other,
-                url_RTMP = datasong.song_URL_RTMP,
+                url_iOS = datasong.song_URL_iOS + "?token=" +Token,
+                url_Android_Other = datasong.song_URL_Android_Other + "?token=" + Token,
+                url_RTMP = datasong.song_URL_RTMP + "?token=" + Token,
 
                 //data
-                languagedata = Useful.getlanguagedata(datasong.song_languageId),
+                //languagedata = Useful.getlanguagedata(datasong.song_languageId),
                 albumdata = Useful.getalbumdata(datasong.song_albumId),
                 artistdata = Useful.getartistdata(datasong.song_artistId),
                 genredata = Useful.getgenredata(datasong.song_genre),
                 publisherdata = Useful.getpublisherdata(datasong.song_publisherId),
-                contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+                //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
                 
             };
 
@@ -250,28 +327,33 @@ namespace SingSpaze.Controllers.API
             if (i_data.keyword == null)
                 i_data.keyword = "";
 
-            List<publisher_song> listsong = new List<publisher_song>();
+            List<song> listsong = new List<song>();
 
-            listsong = (from dbsong in db.publisher_song.ToList()
-                       join dbartist in db.publisher_artist.ToList()
+            listsong = (from dbsong in db.song.ToList()
+                       join dbartist in db.artist.ToList()
                        on dbsong.song_artistId equals dbartist.artist_id
                        join dbalbum in db.album.ToList()
                        on dbsong.song_albumId equals dbalbum.album_id
-                       where dbsong.song_status == 1
+                       where dbsong.song_status == 1 && dbsong.song_languageId == i_data.language_id
                        orderby dbsong.song_view descending
                        select dbsong).ToList();
                        
 
 
             // where 
-            if (i_data.type == "Artist")
-                listsong = listsong.Where(s => Useful.getartistdata(s.song_artistId).description_TH.Contains(i_data.keyword)).ToList();
-            else if (i_data.type == "Album")
-                listsong = listsong.Where(s => Useful.getalbumdata(s.song_albumId).description_TH.Contains(i_data.keyword)).ToList();
-            else if (i_data.type == "Lyrics")
-                listsong = listsong.Where(s => s.song_lyrics.Contains(i_data.keyword)).ToList();
-            else //song name
-                listsong = listsong.Where(s => s.song_originName.Contains(i_data.keyword)).ToList();
+            if (i_data.type != null)
+            {
+                if (i_data.type.ToLower() == "artist")
+                    listsong = listsong.Where(s => Useful.getartistdata(s.song_artistId).description_TH.Contains(i_data.keyword)).ToList();
+                else if (i_data.type.ToLower() == "album")
+                    listsong = listsong.Where(s => Useful.getalbumdata(s.song_albumId).description_TH.Contains(i_data.keyword)).ToList();
+                else if (i_data.type.ToLower() == "lyrics")
+                    listsong = listsong.Where(s => s.song_lyrics.Contains(i_data.keyword)).ToList();
+                else if (i_data.type.ToLower() == "song name")
+                    listsong = listsong.Where(s => s.song_originName.Contains(i_data.keyword) || s.song_engName.ToLower().Contains(i_data.keyword.ToLower())).ToList();
+            }
+            else //null will be song name
+                listsong = listsong.Where(s => s.song_originName.Contains(i_data.keyword) || s.song_engName.ToLower().Contains(i_data.keyword.ToLower())).ToList();
             
                     
 
@@ -294,7 +376,7 @@ namespace SingSpaze.Controllers.API
 
             List<Listsongdata> o_song = new List<Listsongdata>();
 
-            foreach (publisher_song data in listsong)
+            foreach (song data in listsong)
             {
                 o_song.Add(new Listsongdata()
                 {
@@ -302,16 +384,17 @@ namespace SingSpaze.Controllers.API
                     originName = data.song_originName,
                     engName = data.song_engName,
                     price = data.song_price,
-                    thumbnail = data.song_thumbnail,
-                    picture = data.song_picture,
-                    view = data.song_view,
+                    //thumbnail = data.song_thumbnail,
+                    URL_picture = data.song_URL_picture,
+                    view = Useful.getview(data.song_id),
+                    length = data.song_length,
 
-                    languagedata = Useful.getlanguagedata(data.song_languageId),
+                    //languagedata = Useful.getlanguagedata(data.song_languageId),
                     albumdata = Useful.getalbumdata(data.song_albumId),
                     artistdata = Useful.getartistdata(data.song_artistId),
                     genredata = Useful.getgenredata(data.song_genre),
                     publisherdata = Useful.getpublisherdata(data.song_publisherId),
-                    contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
+                    //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
                 });
             }
 

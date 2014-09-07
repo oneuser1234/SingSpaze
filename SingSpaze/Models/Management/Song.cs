@@ -15,7 +15,7 @@ namespace SingSpaze.Models.Management
         public string Language { get; set; }
         public string Genre { get; set; }
         public string Publisher { get; set; }
-        public decimal Length { get; set; }
+        public string Length { get; set; }
         public int Status { get; set; }
     }
 
@@ -29,7 +29,7 @@ namespace SingSpaze.Models.Management
         public int Album { get; set; }
         public int Language { get; set; }
         public string ReleasedDate { get; set; }
-        public decimal Length { get; set; }
+        public string Length { get; set; }
         public int Genre { get; set; }
         public int Publisher { get; set; }
         public string Lyrics { get; set; }

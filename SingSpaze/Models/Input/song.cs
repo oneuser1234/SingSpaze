@@ -13,15 +13,15 @@ namespace SingSpaze.Models.Input
     public class I_SongList
     {
         /// <summary>
-        /// Type of order this list allow "new,hot" (defult was null)
+        /// Type of order this list allow "new,hot" (default = null)
         /// </summary>
         [DataMember(Name = "type")]
         public string type { get; set; }
         /// <summary>
         /// Focus in genere_id (optinal)
         /// </summary>
-        [DataMember(Name = "genre_id")]
-        public string genre_id { get; set; }
+        //[DataMember(Name = "genre_id")]
+        //public string genre_id { get; set; }
         /// <summary>
         /// Focus in album_id (optinal)
         /// </summary>
@@ -32,15 +32,23 @@ namespace SingSpaze.Models.Input
         /// </summary>
         [DataMember(Name = "artist_id")]
         public string artist_id { get; set; }
+
+        int _language_id = 1;
         /// <summary>
-        /// Focus in language_id (optinal)
+        /// Focus in language_id (default = 1)
         /// </summary>
         [DataMember(Name = "language_id")]
-        public string language_id { get; set; }
+        public int language_id { get { return _language_id; } set { this._language_id = value; } }
+         /// <summary>
+        /// Focus in categories allow 'pop,rock,luktung,other' (default = null)
+        /// </summary>
+        [DataMember(Name = "categories")]
+        public string categories { get; set; }
+        
 
         int _time = 30;
         /// <summary>
-        /// Number or day to focus (defult was 30)
+        /// Number or day to focus (default = 30)
         /// </summary>
         [DataMember(Name = "time")]
         public int time { get { return _time; } set { this._time = value; } }
@@ -78,15 +86,23 @@ namespace SingSpaze.Models.Input
     public class I_SearchSong
     {
         /// <summary>
-        /// Keywoard data (defult was null)
+        /// Keyword data (default = null)
         /// </summary>
         [DataMember(Name = "keyword")]
         public string keyword { get; set; }
         /// <summary>
-        /// Type of search allow "Artist,Album,Lyrics,Song name" (defult was Song name)
+        /// Type of search allow "Artist,Album,Lyrics,Song name" (default = Song name)
         /// </summary>
         [DataMember(Name = "type")]
         public string type { get; set; }
+
+        int _language_id = 1;
+        /// <summary>
+        /// Focus in language_id (default = 1)
+        /// </summary>
+        [DataMember(Name = "language_id")]
+        public int language_id { get { return _language_id; } set { this._language_id = value; } }
+
 
         Selectdata _selectdata = Useful.getbaseselectdata();
         /// <summary>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SingSpaze.Models.userdata>
+﻿@model IEnumerable<SingSpaze.Models.Userdata>
 
 @{
     ViewBag.Title = "User Lists";
@@ -41,10 +41,10 @@
             @Html.DisplayFor(modelItem => item.originName)
         </td>*@
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)  
+            @Html.DisplayFor(modelItem => item.firstname) @Html.DisplayFor(modelItem => item.lastname)  
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
-            @Html.DisplayFor(modelItem => item.Email)
+            @Html.DisplayFor(modelItem => item.email)
         </td>
         <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">
             @Html.DisplayFor(modelItem => item.fbUserId)

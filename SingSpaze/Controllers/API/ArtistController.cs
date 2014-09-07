@@ -38,23 +38,35 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<publisher_artist> listartist = new List<publisher_artist>();
+            List<artist> listartist = new List<artist>();
 
             var before = DateTime.Now.AddDays(-i_data.time);
 
+            //song_id to artist_id
+            var viewhistory = (from view in db.viewhistory
+                               join song in db.song
+                               on view.Song_Id equals song.song_id
+                               join artist in db.artist
+                               on song.song_artistId equals artist.artist_id
+                               select new { artist_id = artist.artist_id,date = view.ViewHistory_Date }).ToList();
+            //group and count artist_id
+            var groupartist = from history in viewhistory
+                              where history.date > before
+                              group history by history.artist_id into ghistory
+                              select new { artist_id = ghistory.Key, count = ghistory.Count() };
             // order
             if (string.IsNullOrEmpty(i_data.type))
-                listartist = db.publisher_artist.OrderBy(s => s.artist_id).ToList();
+                listartist = db.artist.OrderBy(s => s.artist_description_th).ToList();
             //else if (i_data.type == "new")
-            //    listartist = db.artist.Where(s => s.song_releasedDate > before).OrderByDescending(s => s.song_releasedDate).ToList();
+            //    listartist = db.artist.Where(s => s.song_releasedDate ?? DateTime.Now > before).OrderByDescending(s => s.song_releasedDate).ToList();
             else if (i_data.type == "hot")
             {
-                var groupartist = from history in db.singinghistory
-                                       where history.singinghistory_date > before
-                                       group history by history.artist_id into ghistory
-                                       select new { artist_id = ghistory.Key, count = ghistory.Count() };
+                //var groupartist = from history in db.singinghistory
+                //                       where history.singinghistory_date > before
+                //                       group history by history.artist_id into ghistory
+                //                       select new { artist_id = ghistory.Key, count = ghistory.Count() };
 
-                var joinhistory = from dbartist in db.publisher_artist.AsEnumerable()
+                var joinhistory = from dbartist in db.artist.AsEnumerable()
                                   join history in groupartist.AsEnumerable()
                                   on dbartist.artist_id equals history.artist_id
                                   orderby history.count descending
@@ -70,6 +82,10 @@ namespace SingSpaze.Controllers.API
             // where
             if(i_data.artist_id != null)
                 listartist = listartist.Where(a => Useful.getlistdata(i_data.artist_id).Contains(a.artist_id)).ToList();
+            if (i_data.artist_type != null)
+                listartist = listartist.Where(a => a.artist_type == i_data.artist_type).ToList();
+
+            int resultNumber = listartist.Count();
 
             // skip take
             listartist = listartist.Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
@@ -86,21 +102,79 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<Artistdata> o_artist = new List<Artistdata>();
+            List<Listartistdata> o_listartist = new List<Listartistdata>();
 
-            foreach (publisher_artist data in listartist)
+            foreach (artist data in listartist)
             {
-                o_artist.Add(new Artistdata()
+                int view = Useful.getview(data.artist_id,"artist"); // alltime
+                if(i_data.type == "hot")
+                    view = groupartist.Where(s => s.artist_id == data.artist_id).Select(s => s.count).SingleOrDefault();
+
+                o_listartist.Add(new Listartistdata()
                 {
                     id = data.artist_id,
                     description_TH = data.artist_description_th,
-                    description_EN = data.artist_description_en
+                    description_EN = data.artist_description_en,
+                    picture = data.artist_picture,
+                    artistType = data.artist_type,
+                    view = view
                 });
             }
-
+            
+           
             return new O_ArtistList()
             {
-                listartist = o_artist
+                resultNumber = resultNumber,
+                listartist = o_listartist
+            };
+        }
+
+        /// <summary>
+        /// Send artist id to get artist detail
+        /// </summary>
+        /// <param name="i_data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionName("Details")]
+        public O_ArtistDetails Details(I_ArtistDetails i_data)
+        {
+            if (i_data == null)
+            {
+                return new O_ArtistDetails()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
+
+            artist data = db.artist.FirstOrDefault(a => a.artist_id == i_data.id);
+
+            if (data == null)
+            {
+                return new O_ArtistDetails()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 6,
+                        Detail = Useful.geterrordata(6)
+                    }
+                };
+            }
+
+            return new O_ArtistDetails()
+            {
+                artistdata = new Artistdata()
+                {
+                    id = data.artist_id,
+                    description_TH = data.artist_description_th,
+                    description_EN = data.artist_description_en,
+                    artistType = data.artist_type,
+                    picture = data.artist_picture,
+                    songs = db.song.Where( s => s.song_artistId == data.artist_id).Count()
+                }
             };
         }
     }

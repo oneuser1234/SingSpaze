@@ -65,7 +65,7 @@ namespace SingSpaze.Models.Output
         /// <summary>
         /// Class userdata
         /// </summary>
-        public userdata userdata { get; set; }
+        public Userdata userdata { get; set; }
         /// <summary>
         /// Class errordata
         /// </summary>
@@ -103,6 +103,21 @@ namespace SingSpaze.Models.Output
     /// Class output data for reset
     /// </summary>
     public class O_Reset
+    {
+        /// <summary>
+        /// Return True or False
+        /// </summary>
+        public Boolean result { get; set; }
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
+
+    /// <summary>
+    /// Class output data for upload picture
+    /// </summary>
+    public class O_Upload
     {
         /// <summary>
         /// Return True or False

@@ -116,13 +116,13 @@ namespace SingSpaze.Models
             return new Selectdata()
             {
                 startindex = 1,
-                endindex = 5
+                endindex = 15
             };
         }
 
-        public static List<int> getlistdata(string data)
+        public static List<long> getlistdata(string data)
         {
-            List<int> response = new List<int>();
+            List<long> response = new List<long>();
             string[] arraydata = data.Split(',');
 
             foreach (string stringdata in arraydata)
@@ -149,14 +149,17 @@ namespace SingSpaze.Models
         public static Artistdata getartistdata(int id)
         {
             singspazeEntities db = new singspazeEntities();
-            publisher_artist data = db.publisher_artist.Where(a => a.artist_id == id).SingleOrDefault();
+            artist data = db.artist.Where(a => a.artist_id == id).SingleOrDefault();
             if (data == null)
                 return null;
             return new Artistdata()
             {
                 id = id,
                 description_TH = data.artist_description_th,
-                description_EN = data.artist_description_en
+                description_EN = data.artist_description_en,
+                picture = data.artist_picture,
+                artistType = data.artist_type,
+                songs = db.song.Where(s => s.song_artistId == data.artist_id).Count()
             };
 
         }
@@ -178,30 +181,30 @@ namespace SingSpaze.Models
         public static Publisherdata getpublisherdata(int id)
         {
             singspazeEntities db = new singspazeEntities();
-            publisher data = db.publisher.Where(a => a.recordlabel_id == id).SingleOrDefault();
+            publisher data = db.publisher.Where(a => a.publisher_id == id).SingleOrDefault();
             if (data == null)
                 return null;
             return new Publisherdata()
             {
                 id = id,
-                description = data.recordlabel_description
+                description = data.publisher_description
             };
 
         }
 
-        public static Contentpartnerdata getcontentpartnerdata(int id)
-        {
-            singspazeEntities db = new singspazeEntities();
-            contentpartner data = db.contentpartner.Where(a => a.contentpartner_id == id).SingleOrDefault();
-            if (data == null)
-                return null;
-            return new Contentpartnerdata()
-            {
-                id = id,
-                description = data.contentpartner_description
-            };
-
-        }
+        //public static Contentpartnerdata getcontentpartnerdata(int id)
+        //{
+        //    singspazeEntities db = new singspazeEntities();
+        //    contentpartner data = db.contentpartner.Where(a => a.contentpartner_id == id).SingleOrDefault();
+        //    if (data == null)
+        //        return null;
+        //    return new Contentpartnerdata()
+        //    {
+        //        id = id,
+        //        description = data.contentpartner_description
+        //    };
+        //
+        //}
 
         public static Languagedata getlanguagedata(int id)
         {
@@ -226,6 +229,24 @@ namespace SingSpaze.Models
             else
                 return 0;
         }
+
+        public static int getview(long id,string type = "song")
+        {
+            singspazeEntities db = new singspazeEntities();
+            int counts = 0;
+            if(type == "song")
+                counts = db.viewhistory.Where(v => v.Song_Id == id).Count();
+            else if(type == "artist")
+                counts = (from view in db.viewhistory
+                         join song in db.song
+                         on view.Song_Id equals song.song_id
+                         join artist in db.artist
+                         on song.song_artistId equals artist.artist_id
+                         select artist).Count();
+            return counts;
+        }
+
+        
     }
 
     //useful
@@ -280,7 +301,7 @@ namespace SingSpaze.Models
     /// <summary>
     /// Class data user (ex.id,username,firstname)
     /// </summary>
-    public class userdata
+    public class Userdata
     {
         /// <summary>
         /// Id
@@ -297,15 +318,15 @@ namespace SingSpaze.Models
         /// <summary>
         /// Firstname
         /// </summary>
-        public string Firstname { get; set; }
+        public string firstname { get; set; }
         /// <summary>
         /// Lastname
         /// </summary>
-        public string Lastname { get; set; }
+        public string lastname { get; set; }
         /// <summary>
         /// Email
         /// </summary>
-        public string Email { get; set; }
+        public string email { get; set; }
         /// <summary>
         /// Url avatar file
         /// </summary>
@@ -314,7 +335,7 @@ namespace SingSpaze.Models
     /// <summary>
     /// Class data platlist (ex.id,description)
     /// </summary>
-    public class playlistdata
+    public class Playlistdata
     {
         /// <summary>
         /// Id
@@ -347,11 +368,11 @@ namespace SingSpaze.Models
         /// <summary>
         /// Url path for small picture
         /// </summary>
-        public string thumbnail { get; set; }
+        //public string thumbnail { get; set; }
         /// <summary>
         /// Url picture
         /// </summary>
-        public string picture { get; set; }
+        public string URL_picture { get; set; }
         /// <summary>
         /// Price(decimal)
         /// </summary>
@@ -359,7 +380,11 @@ namespace SingSpaze.Models
         /// <summary>
         /// View
         /// </summary>
-        public int? view { get; set; }
+        public int view { get; set; }
+        /// <summary>
+        /// length
+        /// </summary>
+        public string length { get; set; }
         /// <summary>
         /// Class genredata
         /// </summary>
@@ -367,7 +392,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Class languagedata
         /// </summary>
-        public Languagedata languagedata { get; set; }
+        //public Languagedata languagedata { get; set; }
         /// <summary>
         /// Class albumdata
         /// </summary>
@@ -379,7 +404,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Class contentpartnerdata
         /// </summary>
-        public Contentpartnerdata contentpartnerdata { get; set; }
+        //public Contentpartnerdata contentpartnerdata { get; set; }
         /// <summary>
         /// Class publisherdata
         /// </summary>
@@ -406,35 +431,35 @@ namespace SingSpaze.Models
         /// <summary>
         /// Url path for small picture
         /// </summary>
-        public string thumbnail { get; set; }
+        //public string thumbnail { get; set; }
         /// <summary>
         /// Url picture
         /// </summary>
-        public string picture { get; set; }
+        public string URL_picture { get; set; }
         /// <summary>
         /// Status (1=Active,0=Deactive)
         /// </summary>
-        public int status { get; set; }
+        //public int status { get; set; }
         /// <summary>
         /// FilePath (No use for now)
         /// </summary>
-        public string filePath { get; set; }
+        //public string filePath { get; set; }
         /// <summary>
         /// Price(decimal)
         /// </summary>
         public decimal? price { get; set; }
         /// <summary>
-        /// Views
+        /// Views (All time)
         /// </summary>
-        public int? view { get; set; }
+        public int view { get; set; }
         /// <summary>
         /// Song length(decimal)
         /// </summary>
-        public decimal length { get; set; }
+        public string length { get; set; }
         /// <summary>
         /// Keywords(No user for now)
         /// </summary>
-        public string keywords { get; set; }
+        //public string keywords { get; set; }
         /// <summary>
         /// Lyrics
         /// </summary>
@@ -463,7 +488,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Class Languagedata
         /// </summary>
-        public Languagedata languagedata { get; set; }
+        //public Languagedata languagedata { get; set; }
         /// <summary>
         /// Class Albumdata
         /// </summary>
@@ -475,7 +500,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Class Contentpartnerdata
         /// </summary>
-        public Contentpartnerdata contentpartnerdata { get; set; }
+        //public Contentpartnerdata contentpartnerdata { get; set; }
         /// <summary>
         /// Class Publisherdata
         /// </summary>
@@ -503,6 +528,38 @@ namespace SingSpaze.Models
     }
 
     /// <summary>
+    /// Class data listartist data (ex.id,name,picture)
+    /// </summary>
+    public class Listartistdata
+    {
+        /// <summary>
+        /// Id
+        /// </summary>
+        public long id { get; set; }
+        /// <summary>
+        /// Thai description
+        /// </summary>
+        public string description_TH { get; set; }
+        /// <summary>
+        /// English description
+        /// </summary>
+        public string description_EN { get; set; }
+        /// /// <summary>
+        /// Photo 
+        /// </summary>
+        public string picture { get; set; }
+        /// /// <summary>
+        /// Artist Type
+        /// </summary>
+        public string artistType { get; set; }
+        /// /// <summary>
+        /// View form order type (hot,name)
+        /// </summary>
+        public int view { get; set; }
+
+    }
+
+    /// <summary>
     /// Class data artist (ex.id,description)
     /// </summary>
     public class Artistdata
@@ -510,7 +567,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Thai description
         /// </summary>
@@ -519,22 +576,39 @@ namespace SingSpaze.Models
         /// English description
         /// </summary>
         public string description_EN { get; set; }
+        /// /// <summary>
+        /// Photo 
+        /// </summary>
+        public string picture { get; set; }
+        /// /// <summary>
+        /// Artist Type
+        /// </summary>
+        public string artistType { get; set; }
+        /// /// <summary>
+        /// Number of song in this artist
+        /// </summary>
+        public int songs { get; set; }   
+        /// /// <summary>
+        /// View (All times)
+        /// </summary>
+        //public int view { get; set; }
+        
     }
 
     /// <summary>
     /// Class data contentpartner (ex.id,description)
     /// </summary>
-    public class Contentpartnerdata
-    {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public int id { get; set; }
-        /// /// <summary>
-        /// Description
-        /// </summary>
-        public string description { get; set; }
-    }
+    //public class Contentpartnerdata
+    //{
+    //    /// <summary>
+    //    /// Id
+    //    /// </summary>
+    //    public int id { get; set; }
+    //    /// /// <summary>
+    //    /// Description
+    //    /// </summary>
+    //    public string description { get; set; }
+    //}
 
     /// <summary>
     /// Class data genre (ex.id,description)

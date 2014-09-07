@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="singspazeEntities-Web.config Connection String" description="singspazeEntities Connection String used in web.config by the application to access the database." defaultvalue="metadata=res://*/Models.MySql.csdl|res://*/Models.MySql.ssdl|res://*/Models.MySql.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=localhost;User Id=singspaze;database=singspaze;password=p@ssw0rd;Charset=utf8;Persist Security Info=True&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Bas\ Kung\\Desktop\\work\\Api\\SingSpaze\\SingSpaze\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='singspazeEntities']/@connectionString" />
-  </parameter>
-</parameters>

@@ -2,50 +2,39 @@
 <Schema Namespace="singspazeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
   <EntityContainer Name="singspazeEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="album" EntityType="singspazeModel.album" />
-    <EntitySet Name="contentpartner" EntityType="singspazeModel.contentpartner" />
-    <EntitySet Name="contentpartnerforartist" EntityType="singspazeModel.contentpartnerforartist" />
-    <EntitySet Name="contentpartnerforsong" EntityType="singspazeModel.contentpartnerforsong" />
+    <EntitySet Name="artist" EntityType="singspazeModel.artist" />
     <EntitySet Name="genre" EntityType="singspazeModel.genre" />
     <EntitySet Name="language" EntityType="singspazeModel.language" />
     <EntitySet Name="playlist" EntityType="singspazeModel.playlist" />
     <EntitySet Name="playlisttosong" EntityType="singspazeModel.playlisttosong" />
     <EntitySet Name="publisher" EntityType="singspazeModel.publisher" />
-    <EntitySet Name="publisher_artist" EntityType="singspazeModel.publisher_artist" />
-    <EntitySet Name="publisher_song" EntityType="singspazeModel.publisher_song" />
+    <EntitySet Name="publisherforartist" EntityType="singspazeModel.publisherforartist" />
+    <EntitySet Name="publisherforsong" EntityType="singspazeModel.publisherforsong" />
     <EntitySet Name="singinghistory" EntityType="singspazeModel.singinghistory" />
+    <EntitySet Name="song" EntityType="singspazeModel.song" />
     <EntitySet Name="status" EntityType="singspazeModel.status" />
     <EntitySet Name="user" EntityType="singspazeModel.user" />
+    <EntitySet Name="viewhistory" EntityType="singspazeModel.viewhistory" />
+    <EntitySet Name="wtbtokens" EntityType="singspazeModel.wtbtokens" />
   </EntityContainer>
   <EntityType Name="album">
     <Key>
       <PropertyRef Name="album_id" />
     </Key>
-    <Property Name="album_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="album_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="album_description_th" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
     <Property Name="album_description_en" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
   </EntityType>
-  <EntityType Name="contentpartner">
+  <EntityType Name="artist">
     <Key>
-      <PropertyRef Name="contentpartner_id" />
+      <PropertyRef Name="artist_id" />
     </Key>
-    <Property Name="contentpartner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="contentpartner_description" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-  </EntityType>
-  <EntityType Name="contentpartnerforartist">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="contentPartnerId" Type="Int32" Nullable="false" />
-    <Property Name="artistId" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="contentpartnerforsong">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="contentPartnerId" Type="Int32" Nullable="false" />
-    <Property Name="songId" Type="Int32" Nullable="false" />
+    <Property Name="artist_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="artist_description_th" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="artist_description_en" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="artist_type" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="artist_view" Type="Int32" Nullable="false" />
+    <Property Name="artist_picture" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
   </EntityType>
   <EntityType Name="genre">
     <Key>
@@ -81,50 +70,26 @@
   </EntityType>
   <EntityType Name="publisher">
     <Key>
-      <PropertyRef Name="recordlabel_id" />
+      <PropertyRef Name="publisher_id" />
     </Key>
-    <Property Name="recordlabel_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="recordlabel_description" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+    <Property Name="publisher_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="publisher_description" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
   </EntityType>
-  <EntityType Name="publisher_artist">
+  <EntityType Name="publisherforartist">
     <Key>
-      <PropertyRef Name="artist_id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="artist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="artist_description_th" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
-    <Property Name="artist_description_en" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="publisherId" Type="Int32" Nullable="false" />
+    <Property Name="artistId" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityType Name="publisher_song">
+  <EntityType Name="publisherforsong">
     <Key>
-      <PropertyRef Name="song_id" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="song_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="song_originName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="song_engName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="song_genre" Type="Int32" Nullable="false" />
-    <Property Name="song_languageId" Type="Int32" Nullable="false" />
-    <Property Name="song_albumId" Type="Int32" Nullable="false" />
-    <Property Name="song_artistId" Type="Int32" Nullable="false" />
-    <Property Name="song_length" Type="Decimal" Nullable="false" />
-    <Property Name="song_keywords" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="song_lyrics" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="song_contentPartnerId" Type="Int32" Nullable="false" />
-    <Property Name="song_publisherId" Type="Int32" Nullable="false" />
-    <Property Name="song_releasedDate" Type="DateTime" Nullable="false" />
-    <Property Name="song_thumbnail" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="song_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="song_status" Type="Int32" Nullable="false" />
-    <Property Name="song_addedDate" Type="DateTime" Nullable="false" />
-    <Property Name="song_filePath" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-    <Property Name="song_price" Type="Decimal" />
-    <Property Name="song_view" Type="Int32" />
-    <Property Name="song_URL_iOS" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-    <Property Name="song_URL_Android_Other" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-    <Property Name="song_URL_RTMP" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-    <Property Name="song_Copyright" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-    <Property Name="song_Track_Number_" Type="Int32" Nullable="false" />
-    <Property Name="song_streamURLWithVocal" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-    <Property Name="streamURLWithoutVocal" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="publisherId" Type="Int32" Nullable="false" />
+    <Property Name="songId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="singinghistory">
     <Key>
@@ -135,6 +100,35 @@
     <Property Name="song_id" Type="Int32" Nullable="false" />
     <Property Name="artist_id" Type="Int32" Nullable="false" />
     <Property Name="singinghistory_date" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="song">
+    <Key>
+      <PropertyRef Name="song_id" />
+    </Key>
+    <Property Name="song_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="song_originName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="song_engName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="song_genre" Type="Int32" Nullable="false" />
+    <Property Name="song_languageId" Type="Int32" Nullable="false" />
+    <Property Name="song_albumId" Type="Int32" Nullable="false" />
+    <Property Name="song_artistId" Type="Int32" Nullable="false" />
+    <Property Name="song_length" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="song_keywords" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="song_lyrics" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+    <Property Name="song_publisherId" Type="Int32" Nullable="false" />
+    <Property Name="song_releasedDate" Type="DateTime" Nullable="false" />
+    <Property Name="song_URL_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="song_status" Type="Int32" Nullable="false" />
+    <Property Name="song_addedDate" Type="DateTime" Nullable="false" />
+    <Property Name="song_price" Type="Decimal" />
+    <Property Name="song_view" Type="Int32" Nullable="false" />
+    <Property Name="song_URL_iOS" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="song_URL_Android_Other" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="song_URL_RTMP" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="song_Copyright" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="song_Track_Number" Type="Int32" Nullable="false" />
+    <Property Name="song_streamURLWithVocal" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="song_streamURLWithoutVocal" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
   </EntityType>
   <EntityType Name="status">
     <Key>
@@ -163,5 +157,24 @@
     <Property Name="user_avartar" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
     <Property Name="user_token" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
     <Property Name="user_retoken" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="viewhistory">
+    <Key>
+      <PropertyRef Name="ViewHistory_Id" />
+    </Key>
+    <Property Name="ViewHistory_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Song_Id" Type="Int32" Nullable="false" />
+    <Property Name="ViewHistory_Date" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="wtbtokens">
+    <Key>
+      <PropertyRef Name="WTBTokens_id" />
+    </Key>
+    <Property Name="WTBTokens_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int64" Nullable="false" />
+    <Property Name="WTBTokens_timestamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WTBTokens_ipaddress" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="WTBTokens_token" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
   </EntityType>
 </Schema>

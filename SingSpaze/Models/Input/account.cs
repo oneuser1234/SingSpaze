@@ -204,4 +204,6 @@ namespace SingSpaze.Models.Input
         public string newpassword { get; set; }
     }
 
+    
+
 }

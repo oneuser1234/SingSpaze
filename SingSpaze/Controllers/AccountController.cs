@@ -20,14 +20,14 @@ namespace SingSpaze.Controllers
 
         public ActionResult Index()
         {
-            List<userdata> user = (from x in db.user.ToList()
-                                   select new userdata
+            List<Userdata> user = (from x in db.user.ToList()
+                                   select new Userdata
                                    {
                                        id = x.user_id,
-                                       Firstname = x.user_firstname,
-                                       Lastname = x.user_lastname,
+                                       firstname = x.user_firstname,
+                                       lastname = x.user_lastname,
                                        username = x.user_login,
-                                       Email = x.user_email,
+                                       email = x.user_email,
                                        fbUserId = x.user_fbUserId
                                    }).ToList();
 
