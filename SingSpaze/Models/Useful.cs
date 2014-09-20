@@ -159,7 +159,8 @@ namespace SingSpaze.Models
                 description_EN = data.artist_description_en,
                 picture = data.artist_picture,
                 artistType = data.artist_type,
-                songs = db.song.Where(s => s.song_artistId == data.artist_id).Count()
+                songs = db.song.Where(s => s.song_artistId == data.artist_id).Count(),
+                publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
             };
 
         }
@@ -178,16 +179,30 @@ namespace SingSpaze.Models
 
         }
 
-        public static Publisherdata getpublisherdata(int id)
+        public static Publisherdata getpublishersongdata(int id)
         {
             singspazeEntities db = new singspazeEntities();
-            publisher data = db.publisher.Where(a => a.publisher_id == id).SingleOrDefault();
+            publisherforsong data = db.publisherforsong.Where(a => a.publisherforsong_Id == id).SingleOrDefault();
             if (data == null)
                 return null;
             return new Publisherdata()
             {
                 id = id,
-                description = data.publisher_description
+                description = data.publisherforsong_description
+            };
+
+        }
+
+        public static Publisherdata getpublisherartistdata(int id)
+        {
+            singspazeEntities db = new singspazeEntities();
+            publisherforartist data = db.publisherforartist.Where(a => a.publisherforartist_Id == id).SingleOrDefault();
+            if (data == null)
+                return null;
+            return new Publisherdata()
+            {
+                id = id,
+                description = data.publisherforartist_description
             };
 
         }
@@ -348,67 +363,82 @@ namespace SingSpaze.Models
 
     }
 
+    ///// <summary>
+    ///// Class data listsong data (ex.id,originname,engname)
+    ///// </summary>
+    //public class Listsongdata
+    //{
+    //    /// <summary>
+    //    /// Song id
+    //    /// </summary>
+    //    public int id { get; set; }
+    //    /// <summary>
+    //    /// Origin name
+    //    /// </summary>
+    //    public string originName { get; set; }
+    //    /// <summary>
+    //    /// English name
+    //    /// </summary>
+    //    public string engName { get; set; }
+    //    /// <summary>
+    //    /// Url path for small picture
+    //    /// </summary>
+    //    //public string thumbnail { get; set; }
+    //    /// <summary>
+    //    /// Url picture
+    //    /// </summary>
+    //    public string URL_picture { get; set; }
+    //    /// <summary>
+    //    /// Price(decimal)
+    //    /// </summary>
+    //    public decimal? price { get; set; }
+    //    /// <summary>
+    //    /// View
+    //    /// </summary>
+    //    public int view { get; set; }
+    //    /// <summary>
+    //    /// length
+    //    /// </summary>
+    //    public string length { get; set; }
+    //    /// <summary>
+    //    /// Class genredata
+    //    /// </summary>
+    //    public Genredata genredata { get; set; }
+    //    /// <summary>
+    //    /// Class languagedata
+    //    /// </summary>
+    //    //public Languagedata languagedata { get; set; }
+    //    /// <summary>
+    //    /// Class albumdata
+    //    /// </summary>
+    //    public Albumdata albumdata { get; set; }
+    //    /// <summary>
+    //    /// Class artistdata
+    //    /// </summary>
+    //    public Artistdata artistdata { get; set; }
+    //    /// <summary>
+    //    /// Class contentpartnerdata
+    //    /// </summary>
+    //    //public Contentpartnerdata contentpartnerdata { get; set; }
+    //    /// <summary>
+    //    /// Class publisherdata
+    //    /// </summary>
+    //    public Publisherdata publisherdata { get; set; }
+    //}
+
     /// <summary>
-    /// Class data listsong data (ex.id,originname,engname)
+    /// Class data Playlistsongdata (ex.songdata,sequence)
     /// </summary>
-    public class Listsongdata
+    public class Playlistsongdata
     {
         /// <summary>
-        /// Song id
+        /// Class songdata
         /// </summary>
-        public int id { get; set; }
+        public Songdata songdata { get; set; }
         /// <summary>
-        /// Origin name
+        /// Sequence
         /// </summary>
-        public string originName { get; set; }
-        /// <summary>
-        /// English name
-        /// </summary>
-        public string engName { get; set; }
-        /// <summary>
-        /// Url path for small picture
-        /// </summary>
-        //public string thumbnail { get; set; }
-        /// <summary>
-        /// Url picture
-        /// </summary>
-        public string URL_picture { get; set; }
-        /// <summary>
-        /// Price(decimal)
-        /// </summary>
-        public decimal? price { get; set; }
-        /// <summary>
-        /// View
-        /// </summary>
-        public int view { get; set; }
-        /// <summary>
-        /// length
-        /// </summary>
-        public string length { get; set; }
-        /// <summary>
-        /// Class genredata
-        /// </summary>
-        public Genredata genredata { get; set; }
-        /// <summary>
-        /// Class languagedata
-        /// </summary>
-        //public Languagedata languagedata { get; set; }
-        /// <summary>
-        /// Class albumdata
-        /// </summary>
-        public Albumdata albumdata { get; set; }
-        /// <summary>
-        /// Class artistdata
-        /// </summary>
-        public Artistdata artistdata { get; set; }
-        /// <summary>
-        /// Class contentpartnerdata
-        /// </summary>
-        //public Contentpartnerdata contentpartnerdata { get; set; }
-        /// <summary>
-        /// Class publisherdata
-        /// </summary>
-        public Publisherdata publisherdata { get; set; }
+        public int sequence { get; set; }
     }
 
     /// <summary>
@@ -556,6 +586,10 @@ namespace SingSpaze.Models
         /// View form order type (hot,name)
         /// </summary>
         public int view { get; set; }
+        /// <summary>
+        /// Class Publisherdata
+        /// </summary>
+        public Publisherdata publisherdata { get; set; }
 
     }
 
@@ -592,6 +626,10 @@ namespace SingSpaze.Models
         /// View (All times)
         /// </summary>
         //public int view { get; set; }
+        /// <summary>
+        /// Class Publisherdata
+        /// </summary>
+        public Publisherdata publisherdata { get; set; }
         
     }
 
@@ -671,7 +709,22 @@ namespace SingSpaze.Models
         public string path { get; set; }
 
     }
-    
 
+    /// <summary>
+    /// Class data song (ex.id,originName,Url)
+    /// </summary>
+    public class Singhistorydata
+    {
+        
+        /// <summary>
+        /// Class songdata
+        /// </summary>
+        public Songdata songdata { get; set; }
+        /// <summary>
+        /// Sing datetime
+        /// </summary>
+        public DateTime singtime { get; set; }
+        
+    }
 
 }

@@ -1,0 +1,46 @@
+﻿@model List<SingSpaze.Models.csv>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CSV</title>
+</head>
+<body>
+    <div>
+    <table style="border: 1px solid black;text-align: center;">
+    <tr>
+        <td style="border: 1px solid black;text-align: center;">id</td>
+        <td style="border: 1px solid black;text-align: center;">Title - TH</td>
+        <td style="border: 1px solid black;text-align: center;">Title - EN</td>
+        <td style="border: 1px solid black;text-align: center;">Artist - TH</td>
+        <td style="border: 1px solid black;text-align: center;">Artist - EN</td>
+        <td style="border: 1px solid black;text-align: center;">Album - TH</td>
+        <td style="border: 1px solid black;text-align: center;">Album - EN</td>
+        <td style="border: 1px solid black;text-align: center;">Status</td>
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.id)</td>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.Title___TH)</td>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.Title___EN)</td>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.Artist___TH)</td>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.Artist___EN)</td>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.Album___TH)</td>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.Album___EN)</td>
+            <td style="border-left: 1px solid black; border-right:1px solid black;text-align: left;padding: 10px;">@Html.DisplayFor(modelItem => item.Status)</td>
+        </tr>
+    }
+    </table>   
+    </div>
+    <input type="button" value="Next step" onclick="importstep2();" />
+    <br/>
+</body>
+</html>

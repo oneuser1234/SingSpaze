@@ -8,15 +8,17 @@
         <EntityContainer Name="singspazeModelStoreContainer">
           <EntitySet Name="album" EntityType="singspazeModel.Store.album" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="artist" EntityType="singspazeModel.Store.artist" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="contactus" EntityType="singspazeModel.Store.contactus" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="csv" EntityType="singspazeModel.Store.csv" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="genre" EntityType="singspazeModel.Store.genre" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="language" EntityType="singspazeModel.Store.language" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="playlist" EntityType="singspazeModel.Store.playlist" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="playlisttosong" EntityType="singspazeModel.Store.playlisttosong" store:Type="Tables" Schema="singspaze" />
-          <EntitySet Name="publisher" EntityType="singspazeModel.Store.publisher" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="publisherforartist" EntityType="singspazeModel.Store.publisherforartist" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="publisherforsong" EntityType="singspazeModel.Store.publisherforsong" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="singinghistory" EntityType="singspazeModel.Store.singinghistory" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="song" EntityType="singspazeModel.Store.song" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="songrequest" EntityType="singspazeModel.Store.songrequest" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="status" EntityType="singspazeModel.Store.status" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="user" EntityType="singspazeModel.Store.user" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="viewhistory" EntityType="singspazeModel.Store.viewhistory" store:Type="Tables" Schema="singspaze" />
@@ -40,6 +42,46 @@
           <Property Name="artist_type" Type="varchar" MaxLength="30" />
           <Property Name="artist_view" Type="int" Nullable="false" />
           <Property Name="artist_picture" Type="varchar" MaxLength="50" />
+          <Property Name="artist_publisherforartistId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contactus">
+          <Key>
+            <PropertyRef Name="contactUs_id" />
+          </Key>
+          <Property Name="contactUs_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="contactUs_datetime" Type="datetime" Nullable="false" />
+          <Property Name="contactUs_name" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="contactUs_email" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="contactUs_phone" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="contactUs_message" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="csv">
+          <Key>
+            <PropertyRef Name="csv_id" />
+          </Key>
+          <Property Name="id" Type="int" />
+          <Property Name="Title - TH" Type="varchar" MaxLength="100" />
+          <Property Name="Title - EN" Type="varchar" MaxLength="100" />
+          <Property Name="Photo" Type="varchar" MaxLength="200" />
+          <Property Name="Artist - TH" Type="varchar" MaxLength="100" />
+          <Property Name="Artist - EN" Type="varchar" MaxLength="100" />
+          <Property Name="Length" Type="varchar" MaxLength="4" />
+          <Property Name="Lyrics" Type="longtext" />
+          <Property Name="Album - TH" Type="varchar" MaxLength="100" />
+          <Property Name="Album - EN" Type="varchar" MaxLength="100" />
+          <Property Name="Released date" Type="varchar" MaxLength="100" />
+          <Property Name="#Views (today, 30 days, total)" Type="varchar" MaxLength="10" />
+          <Property Name="Language" Type="varchar" MaxLength="10" />
+          <Property Name="Genres" Type="varchar" MaxLength="14" />
+          <Property Name="Publisher" Type="varchar" MaxLength="13" />
+          <Property Name="Status" Type="varchar" MaxLength="10" />
+          <Property Name="Price" Type="varchar" MaxLength="10" />
+          <Property Name="Copyright" Type="varchar" MaxLength="10" />
+          <Property Name="Track Number" Type="varchar" MaxLength="10" />
+          <Property Name="URL iOS" Type="varchar" MaxLength="80" />
+          <Property Name="URL Android/Other" Type="varchar" MaxLength="62" />
+          <Property Name="URL RTMP" Type="varchar" MaxLength="66" />
+          <Property Name="csv_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="genre">
           <Key>
@@ -73,28 +115,19 @@
           <Property Name="song_id" Type="int" Nullable="false" />
           <Property Name="playlistToSong_sequence" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="publisher">
-          <Key>
-            <PropertyRef Name="publisher_id" />
-          </Key>
-          <Property Name="publisher_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="publisher_description" Type="varchar" Nullable="false" MaxLength="40" />
-        </EntityType>
         <EntityType Name="publisherforartist">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="publisherforartist_Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="publisherId" Type="int" Nullable="false" />
-          <Property Name="artistId" Type="int" Nullable="false" />
+          <Property Name="publisherforartist_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="publisherforartist_description" Type="varchar" Nullable="false" MaxLength="30" />
         </EntityType>
         <EntityType Name="publisherforsong">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="publisherforsong_Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="publisherId" Type="int" Nullable="false" />
-          <Property Name="songId" Type="int" Nullable="false" />
+          <Property Name="publisherforsong_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="publisherforsong_description" Type="varchar" Nullable="false" MaxLength="30" />
         </EntityType>
         <EntityType Name="singinghistory">
           <Key>
@@ -120,7 +153,7 @@
           <Property Name="song_length" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="song_keywords" Type="varchar" MaxLength="255" />
           <Property Name="song_lyrics" Type="text" />
-          <Property Name="song_publisherId" Type="int" Nullable="false" />
+          <Property Name="publisherforsong_id" Type="int" Nullable="false" />
           <Property Name="song_releasedDate" Type="datetime" Nullable="false" />
           <Property Name="song_URL_picture" Type="varchar" MaxLength="255" />
           <Property Name="song_status" Type="int" Nullable="false" />
@@ -131,9 +164,19 @@
           <Property Name="song_URL_Android/Other" Type="varchar" MaxLength="200" />
           <Property Name="song_URL_RTMP" Type="varchar" MaxLength="200" />
           <Property Name="song_Copyright" Type="varchar" MaxLength="100" />
-          <Property Name="song_Track_Number" Type="int" Nullable="false" />
+          <Property Name="song_Track_Number" Type="int" />
           <Property Name="song_streamURLWithVocal" Type="varchar" MaxLength="200" />
           <Property Name="song_streamURLWithoutVocal" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="songrequest">
+          <Key>
+            <PropertyRef Name="songRequest_id" />
+          </Key>
+          <Property Name="songRequest_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="songRequest_datetime" Type="datetime" Nullable="false" />
+          <Property Name="songRequest_songname" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="songRequest_artistname" Type="varchar" Nullable="false" MaxLength="150" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -182,32 +225,6 @@
           <Property Name="WTBTokens_ipaddress" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="WTBTokens_token" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6013: The table/view 'def.singspaze.csv' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="csv">
-        <Property Name="Title - TH" Type="varchar" MaxLength="26" />
-        <Property Name="Title - EN" Type="varchar" MaxLength="34" />
-        <Property Name="Photo" Type="varchar" MaxLength="200" />
-        <Property Name="Artist - TH" Type="varchar" MaxLength="33" />
-        <Property Name="Artist - EN" Type="varchar" MaxLength="29" />
-        <Property Name="Length" Type="varchar" MaxLength="4" />
-        <Property Name="Lyrics" Type="longtext" />
-        <Property Name="Album - TH" Type="varchar" MaxLength="6" />
-        <Property Name="Album - EN" Type="varchar" MaxLength="8" />
-        <Property Name="Released date" Type="varchar" MaxLength="10" />
-        <Property Name="#Views (today, 30 days, total)" Type="varchar" MaxLength="10" />
-        <Property Name="Language" Type="varchar" MaxLength="3" />
-        <Property Name="Genres" Type="varchar" MaxLength="14" />
-        <Property Name="Publisher" Type="varchar" MaxLength="13" />
-        <Property Name="Status" Type="varchar" MaxLength="10" />
-        <Property Name="Price" Type="varchar" MaxLength="10" />
-        <Property Name="Copyright" Type="varchar" MaxLength="10" />
-        <Property Name="Track Number" Type="varchar" MaxLength="10" />
-        <Property Name="URL iOS" Type="varchar" MaxLength="80" />
-        <Property Name="URL Android/Other" Type="varchar" MaxLength="62" />
-        <Property Name="URL RTMP" Type="varchar" MaxLength="66" />
-      </EntityType>-->
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
@@ -216,15 +233,17 @@
         <EntityContainer Name="singspazeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="album" EntityType="singspazeModel.album" />
           <EntitySet Name="artist" EntityType="singspazeModel.artist" />
+          <EntitySet Name="contactus" EntityType="singspazeModel.contactus" />
+          <EntitySet Name="csv" EntityType="singspazeModel.csv" />
           <EntitySet Name="genre" EntityType="singspazeModel.genre" />
           <EntitySet Name="language" EntityType="singspazeModel.language" />
           <EntitySet Name="playlist" EntityType="singspazeModel.playlist" />
           <EntitySet Name="playlisttosong" EntityType="singspazeModel.playlisttosong" />
-          <EntitySet Name="publisher" EntityType="singspazeModel.publisher" />
           <EntitySet Name="publisherforartist" EntityType="singspazeModel.publisherforartist" />
           <EntitySet Name="publisherforsong" EntityType="singspazeModel.publisherforsong" />
           <EntitySet Name="singinghistory" EntityType="singspazeModel.singinghistory" />
           <EntitySet Name="song" EntityType="singspazeModel.song" />
+          <EntitySet Name="songrequest" EntityType="singspazeModel.songrequest" />
           <EntitySet Name="status" EntityType="singspazeModel.status" />
           <EntitySet Name="user" EntityType="singspazeModel.user" />
           <EntitySet Name="viewhistory" EntityType="singspazeModel.viewhistory" />
@@ -248,6 +267,46 @@
           <Property Name="artist_type" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
           <Property Name="artist_view" Type="Int32" Nullable="false" />
           <Property Name="artist_picture" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="artist_publisherforartistId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contactus">
+          <Key>
+            <PropertyRef Name="contactUs_id" />
+          </Key>
+          <Property Name="contactUs_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contactUs_datetime" Type="DateTime" Nullable="false" />
+          <Property Name="contactUs_name" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="contactUs_email" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="contactUs_phone" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="contactUs_message" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="csv">
+          <Key>
+            <PropertyRef Name="csv_id" />
+          </Key>
+          <Property Name="id" Type="Int32" />
+          <Property Name="Title___TH" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Title___EN" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Photo" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Artist___TH" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Artist___EN" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Length" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+          <Property Name="Lyrics" Type="String" MaxLength="1073741823" Unicode="false" FixedLength="false" />
+          <Property Name="Album___TH" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Album___EN" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Released_date" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="C_Views__today__30_days__total_" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Language" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Genres" Type="String" MaxLength="14" Unicode="false" FixedLength="false" />
+          <Property Name="Publisher" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Price" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Copyright" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Track_Number" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="URL_iOS" Type="String" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="URL_Android_Other" Type="String" MaxLength="62" Unicode="false" FixedLength="false" />
+          <Property Name="URL_RTMP" Type="String" MaxLength="66" Unicode="false" FixedLength="false" />
+          <Property Name="csv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="genre">
           <Key>
@@ -281,28 +340,19 @@
           <Property Name="song_id" Type="Int32" Nullable="false" />
           <Property Name="playlistToSong_sequence" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="publisher">
-          <Key>
-            <PropertyRef Name="publisher_id" />
-          </Key>
-          <Property Name="publisher_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="publisher_description" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-        </EntityType>
         <EntityType Name="publisherforartist">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="publisherforartist_Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="publisherId" Type="Int32" Nullable="false" />
-          <Property Name="artistId" Type="Int32" Nullable="false" />
+          <Property Name="publisherforartist_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="publisherforartist_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="publisherforsong">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="publisherforsong_Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="publisherId" Type="Int32" Nullable="false" />
-          <Property Name="songId" Type="Int32" Nullable="false" />
+          <Property Name="publisherforsong_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="publisherforsong_description" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="singinghistory">
           <Key>
@@ -328,7 +378,7 @@
           <Property Name="song_length" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="song_keywords" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="song_lyrics" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="song_publisherId" Type="Int32" Nullable="false" />
+          <Property Name="publisherforsong_id" Type="Int32" Nullable="false" />
           <Property Name="song_releasedDate" Type="DateTime" Nullable="false" />
           <Property Name="song_URL_picture" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="song_status" Type="Int32" Nullable="false" />
@@ -339,9 +389,19 @@
           <Property Name="song_URL_Android_Other" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="song_URL_RTMP" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="song_Copyright" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="song_Track_Number" Type="Int32" Nullable="false" />
+          <Property Name="song_Track_Number" Type="Int32" />
           <Property Name="song_streamURLWithVocal" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="song_streamURLWithoutVocal" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="songrequest">
+          <Key>
+            <PropertyRef Name="songRequest_id" />
+          </Key>
+          <Property Name="songRequest_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="songRequest_datetime" Type="DateTime" Nullable="false" />
+          <Property Name="songRequest_songname" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="songRequest_artistname" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -414,6 +474,48 @@
                 <ScalarProperty Name="artist_type" ColumnName="artist_type" />
                 <ScalarProperty Name="artist_view" ColumnName="artist_view" />
                 <ScalarProperty Name="artist_picture" ColumnName="artist_picture" />
+                <ScalarProperty Name="artist_publisherforartistId" ColumnName="artist_publisherforartistId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contactus">
+            <EntityTypeMapping TypeName="singspazeModel.contactus">
+              <MappingFragment StoreEntitySet="contactus">
+                <ScalarProperty Name="contactUs_id" ColumnName="contactUs_id" />
+                <ScalarProperty Name="contactUs_datetime" ColumnName="contactUs_datetime" />
+                <ScalarProperty Name="contactUs_name" ColumnName="contactUs_name" />
+                <ScalarProperty Name="contactUs_email" ColumnName="contactUs_email" />
+                <ScalarProperty Name="contactUs_phone" ColumnName="contactUs_phone" />
+                <ScalarProperty Name="contactUs_message" ColumnName="contactUs_message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="csv">
+            <EntityTypeMapping TypeName="singspazeModel.csv">
+              <MappingFragment StoreEntitySet="csv">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Title___TH" ColumnName="Title - TH" />
+                <ScalarProperty Name="Title___EN" ColumnName="Title - EN" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Artist___TH" ColumnName="Artist - TH" />
+                <ScalarProperty Name="Artist___EN" ColumnName="Artist - EN" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Lyrics" ColumnName="Lyrics" />
+                <ScalarProperty Name="Album___TH" ColumnName="Album - TH" />
+                <ScalarProperty Name="Album___EN" ColumnName="Album - EN" />
+                <ScalarProperty Name="Released_date" ColumnName="Released date" />
+                <ScalarProperty Name="C_Views__today__30_days__total_" ColumnName="#Views (today, 30 days, total)" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Genres" ColumnName="Genres" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Copyright" ColumnName="Copyright" />
+                <ScalarProperty Name="Track_Number" ColumnName="Track Number" />
+                <ScalarProperty Name="URL_iOS" ColumnName="URL iOS" />
+                <ScalarProperty Name="URL_Android_Other" ColumnName="URL Android/Other" />
+                <ScalarProperty Name="URL_RTMP" ColumnName="URL RTMP" />
+                <ScalarProperty Name="csv_id" ColumnName="csv_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -453,29 +555,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="publisher">
-            <EntityTypeMapping TypeName="singspazeModel.publisher">
-              <MappingFragment StoreEntitySet="publisher">
-                <ScalarProperty Name="publisher_id" ColumnName="publisher_id" />
-                <ScalarProperty Name="publisher_description" ColumnName="publisher_description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="publisherforartist">
             <EntityTypeMapping TypeName="singspazeModel.publisherforartist">
               <MappingFragment StoreEntitySet="publisherforartist">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="publisherId" ColumnName="publisherId" />
-                <ScalarProperty Name="artistId" ColumnName="artistId" />
+                <ScalarProperty Name="publisherforartist_Id" ColumnName="publisherforartist_Id" />
+                <ScalarProperty Name="publisherforartist_description" ColumnName="publisherforartist_description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="publisherforsong">
             <EntityTypeMapping TypeName="singspazeModel.publisherforsong">
               <MappingFragment StoreEntitySet="publisherforsong">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="publisherId" ColumnName="publisherId" />
-                <ScalarProperty Name="songId" ColumnName="songId" />
+                <ScalarProperty Name="publisherforsong_Id" ColumnName="publisherforsong_Id" />
+                <ScalarProperty Name="publisherforsong_description" ColumnName="publisherforsong_description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -503,7 +595,7 @@
                 <ScalarProperty Name="song_length" ColumnName="song_length" />
                 <ScalarProperty Name="song_keywords" ColumnName="song_keywords" />
                 <ScalarProperty Name="song_lyrics" ColumnName="song_lyrics" />
-                <ScalarProperty Name="song_publisherId" ColumnName="song_publisherId" />
+                <ScalarProperty Name="publisherforsong_id" ColumnName="publisherforsong_id" />
                 <ScalarProperty Name="song_releasedDate" ColumnName="song_releasedDate" />
                 <ScalarProperty Name="song_URL_picture" ColumnName="song_URL_picture" />
                 <ScalarProperty Name="song_status" ColumnName="song_status" />
@@ -517,6 +609,17 @@
                 <ScalarProperty Name="song_Track_Number" ColumnName="song_Track_Number" />
                 <ScalarProperty Name="song_streamURLWithVocal" ColumnName="song_streamURLWithVocal" />
                 <ScalarProperty Name="song_streamURLWithoutVocal" ColumnName="song_streamURLWithoutVocal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="songrequest">
+            <EntityTypeMapping TypeName="singspazeModel.songrequest">
+              <MappingFragment StoreEntitySet="songrequest">
+                <ScalarProperty Name="songRequest_id" ColumnName="songRequest_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="songRequest_datetime" ColumnName="songRequest_datetime" />
+                <ScalarProperty Name="songRequest_songname" ColumnName="songRequest_songname" />
+                <ScalarProperty Name="songRequest_artistname" ColumnName="songRequest_artistname" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -593,20 +696,22 @@
     <Diagrams>
       <Diagram Name="MySql">
         <EntityTypeShape EntityType="singspazeModel.album" Width="1.5" PointX="0.75" PointY="0.75" Height="1.59568359375" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="2.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.genre" Width="1.5" PointX="0.75" PointY="3.75" Height="1.4033821614583322" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.language" Width="1.5" PointX="2.75" PointY="3.75" Height="1.4033821614583335" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.playlist" Width="1.5" PointX="4.75" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.playlisttosong" Width="1.5" PointX="4.75" PointY="3.75" Height="1.787985026041667" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.publisher" Width="1.5" PointX="6.75" PointY="0.75" Height="1.4033821614583317" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.publisherforartist" Width="1.5" PointX="0.75" PointY="6.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.publisherforsong" Width="1.5" PointX="2.75" PointY="6.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.singinghistory" Width="1.5" PointX="6.75" PointY="3.75" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.song" Width="1.5" PointX="4.75" PointY="6.75" Height="5.6340136718750031" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.status" Width="1.5" PointX="6.75" PointY="6.75" Height="1.4033821614583317" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.user" Width="1.5" PointX="8.75" PointY="0.75" Height="4.0956022135416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.viewhistory" Width="1.5" PointX="8.75" PointY="5.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.wtbtokens" Width="1.5" PointX="8.75" PointY="8.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="2.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.contactus" Width="1.5" PointX="4.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.csv" Width="1.5" PointX="0.75" PointY="4.75" Height="5.4417122395833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.genre" Width="1.5" PointX="2.75" PointY="4.75" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.language" Width="1.5" PointX="4.75" PointY="3.75" Height="1.4033821614583322" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.playlist" Width="1.5" PointX="6.75" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.playlisttosong" Width="1.5" PointX="6.75" PointY="3.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.publisherforartist" Width="1.5" PointX="4.75" PointY="6.75" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.publisherforsong" Width="1.5" PointX="6.75" PointY="6.75" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.singinghistory" Width="1.5" PointX="8.75" PointY="0.75" Height="1.9802864583333353" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.song" Width="1.5" PointX="8.75" PointY="3.75" Height="5.6340136718750031" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.songrequest" Width="1.5" PointX="2.75" PointY="9.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.status" Width="1.5" PointX="4.75" PointY="9.75" Height="1.4033821614583388" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.user" Width="1.5" PointX="10.75" PointY="0.75" Height="4.0956022135416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.viewhistory" Width="1.5" PointX="10.75" PointY="5.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.wtbtokens" Width="1.5" PointX="6.75" PointY="10.75" Height="1.9802864583333388" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -202,6 +202,7 @@ namespace SingSpaze.Models.Input
         /// </summary>
         [DataMember(Name = "newpassword")]
         public string newpassword { get; set; }
+
     }
 
     

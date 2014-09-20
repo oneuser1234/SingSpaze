@@ -39,4 +39,24 @@ namespace SingSpaze.Models.Output
         /// </summary>
         public Errordata errordata { get; set; }
     }
+
+    /// <summary>
+    /// Class output for search artist (ex.resultNumber ,listartist)
+    /// </summary>
+    public class O_SearchArtist
+    {
+        /// <summary>
+        /// Number of this result
+        /// </summary>
+        public int resultNumber { get; set; }
+        /// <summary>
+        /// List class listartistdata
+        /// </summary>
+        public List<Artistdata> listartist { get; set; }
+
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
 }

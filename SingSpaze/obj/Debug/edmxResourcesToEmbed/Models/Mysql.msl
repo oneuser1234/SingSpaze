@@ -19,6 +19,48 @@
           <ScalarProperty Name="artist_type" ColumnName="artist_type" />
           <ScalarProperty Name="artist_view" ColumnName="artist_view" />
           <ScalarProperty Name="artist_picture" ColumnName="artist_picture" />
+          <ScalarProperty Name="artist_publisherforartistId" ColumnName="artist_publisherforartistId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contactus">
+      <EntityTypeMapping TypeName="singspazeModel.contactus">
+        <MappingFragment StoreEntitySet="contactus">
+          <ScalarProperty Name="contactUs_id" ColumnName="contactUs_id" />
+          <ScalarProperty Name="contactUs_datetime" ColumnName="contactUs_datetime" />
+          <ScalarProperty Name="contactUs_name" ColumnName="contactUs_name" />
+          <ScalarProperty Name="contactUs_email" ColumnName="contactUs_email" />
+          <ScalarProperty Name="contactUs_phone" ColumnName="contactUs_phone" />
+          <ScalarProperty Name="contactUs_message" ColumnName="contactUs_message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="csv">
+      <EntityTypeMapping TypeName="singspazeModel.csv">
+        <MappingFragment StoreEntitySet="csv">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Title___TH" ColumnName="Title - TH" />
+          <ScalarProperty Name="Title___EN" ColumnName="Title - EN" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Artist___TH" ColumnName="Artist - TH" />
+          <ScalarProperty Name="Artist___EN" ColumnName="Artist - EN" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="Lyrics" ColumnName="Lyrics" />
+          <ScalarProperty Name="Album___TH" ColumnName="Album - TH" />
+          <ScalarProperty Name="Album___EN" ColumnName="Album - EN" />
+          <ScalarProperty Name="Released_date" ColumnName="Released date" />
+          <ScalarProperty Name="C_Views__today__30_days__total_" ColumnName="#Views (today, 30 days, total)" />
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="Genres" ColumnName="Genres" />
+          <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Copyright" ColumnName="Copyright" />
+          <ScalarProperty Name="Track_Number" ColumnName="Track Number" />
+          <ScalarProperty Name="URL_iOS" ColumnName="URL iOS" />
+          <ScalarProperty Name="URL_Android_Other" ColumnName="URL Android/Other" />
+          <ScalarProperty Name="URL_RTMP" ColumnName="URL RTMP" />
+          <ScalarProperty Name="csv_id" ColumnName="csv_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -58,29 +100,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="publisher">
-      <EntityTypeMapping TypeName="singspazeModel.publisher">
-        <MappingFragment StoreEntitySet="publisher">
-          <ScalarProperty Name="publisher_id" ColumnName="publisher_id" />
-          <ScalarProperty Name="publisher_description" ColumnName="publisher_description" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="publisherforartist">
       <EntityTypeMapping TypeName="singspazeModel.publisherforartist">
         <MappingFragment StoreEntitySet="publisherforartist">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="publisherId" ColumnName="publisherId" />
-          <ScalarProperty Name="artistId" ColumnName="artistId" />
+          <ScalarProperty Name="publisherforartist_Id" ColumnName="publisherforartist_Id" />
+          <ScalarProperty Name="publisherforartist_description" ColumnName="publisherforartist_description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="publisherforsong">
       <EntityTypeMapping TypeName="singspazeModel.publisherforsong">
         <MappingFragment StoreEntitySet="publisherforsong">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="publisherId" ColumnName="publisherId" />
-          <ScalarProperty Name="songId" ColumnName="songId" />
+          <ScalarProperty Name="publisherforsong_Id" ColumnName="publisherforsong_Id" />
+          <ScalarProperty Name="publisherforsong_description" ColumnName="publisherforsong_description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -108,7 +140,7 @@
           <ScalarProperty Name="song_length" ColumnName="song_length" />
           <ScalarProperty Name="song_keywords" ColumnName="song_keywords" />
           <ScalarProperty Name="song_lyrics" ColumnName="song_lyrics" />
-          <ScalarProperty Name="song_publisherId" ColumnName="song_publisherId" />
+          <ScalarProperty Name="publisherforsong_id" ColumnName="publisherforsong_id" />
           <ScalarProperty Name="song_releasedDate" ColumnName="song_releasedDate" />
           <ScalarProperty Name="song_URL_picture" ColumnName="song_URL_picture" />
           <ScalarProperty Name="song_status" ColumnName="song_status" />
@@ -122,6 +154,17 @@
           <ScalarProperty Name="song_Track_Number" ColumnName="song_Track_Number" />
           <ScalarProperty Name="song_streamURLWithVocal" ColumnName="song_streamURLWithVocal" />
           <ScalarProperty Name="song_streamURLWithoutVocal" ColumnName="song_streamURLWithoutVocal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="songrequest">
+      <EntityTypeMapping TypeName="singspazeModel.songrequest">
+        <MappingFragment StoreEntitySet="songrequest">
+          <ScalarProperty Name="songRequest_id" ColumnName="songRequest_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="songRequest_datetime" ColumnName="songRequest_datetime" />
+          <ScalarProperty Name="songRequest_songname" ColumnName="songRequest_songname" />
+          <ScalarProperty Name="songRequest_artistname" ColumnName="songRequest_artistname" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

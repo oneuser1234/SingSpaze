@@ -17,7 +17,7 @@ namespace SingSpaze.Models.Output
         /// <summary>
         /// List class Listsongdata
         /// </summary>
-        public List<Listsongdata> listsong { get; set; }
+        public List<Songdata> listsong { get; set; }
         /// <summary>
         /// Class errordata
         /// </summary>
@@ -51,8 +51,25 @@ namespace SingSpaze.Models.Output
         /// <summary>
         /// List class listsongdata
         /// </summary>
-        public List<Listsongdata> listsong { get; set; }
+        public List<Songdata> listsong { get; set; }
         
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
+
+
+    /// <summary>
+    /// Class output for sing history (ex.listsinghistory)
+    /// </summary>
+    public class O_SingHistory
+    {
+        /// <summary>
+        /// List class singhistorydata
+        /// </summary>
+        public List<Singhistorydata> singhistorydata { get; set; }
+
         /// <summary>
         /// Class errordata
         /// </summary>

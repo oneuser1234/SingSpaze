@@ -100,6 +100,38 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<contactus> contactus
+        {
+            get
+            {
+                if ((_contactus == null))
+                {
+                    _contactus = base.CreateObjectSet<contactus>("contactus");
+                }
+                return _contactus;
+            }
+        }
+        private ObjectSet<contactus> _contactus;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<csv> csv
+        {
+            get
+            {
+                if ((_csv == null))
+                {
+                    _csv = base.CreateObjectSet<csv>("csv");
+                }
+                return _csv;
+            }
+        }
+        private ObjectSet<csv> _csv;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<genre> genre
         {
             get
@@ -164,22 +196,6 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<publisher> publisher
-        {
-            get
-            {
-                if ((_publisher == null))
-                {
-                    _publisher = base.CreateObjectSet<publisher>("publisher");
-                }
-                return _publisher;
-            }
-        }
-        private ObjectSet<publisher> _publisher;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<publisherforartist> publisherforartist
         {
             get
@@ -240,6 +256,22 @@ namespace SingSpaze.Models
             }
         }
         private ObjectSet<song> _song;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<songrequest> songrequest
+        {
+            get
+            {
+                if ((_songrequest == null))
+                {
+                    _songrequest = base.CreateObjectSet<songrequest>("songrequest");
+                }
+                return _songrequest;
+            }
+        }
+        private ObjectSet<songrequest> _songrequest;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -326,6 +358,22 @@ namespace SingSpaze.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the contactus EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocontactus(contactus contactus)
+        {
+            base.AddObject("contactus", contactus);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the csv EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocsv(csv csv)
+        {
+            base.AddObject("csv", csv);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the genre EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTogenre(genre genre)
@@ -358,14 +406,6 @@ namespace SingSpaze.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the publisher EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTopublisher(publisher publisher)
-        {
-            base.AddObject("publisher", publisher);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the publisherforartist EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTopublisherforartist(publisherforartist publisherforartist)
@@ -395,6 +435,14 @@ namespace SingSpaze.Models
         public void AddTosong(song song)
         {
             base.AddObject("song", song);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the songrequest EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTosongrequest(songrequest songrequest)
+        {
+            base.AddObject("songrequest", songrequest);
         }
     
         /// <summary>
@@ -563,13 +611,15 @@ namespace SingSpaze.Models
         /// <param name="artist_description_th">Initial value of the artist_description_th property.</param>
         /// <param name="artist_description_en">Initial value of the artist_description_en property.</param>
         /// <param name="artist_view">Initial value of the artist_view property.</param>
-        public static artist Createartist(global::System.Int64 artist_id, global::System.String artist_description_th, global::System.String artist_description_en, global::System.Int32 artist_view)
+        /// <param name="artist_publisherforartistId">Initial value of the artist_publisherforartistId property.</param>
+        public static artist Createartist(global::System.Int64 artist_id, global::System.String artist_description_th, global::System.String artist_description_en, global::System.Int32 artist_view, global::System.Int32 artist_publisherforartistId)
         {
             artist artist = new artist();
             artist.artist_id = artist_id;
             artist.artist_description_th = artist_description_th;
             artist.artist_description_en = artist_description_en;
             artist.artist_view = artist_view;
+            artist.artist_publisherforartistId = artist_publisherforartistId;
             return artist;
         }
 
@@ -723,6 +773,802 @@ namespace SingSpaze.Models
         private global::System.String _artist_picture;
         partial void Onartist_pictureChanging(global::System.String value);
         partial void Onartist_pictureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 artist_publisherforartistId
+        {
+            get
+            {
+                return _artist_publisherforartistId;
+            }
+            set
+            {
+                Onartist_publisherforartistIdChanging(value);
+                ReportPropertyChanging("artist_publisherforartistId");
+                _artist_publisherforartistId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("artist_publisherforartistId");
+                Onartist_publisherforartistIdChanged();
+            }
+        }
+        private global::System.Int32 _artist_publisherforartistId;
+        partial void Onartist_publisherforartistIdChanging(global::System.Int32 value);
+        partial void Onartist_publisherforartistIdChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="contactus")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class contactus : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new contactus object.
+        /// </summary>
+        /// <param name="contactUs_id">Initial value of the contactUs_id property.</param>
+        /// <param name="contactUs_datetime">Initial value of the contactUs_datetime property.</param>
+        /// <param name="contactUs_name">Initial value of the contactUs_name property.</param>
+        /// <param name="contactUs_email">Initial value of the contactUs_email property.</param>
+        /// <param name="contactUs_phone">Initial value of the contactUs_phone property.</param>
+        /// <param name="contactUs_message">Initial value of the contactUs_message property.</param>
+        public static contactus Createcontactus(global::System.Int32 contactUs_id, global::System.DateTime contactUs_datetime, global::System.String contactUs_name, global::System.String contactUs_email, global::System.String contactUs_phone, global::System.String contactUs_message)
+        {
+            contactus contactus = new contactus();
+            contactus.contactUs_id = contactUs_id;
+            contactus.contactUs_datetime = contactUs_datetime;
+            contactus.contactUs_name = contactUs_name;
+            contactus.contactUs_email = contactUs_email;
+            contactus.contactUs_phone = contactUs_phone;
+            contactus.contactUs_message = contactUs_message;
+            return contactus;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 contactUs_id
+        {
+            get
+            {
+                return _contactUs_id;
+            }
+            set
+            {
+                if (_contactUs_id != value)
+                {
+                    OncontactUs_idChanging(value);
+                    ReportPropertyChanging("contactUs_id");
+                    _contactUs_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("contactUs_id");
+                    OncontactUs_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _contactUs_id;
+        partial void OncontactUs_idChanging(global::System.Int32 value);
+        partial void OncontactUs_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime contactUs_datetime
+        {
+            get
+            {
+                return _contactUs_datetime;
+            }
+            set
+            {
+                OncontactUs_datetimeChanging(value);
+                ReportPropertyChanging("contactUs_datetime");
+                _contactUs_datetime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("contactUs_datetime");
+                OncontactUs_datetimeChanged();
+            }
+        }
+        private global::System.DateTime _contactUs_datetime;
+        partial void OncontactUs_datetimeChanging(global::System.DateTime value);
+        partial void OncontactUs_datetimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String contactUs_name
+        {
+            get
+            {
+                return _contactUs_name;
+            }
+            set
+            {
+                OncontactUs_nameChanging(value);
+                ReportPropertyChanging("contactUs_name");
+                _contactUs_name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("contactUs_name");
+                OncontactUs_nameChanged();
+            }
+        }
+        private global::System.String _contactUs_name;
+        partial void OncontactUs_nameChanging(global::System.String value);
+        partial void OncontactUs_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String contactUs_email
+        {
+            get
+            {
+                return _contactUs_email;
+            }
+            set
+            {
+                OncontactUs_emailChanging(value);
+                ReportPropertyChanging("contactUs_email");
+                _contactUs_email = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("contactUs_email");
+                OncontactUs_emailChanged();
+            }
+        }
+        private global::System.String _contactUs_email;
+        partial void OncontactUs_emailChanging(global::System.String value);
+        partial void OncontactUs_emailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String contactUs_phone
+        {
+            get
+            {
+                return _contactUs_phone;
+            }
+            set
+            {
+                OncontactUs_phoneChanging(value);
+                ReportPropertyChanging("contactUs_phone");
+                _contactUs_phone = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("contactUs_phone");
+                OncontactUs_phoneChanged();
+            }
+        }
+        private global::System.String _contactUs_phone;
+        partial void OncontactUs_phoneChanging(global::System.String value);
+        partial void OncontactUs_phoneChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String contactUs_message
+        {
+            get
+            {
+                return _contactUs_message;
+            }
+            set
+            {
+                OncontactUs_messageChanging(value);
+                ReportPropertyChanging("contactUs_message");
+                _contactUs_message = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("contactUs_message");
+                OncontactUs_messageChanged();
+            }
+        }
+        private global::System.String _contactUs_message;
+        partial void OncontactUs_messageChanging(global::System.String value);
+        partial void OncontactUs_messageChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="csv")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class csv : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new csv object.
+        /// </summary>
+        /// <param name="csv_id">Initial value of the csv_id property.</param>
+        public static csv Createcsv(global::System.Int32 csv_id)
+        {
+            csv csv = new csv();
+            csv.csv_id = csv_id;
+            return csv;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                OnidChanging(value);
+                ReportPropertyChanging("id");
+                _id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("id");
+                OnidChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _id;
+        partial void OnidChanging(Nullable<global::System.Int32> value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Title___TH
+        {
+            get
+            {
+                return _Title___TH;
+            }
+            set
+            {
+                OnTitle___THChanging(value);
+                ReportPropertyChanging("Title___TH");
+                _Title___TH = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Title___TH");
+                OnTitle___THChanged();
+            }
+        }
+        private global::System.String _Title___TH;
+        partial void OnTitle___THChanging(global::System.String value);
+        partial void OnTitle___THChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Title___EN
+        {
+            get
+            {
+                return _Title___EN;
+            }
+            set
+            {
+                OnTitle___ENChanging(value);
+                ReportPropertyChanging("Title___EN");
+                _Title___EN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Title___EN");
+                OnTitle___ENChanged();
+            }
+        }
+        private global::System.String _Title___EN;
+        partial void OnTitle___ENChanging(global::System.String value);
+        partial void OnTitle___ENChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Photo
+        {
+            get
+            {
+                return _Photo;
+            }
+            set
+            {
+                OnPhotoChanging(value);
+                ReportPropertyChanging("Photo");
+                _Photo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Photo");
+                OnPhotoChanged();
+            }
+        }
+        private global::System.String _Photo;
+        partial void OnPhotoChanging(global::System.String value);
+        partial void OnPhotoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Artist___TH
+        {
+            get
+            {
+                return _Artist___TH;
+            }
+            set
+            {
+                OnArtist___THChanging(value);
+                ReportPropertyChanging("Artist___TH");
+                _Artist___TH = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Artist___TH");
+                OnArtist___THChanged();
+            }
+        }
+        private global::System.String _Artist___TH;
+        partial void OnArtist___THChanging(global::System.String value);
+        partial void OnArtist___THChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Artist___EN
+        {
+            get
+            {
+                return _Artist___EN;
+            }
+            set
+            {
+                OnArtist___ENChanging(value);
+                ReportPropertyChanging("Artist___EN");
+                _Artist___EN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Artist___EN");
+                OnArtist___ENChanged();
+            }
+        }
+        private global::System.String _Artist___EN;
+        partial void OnArtist___ENChanging(global::System.String value);
+        partial void OnArtist___ENChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Length
+        {
+            get
+            {
+                return _Length;
+            }
+            set
+            {
+                OnLengthChanging(value);
+                ReportPropertyChanging("Length");
+                _Length = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Length");
+                OnLengthChanged();
+            }
+        }
+        private global::System.String _Length;
+        partial void OnLengthChanging(global::System.String value);
+        partial void OnLengthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Lyrics
+        {
+            get
+            {
+                return _Lyrics;
+            }
+            set
+            {
+                OnLyricsChanging(value);
+                ReportPropertyChanging("Lyrics");
+                _Lyrics = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Lyrics");
+                OnLyricsChanged();
+            }
+        }
+        private global::System.String _Lyrics;
+        partial void OnLyricsChanging(global::System.String value);
+        partial void OnLyricsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Album___TH
+        {
+            get
+            {
+                return _Album___TH;
+            }
+            set
+            {
+                OnAlbum___THChanging(value);
+                ReportPropertyChanging("Album___TH");
+                _Album___TH = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Album___TH");
+                OnAlbum___THChanged();
+            }
+        }
+        private global::System.String _Album___TH;
+        partial void OnAlbum___THChanging(global::System.String value);
+        partial void OnAlbum___THChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Album___EN
+        {
+            get
+            {
+                return _Album___EN;
+            }
+            set
+            {
+                OnAlbum___ENChanging(value);
+                ReportPropertyChanging("Album___EN");
+                _Album___EN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Album___EN");
+                OnAlbum___ENChanged();
+            }
+        }
+        private global::System.String _Album___EN;
+        partial void OnAlbum___ENChanging(global::System.String value);
+        partial void OnAlbum___ENChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Released_date
+        {
+            get
+            {
+                return _Released_date;
+            }
+            set
+            {
+                OnReleased_dateChanging(value);
+                ReportPropertyChanging("Released_date");
+                _Released_date = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Released_date");
+                OnReleased_dateChanged();
+            }
+        }
+        private global::System.String _Released_date;
+        partial void OnReleased_dateChanging(global::System.String value);
+        partial void OnReleased_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String C_Views__today__30_days__total_
+        {
+            get
+            {
+                return _C_Views__today__30_days__total_;
+            }
+            set
+            {
+                OnC_Views__today__30_days__total_Changing(value);
+                ReportPropertyChanging("C_Views__today__30_days__total_");
+                _C_Views__today__30_days__total_ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("C_Views__today__30_days__total_");
+                OnC_Views__today__30_days__total_Changed();
+            }
+        }
+        private global::System.String _C_Views__today__30_days__total_;
+        partial void OnC_Views__today__30_days__total_Changing(global::System.String value);
+        partial void OnC_Views__today__30_days__total_Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Language
+        {
+            get
+            {
+                return _Language;
+            }
+            set
+            {
+                OnLanguageChanging(value);
+                ReportPropertyChanging("Language");
+                _Language = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Language");
+                OnLanguageChanged();
+            }
+        }
+        private global::System.String _Language;
+        partial void OnLanguageChanging(global::System.String value);
+        partial void OnLanguageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Genres
+        {
+            get
+            {
+                return _Genres;
+            }
+            set
+            {
+                OnGenresChanging(value);
+                ReportPropertyChanging("Genres");
+                _Genres = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Genres");
+                OnGenresChanged();
+            }
+        }
+        private global::System.String _Genres;
+        partial void OnGenresChanging(global::System.String value);
+        partial void OnGenresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Publisher
+        {
+            get
+            {
+                return _Publisher;
+            }
+            set
+            {
+                OnPublisherChanging(value);
+                ReportPropertyChanging("Publisher");
+                _Publisher = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Publisher");
+                OnPublisherChanged();
+            }
+        }
+        private global::System.String _Publisher;
+        partial void OnPublisherChanging(global::System.String value);
+        partial void OnPublisherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
+            }
+        }
+        private global::System.String _Status;
+        partial void OnStatusChanging(global::System.String value);
+        partial void OnStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Price
+        {
+            get
+            {
+                return _Price;
+            }
+            set
+            {
+                OnPriceChanging(value);
+                ReportPropertyChanging("Price");
+                _Price = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Price");
+                OnPriceChanged();
+            }
+        }
+        private global::System.String _Price;
+        partial void OnPriceChanging(global::System.String value);
+        partial void OnPriceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Copyright
+        {
+            get
+            {
+                return _Copyright;
+            }
+            set
+            {
+                OnCopyrightChanging(value);
+                ReportPropertyChanging("Copyright");
+                _Copyright = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Copyright");
+                OnCopyrightChanged();
+            }
+        }
+        private global::System.String _Copyright;
+        partial void OnCopyrightChanging(global::System.String value);
+        partial void OnCopyrightChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Track_Number
+        {
+            get
+            {
+                return _Track_Number;
+            }
+            set
+            {
+                OnTrack_NumberChanging(value);
+                ReportPropertyChanging("Track_Number");
+                _Track_Number = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Track_Number");
+                OnTrack_NumberChanged();
+            }
+        }
+        private global::System.String _Track_Number;
+        partial void OnTrack_NumberChanging(global::System.String value);
+        partial void OnTrack_NumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String URL_iOS
+        {
+            get
+            {
+                return _URL_iOS;
+            }
+            set
+            {
+                OnURL_iOSChanging(value);
+                ReportPropertyChanging("URL_iOS");
+                _URL_iOS = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("URL_iOS");
+                OnURL_iOSChanged();
+            }
+        }
+        private global::System.String _URL_iOS;
+        partial void OnURL_iOSChanging(global::System.String value);
+        partial void OnURL_iOSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String URL_Android_Other
+        {
+            get
+            {
+                return _URL_Android_Other;
+            }
+            set
+            {
+                OnURL_Android_OtherChanging(value);
+                ReportPropertyChanging("URL_Android_Other");
+                _URL_Android_Other = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("URL_Android_Other");
+                OnURL_Android_OtherChanged();
+            }
+        }
+        private global::System.String _URL_Android_Other;
+        partial void OnURL_Android_OtherChanging(global::System.String value);
+        partial void OnURL_Android_OtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String URL_RTMP
+        {
+            get
+            {
+                return _URL_RTMP;
+            }
+            set
+            {
+                OnURL_RTMPChanging(value);
+                ReportPropertyChanging("URL_RTMP");
+                _URL_RTMP = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("URL_RTMP");
+                OnURL_RTMPChanged();
+            }
+        }
+        private global::System.String _URL_RTMP;
+        partial void OnURL_RTMPChanging(global::System.String value);
+        partial void OnURL_RTMPChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 csv_id
+        {
+            get
+            {
+                return _csv_id;
+            }
+            set
+            {
+                if (_csv_id != value)
+                {
+                    Oncsv_idChanging(value);
+                    ReportPropertyChanging("csv_id");
+                    _csv_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("csv_id");
+                    Oncsv_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _csv_id;
+        partial void Oncsv_idChanging(global::System.Int32 value);
+        partial void Oncsv_idChanged();
 
         #endregion
 
@@ -1162,89 +2008,6 @@ namespace SingSpaze.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="publisher")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class publisher : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new publisher object.
-        /// </summary>
-        /// <param name="publisher_id">Initial value of the publisher_id property.</param>
-        /// <param name="publisher_description">Initial value of the publisher_description property.</param>
-        public static publisher Createpublisher(global::System.Int32 publisher_id, global::System.String publisher_description)
-        {
-            publisher publisher = new publisher();
-            publisher.publisher_id = publisher_id;
-            publisher.publisher_description = publisher_description;
-            return publisher;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 publisher_id
-        {
-            get
-            {
-                return _publisher_id;
-            }
-            set
-            {
-                if (_publisher_id != value)
-                {
-                    Onpublisher_idChanging(value);
-                    ReportPropertyChanging("publisher_id");
-                    _publisher_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("publisher_id");
-                    Onpublisher_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _publisher_id;
-        partial void Onpublisher_idChanging(global::System.Int32 value);
-        partial void Onpublisher_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String publisher_description
-        {
-            get
-            {
-                return _publisher_description;
-            }
-            set
-            {
-                Onpublisher_descriptionChanging(value);
-                ReportPropertyChanging("publisher_description");
-                _publisher_description = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("publisher_description");
-                Onpublisher_descriptionChanged();
-            }
-        }
-        private global::System.String _publisher_description;
-        partial void Onpublisher_descriptionChanging(global::System.String value);
-        partial void Onpublisher_descriptionChanged();
-
-        #endregion
-
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="publisherforartist")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1255,15 +2018,13 @@ namespace SingSpaze.Models
         /// <summary>
         /// Create a new publisherforartist object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="publisherId">Initial value of the publisherId property.</param>
-        /// <param name="artistId">Initial value of the artistId property.</param>
-        public static publisherforartist Createpublisherforartist(global::System.Int32 id, global::System.Int32 publisherId, global::System.Int32 artistId)
+        /// <param name="publisherforartist_Id">Initial value of the publisherforartist_Id property.</param>
+        /// <param name="publisherforartist_description">Initial value of the publisherforartist_description property.</param>
+        public static publisherforartist Createpublisherforartist(global::System.Int32 publisherforartist_Id, global::System.String publisherforartist_description)
         {
             publisherforartist publisherforartist = new publisherforartist();
-            publisherforartist.Id = id;
-            publisherforartist.publisherId = publisherId;
-            publisherforartist.artistId = artistId;
+            publisherforartist.publisherforartist_Id = publisherforartist_Id;
+            publisherforartist.publisherforartist_description = publisherforartist_description;
             return publisherforartist;
         }
 
@@ -1276,75 +2037,51 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Int32 publisherforartist_Id
         {
             get
             {
-                return _Id;
+                return _publisherforartist_Id;
             }
             set
             {
-                if (_Id != value)
+                if (_publisherforartist_Id != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    Onpublisherforartist_IdChanging(value);
+                    ReportPropertyChanging("publisherforartist_Id");
+                    _publisherforartist_Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("publisherforartist_Id");
+                    Onpublisherforartist_IdChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.Int32 _publisherforartist_Id;
+        partial void Onpublisherforartist_IdChanging(global::System.Int32 value);
+        partial void Onpublisherforartist_IdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 publisherId
+        public global::System.String publisherforartist_description
         {
             get
             {
-                return _publisherId;
+                return _publisherforartist_description;
             }
             set
             {
-                OnpublisherIdChanging(value);
-                ReportPropertyChanging("publisherId");
-                _publisherId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("publisherId");
-                OnpublisherIdChanged();
+                Onpublisherforartist_descriptionChanging(value);
+                ReportPropertyChanging("publisherforartist_description");
+                _publisherforartist_description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("publisherforartist_description");
+                Onpublisherforartist_descriptionChanged();
             }
         }
-        private global::System.Int32 _publisherId;
-        partial void OnpublisherIdChanging(global::System.Int32 value);
-        partial void OnpublisherIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 artistId
-        {
-            get
-            {
-                return _artistId;
-            }
-            set
-            {
-                OnartistIdChanging(value);
-                ReportPropertyChanging("artistId");
-                _artistId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("artistId");
-                OnartistIdChanged();
-            }
-        }
-        private global::System.Int32 _artistId;
-        partial void OnartistIdChanging(global::System.Int32 value);
-        partial void OnartistIdChanged();
+        private global::System.String _publisherforartist_description;
+        partial void Onpublisherforartist_descriptionChanging(global::System.String value);
+        partial void Onpublisherforartist_descriptionChanged();
 
         #endregion
 
@@ -1364,15 +2101,13 @@ namespace SingSpaze.Models
         /// <summary>
         /// Create a new publisherforsong object.
         /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        /// <param name="publisherId">Initial value of the publisherId property.</param>
-        /// <param name="songId">Initial value of the songId property.</param>
-        public static publisherforsong Createpublisherforsong(global::System.Int32 id, global::System.Int32 publisherId, global::System.Int32 songId)
+        /// <param name="publisherforsong_Id">Initial value of the publisherforsong_Id property.</param>
+        /// <param name="publisherforsong_description">Initial value of the publisherforsong_description property.</param>
+        public static publisherforsong Createpublisherforsong(global::System.Int32 publisherforsong_Id, global::System.String publisherforsong_description)
         {
             publisherforsong publisherforsong = new publisherforsong();
-            publisherforsong.id = id;
-            publisherforsong.publisherId = publisherId;
-            publisherforsong.songId = songId;
+            publisherforsong.publisherforsong_Id = publisherforsong_Id;
+            publisherforsong.publisherforsong_description = publisherforsong_description;
             return publisherforsong;
         }
 
@@ -1385,75 +2120,51 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 id
+        public global::System.Int32 publisherforsong_Id
         {
             get
             {
-                return _id;
+                return _publisherforsong_Id;
             }
             set
             {
-                if (_id != value)
+                if (_publisherforsong_Id != value)
                 {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("id");
-                    OnidChanged();
+                    Onpublisherforsong_IdChanging(value);
+                    ReportPropertyChanging("publisherforsong_Id");
+                    _publisherforsong_Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("publisherforsong_Id");
+                    Onpublisherforsong_IdChanged();
                 }
             }
         }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
+        private global::System.Int32 _publisherforsong_Id;
+        partial void Onpublisherforsong_IdChanging(global::System.Int32 value);
+        partial void Onpublisherforsong_IdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 publisherId
+        public global::System.String publisherforsong_description
         {
             get
             {
-                return _publisherId;
+                return _publisherforsong_description;
             }
             set
             {
-                OnpublisherIdChanging(value);
-                ReportPropertyChanging("publisherId");
-                _publisherId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("publisherId");
-                OnpublisherIdChanged();
+                Onpublisherforsong_descriptionChanging(value);
+                ReportPropertyChanging("publisherforsong_description");
+                _publisherforsong_description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("publisherforsong_description");
+                Onpublisherforsong_descriptionChanged();
             }
         }
-        private global::System.Int32 _publisherId;
-        partial void OnpublisherIdChanging(global::System.Int32 value);
-        partial void OnpublisherIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 songId
-        {
-            get
-            {
-                return _songId;
-            }
-            set
-            {
-                OnsongIdChanging(value);
-                ReportPropertyChanging("songId");
-                _songId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("songId");
-                OnsongIdChanged();
-            }
-        }
-        private global::System.Int32 _songId;
-        partial void OnsongIdChanging(global::System.Int32 value);
-        partial void OnsongIdChanged();
+        private global::System.String _publisherforsong_description;
+        partial void Onpublisherforsong_descriptionChanging(global::System.String value);
+        partial void Onpublisherforsong_descriptionChanged();
 
         #endregion
 
@@ -1640,13 +2351,12 @@ namespace SingSpaze.Models
         /// <param name="song_albumId">Initial value of the song_albumId property.</param>
         /// <param name="song_artistId">Initial value of the song_artistId property.</param>
         /// <param name="song_length">Initial value of the song_length property.</param>
-        /// <param name="song_publisherId">Initial value of the song_publisherId property.</param>
+        /// <param name="publisherforsong_id">Initial value of the publisherforsong_id property.</param>
         /// <param name="song_releasedDate">Initial value of the song_releasedDate property.</param>
         /// <param name="song_status">Initial value of the song_status property.</param>
         /// <param name="song_addedDate">Initial value of the song_addedDate property.</param>
         /// <param name="song_view">Initial value of the song_view property.</param>
-        /// <param name="song_Track_Number">Initial value of the song_Track_Number property.</param>
-        public static song Createsong(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.String song_length, global::System.Int32 song_publisherId, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate, global::System.Int32 song_view, global::System.Int32 song_Track_Number)
+        public static song Createsong(global::System.Int32 song_id, global::System.Int32 song_genre, global::System.Int32 song_languageId, global::System.Int32 song_albumId, global::System.Int32 song_artistId, global::System.String song_length, global::System.Int32 publisherforsong_id, global::System.DateTime song_releasedDate, global::System.Int32 song_status, global::System.DateTime song_addedDate, global::System.Int32 song_view)
         {
             song song = new song();
             song.song_id = song_id;
@@ -1655,12 +2365,11 @@ namespace SingSpaze.Models
             song.song_albumId = song_albumId;
             song.song_artistId = song_artistId;
             song.song_length = song_length;
-            song.song_publisherId = song_publisherId;
+            song.publisherforsong_id = publisherforsong_id;
             song.song_releasedDate = song_releasedDate;
             song.song_status = song_status;
             song.song_addedDate = song_addedDate;
             song.song_view = song_view;
-            song.song_Track_Number = song_Track_Number;
             return song;
         }
 
@@ -1916,24 +2625,24 @@ namespace SingSpaze.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 song_publisherId
+        public global::System.Int32 publisherforsong_id
         {
             get
             {
-                return _song_publisherId;
+                return _publisherforsong_id;
             }
             set
             {
-                Onsong_publisherIdChanging(value);
-                ReportPropertyChanging("song_publisherId");
-                _song_publisherId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("song_publisherId");
-                Onsong_publisherIdChanged();
+                Onpublisherforsong_idChanging(value);
+                ReportPropertyChanging("publisherforsong_id");
+                _publisherforsong_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("publisherforsong_id");
+                Onpublisherforsong_idChanged();
             }
         }
-        private global::System.Int32 _song_publisherId;
-        partial void Onsong_publisherIdChanging(global::System.Int32 value);
-        partial void Onsong_publisherIdChanged();
+        private global::System.Int32 _publisherforsong_id;
+        partial void Onpublisherforsong_idChanging(global::System.Int32 value);
+        partial void Onpublisherforsong_idChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2178,9 +2887,9 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 song_Track_Number
+        public Nullable<global::System.Int32> song_Track_Number
         {
             get
             {
@@ -2195,8 +2904,8 @@ namespace SingSpaze.Models
                 Onsong_Track_NumberChanged();
             }
         }
-        private global::System.Int32 _song_Track_Number;
-        partial void Onsong_Track_NumberChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _song_Track_Number;
+        partial void Onsong_Track_NumberChanging(Nullable<global::System.Int32> value);
         partial void Onsong_Track_NumberChanged();
     
         /// <summary>
@@ -2246,6 +2955,167 @@ namespace SingSpaze.Models
         private global::System.String _song_streamURLWithoutVocal;
         partial void Onsong_streamURLWithoutVocalChanging(global::System.String value);
         partial void Onsong_streamURLWithoutVocalChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="songrequest")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class songrequest : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new songrequest object.
+        /// </summary>
+        /// <param name="songRequest_id">Initial value of the songRequest_id property.</param>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="songRequest_datetime">Initial value of the songRequest_datetime property.</param>
+        /// <param name="songRequest_songname">Initial value of the songRequest_songname property.</param>
+        /// <param name="songRequest_artistname">Initial value of the songRequest_artistname property.</param>
+        public static songrequest Createsongrequest(global::System.Int32 songRequest_id, global::System.Int32 user_id, global::System.DateTime songRequest_datetime, global::System.String songRequest_songname, global::System.String songRequest_artistname)
+        {
+            songrequest songrequest = new songrequest();
+            songrequest.songRequest_id = songRequest_id;
+            songrequest.user_id = user_id;
+            songrequest.songRequest_datetime = songRequest_datetime;
+            songrequest.songRequest_songname = songRequest_songname;
+            songrequest.songRequest_artistname = songRequest_artistname;
+            return songrequest;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 songRequest_id
+        {
+            get
+            {
+                return _songRequest_id;
+            }
+            set
+            {
+                if (_songRequest_id != value)
+                {
+                    OnsongRequest_idChanging(value);
+                    ReportPropertyChanging("songRequest_id");
+                    _songRequest_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("songRequest_id");
+                    OnsongRequest_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _songRequest_id;
+        partial void OnsongRequest_idChanging(global::System.Int32 value);
+        partial void OnsongRequest_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private global::System.Int32 _user_id;
+        partial void Onuser_idChanging(global::System.Int32 value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime songRequest_datetime
+        {
+            get
+            {
+                return _songRequest_datetime;
+            }
+            set
+            {
+                OnsongRequest_datetimeChanging(value);
+                ReportPropertyChanging("songRequest_datetime");
+                _songRequest_datetime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("songRequest_datetime");
+                OnsongRequest_datetimeChanged();
+            }
+        }
+        private global::System.DateTime _songRequest_datetime;
+        partial void OnsongRequest_datetimeChanging(global::System.DateTime value);
+        partial void OnsongRequest_datetimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String songRequest_songname
+        {
+            get
+            {
+                return _songRequest_songname;
+            }
+            set
+            {
+                OnsongRequest_songnameChanging(value);
+                ReportPropertyChanging("songRequest_songname");
+                _songRequest_songname = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("songRequest_songname");
+                OnsongRequest_songnameChanged();
+            }
+        }
+        private global::System.String _songRequest_songname;
+        partial void OnsongRequest_songnameChanging(global::System.String value);
+        partial void OnsongRequest_songnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String songRequest_artistname
+        {
+            get
+            {
+                return _songRequest_artistname;
+            }
+            set
+            {
+                OnsongRequest_artistnameChanging(value);
+                ReportPropertyChanging("songRequest_artistname");
+                _songRequest_artistname = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("songRequest_artistname");
+                OnsongRequest_artistnameChanged();
+            }
+        }
+        private global::System.String _songRequest_artistname;
+        partial void OnsongRequest_artistnameChanging(global::System.String value);
+        partial void OnsongRequest_artistnameChanged();
 
         #endregion
 

@@ -117,7 +117,8 @@ namespace SingSpaze.Controllers.API
                     description_EN = data.artist_description_en,
                     picture = data.artist_picture,
                     artistType = data.artist_type,
-                    view = view
+                    view = view,
+                    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
                 });
             }
             
@@ -132,8 +133,8 @@ namespace SingSpaze.Controllers.API
         /// <summary>
         /// Send artist id to get artist detail
         /// </summary>
-        /// <param name="i_data"></param>
-        /// <returns></returns>
+        /// <param name="i_data">Class I_ArtistDetails</param>
+        /// <returns>Class O_ArtistDetails</returns>
         [HttpPost]
         [ActionName("Details")]
         public O_ArtistDetails Details(I_ArtistDetails i_data)
@@ -173,8 +174,86 @@ namespace SingSpaze.Controllers.API
                     description_EN = data.artist_description_en,
                     artistType = data.artist_type,
                     picture = data.artist_picture,
-                    songs = db.song.Where( s => s.song_artistId == data.artist_id).Count()
+                    songs = db.song.Where( s => s.song_artistId == data.artist_id).Count(),
+                    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
                 }
+            };
+        }
+
+
+        /// <summary>
+        /// For search artist with keyword
+        /// </summary>
+        /// <param name="i_data">Class I_SearchSong</param>
+        /// <returns>Class O_SearchSong</returns>
+        [HttpPost]
+        [ActionName("SearchArtist")]
+        public O_SearchArtist SearchArtist(I_SearchArtist i_data)
+        {
+            if (i_data == null)
+            {
+                return new O_SearchArtist()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
+
+            if (i_data.keyword == null)
+                i_data.keyword = "";
+
+            List<artist> listartist = db.artist.ToList();
+
+            //type
+            if (i_data.type != null)
+                listartist = listartist.Where(a => a.artist_type.ToLower() == i_data.type.ToLower()).ToList();
+
+            //keyword
+            listartist = listartist.Where(a => a.artist_description_th.ToLower().Contains(i_data.keyword.ToLower()) || a.artist_description_en.ToLower().Contains(i_data.keyword.ToLower())).ToList();
+
+            int resultNumber = listartist.Count();
+
+            // skip take
+            listartist = listartist.OrderBy(a => a.artist_description_th).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+
+            if (listartist == null)
+            {
+                return new O_SearchArtist()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 6,
+                        Detail = Useful.geterrordata(6)
+                    }
+                };
+            }
+
+            List<Artistdata> o_artist= new List<Artistdata>();
+
+
+            foreach (artist data in listartist)
+            {
+                o_artist.Add(new Artistdata()
+                {
+                    id = data.artist_id,
+                    description_TH = data.artist_description_th,
+                    description_EN = data.artist_description_en,
+                    artistType = data.artist_type,
+                    picture = data.artist_picture,
+                    songs = db.song.Where( s => s.song_artistId == data.artist_id).Count(),
+                    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
+                });
+
+                
+            }
+
+            return new O_SearchArtist()
+            {
+                listartist = o_artist,
+                resultNumber = resultNumber
             };
         }
     }

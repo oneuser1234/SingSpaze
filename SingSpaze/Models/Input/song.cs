@@ -40,7 +40,7 @@ namespace SingSpaze.Models.Input
         [DataMember(Name = "language_id")]
         public int language_id { get { return _language_id; } set { this._language_id = value; } }
          /// <summary>
-        /// Focus in categories allow 'pop,rock,luktung,other' (default = null)
+        /// Focus in categories allow 'pop,rock,luktung,others' (default = null)
         /// </summary>
         [DataMember(Name = "categories")]
         public string categories { get; set; }
@@ -110,5 +110,33 @@ namespace SingSpaze.Models.Input
         /// </summary>
         [DataMember(Name = "selectdata")]
         public Selectdata selectdata { get { return _selectdata; } set { this._selectdata = value; } }
+    }
+
+    /// <summary>
+    /// Class input data for singing history 
+    /// </summary>
+    [DataContract]
+    public class I_SingHistory
+    {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+
+        int _time = 30;
+        /// <summary>
+        /// Number or day to focus (default = 30)
+        /// </summary>
+        [DataMember(Name = "time")]
+        public int time { get { return _time; } set { this._time = value; } }
+
+        Selectdata _selectdata = Useful.getbaseselectdata();
+        /// <summary>
+        /// Class selectdata
+        /// </summary>
+        [DataMember(Name = "selectdata")]
+        public Selectdata selectdata { get { return _selectdata; } set { this._selectdata = value; } }
+    
     }
 }

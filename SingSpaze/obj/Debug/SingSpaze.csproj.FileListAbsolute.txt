@@ -158,7 +158,6 @@ C:\Users\Bas Kung\Desktop\SingSpaze\SingSpaze\SingSpaze\obj\Debug\SingSpaze.cspr
 C:\Users\Bas Kung\Desktop\SingSpaze\SingSpaze\SingSpaze\obj\Debug\SingSpaze.dll
 C:\Users\Bas Kung\Desktop\SingSpaze\SingSpaze\SingSpaze\obj\Debug\SingSpaze.pdb
 C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\obj\Debug\SingSpaze.csproj.App.config
-C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\obj\Debug\SingSpaze.csprojResolveAssemblyReference.cache
 C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\bin\SingSpaze.dll.config
 C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\bin\SingSpaze.dll
 C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\bin\SingSpaze.pdb
@@ -224,3 +223,4 @@ C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\bin\DotNetOpenAuth.O
 C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\obj\Debug\SingSpaze.dll
 C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\obj\Debug\SingSpaze.pdb
+C:\Users\Bas Kung\Desktop\SingSpaze\git\SingSpaze\SingSpaze\obj\Debug\SingSpaze.csprojResolveAssemblyReference.cache

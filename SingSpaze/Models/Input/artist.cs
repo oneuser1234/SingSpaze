@@ -57,4 +57,30 @@ namespace SingSpaze.Models.Input
         
        
     }
+
+    /// <summary>
+    /// Class input data for search Artis (ex.keyword ,type)
+    /// </summary>
+    [DataContract]
+    public class I_SearchArtist
+    {
+        /// <summary>
+        /// Keyword data (default = null)
+        /// </summary>
+        [DataMember(Name = "keyword")]
+        public string keyword { get; set; }
+        /// <summary>
+        /// Type of search allow "male,female,band" (Optional)
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string type { get; set; }        
+
+
+        Selectdata _selectdata = Useful.getbaseselectdata();
+        /// <summary>
+        /// Class selectdata
+        /// </summary>
+        [DataMember(Name = "selectdata")]
+        public Selectdata selectdata { get { return _selectdata; } set { this._selectdata = value; } }
+    }
 }

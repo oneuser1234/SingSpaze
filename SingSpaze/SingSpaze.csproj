@@ -198,6 +198,7 @@
     <Compile Include="Models\Input\artist.cs" />
     <Compile Include="Models\Input\playlist.cs" />
     <Compile Include="Models\Input\song.cs" />
+    <Compile Include="Models\Input\utility.cs" />
     <Compile Include="Models\Management\Account.cs" />
     <Compile Include="Models\Management\Helper.cs" />
     <Compile Include="Models\Management\Song.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Models\Output\artist.cs" />
     <Compile Include="Models\Output\playlist.cs" />
     <Compile Include="Models\Output\song.cs" />
+    <Compile Include="Models\Output\utlity.cs" />
     <Compile Include="Models\Useful.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -434,6 +436,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Test.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Song\Importdata.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Song\CSV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\MySql.edmx">

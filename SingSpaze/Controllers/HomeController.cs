@@ -26,7 +26,7 @@ namespace SingSpaze.Controllers
             if (input.user_login == "admin" && input.user_password == "admin")
             {
                 FormsAuthentication.SetAuthCookie(input.user_login, false);
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "Song");
             }
             else
                 return RedirectToAction("Index");

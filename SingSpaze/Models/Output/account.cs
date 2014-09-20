@@ -91,9 +91,9 @@ namespace SingSpaze.Models.Output
     public class O_Forgot
     {
         /// <summary>
-        /// Reset Token
+        /// Return True or False
         /// </summary>
-        public string retoken { get; set; }
+        public Boolean result { get; set; }
         /// <summary>
         /// Class errordata
         /// </summary>

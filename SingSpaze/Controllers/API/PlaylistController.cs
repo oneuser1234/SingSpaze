@@ -27,20 +27,24 @@ namespace SingSpaze.Controllers.API
         /// <param name="i_data">Class I_ListPlayList</param>
         /// <returns>Class O_ListPlayList</returns>
         [HttpPost]
-        [ActionName("ListPlayList")]
-        public O_ListPlayList ListPlayList(I_ListPlayList i_data)
+        [ActionName("GetPlaylistList")]
+        public O_GetPlaylistList GetPlaylistList (I_GetPlaylistList i_data)
         {
 
             if (Useful.checklogin(i_data.logindata) != null)
             {
-                return new O_ListPlayList()
-                {
+                return new O_GetPlaylistList()
+                {                    
                     errordata = Useful.checklogin(i_data.logindata)
                 };
             }
 
+            int user_id = Useful.getuserid(i_data.logindata.token);
             List<Playlistdata> o_listdata = new List<Playlistdata>();
-            List<playlist> listplaylistdata = db.playlist.OrderBy(p => p.playlist_id).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
+            List<playlist> listplaylistdata = db.playlist.Where(p => p.user_id == user_id).OrderBy(p => p.playlist_id).ToList();
+            int resultNumber = listplaylistdata.Count;
+            //skip
+            listplaylistdata = listplaylistdata.Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
 
             foreach (playlist data in listplaylistdata)
             {
@@ -51,8 +55,9 @@ namespace SingSpaze.Controllers.API
                 o_listdata.Add(playlistdata);
             }
 
-            return new O_ListPlayList()
+            return new O_GetPlaylistList()
             {
+                resultNumber = resultNumber,
                 playlists = o_listdata
             };
         }
@@ -64,28 +69,28 @@ namespace SingSpaze.Controllers.API
         /// <param name="i_data">Class I_PlayList</param>
         /// <returns>Class O_PlayList</returns>
         [HttpPost]
-        [ActionName("Playlist")]
-        public O_PlayList Playlist(I_PlayList i_data) //playlist_id
+        [ActionName("GetSonginPlaylist")]
+        public O_GetSonginPlaylist GetSonginPlaylist(I_GetSonginPlaylist i_data) //playlist_id
         {
 
             if (Useful.checklogin(i_data.logindata) != null)
             {
-                return new O_PlayList()
+                return new O_GetSonginPlaylist()
                 {
                     errordata = Useful.checklogin(i_data.logindata)
                 };
             }
 
             List<playlisttosong> listplaylisttosong = db.playlisttosong.Where(p => p.playlist_id == i_data.id).OrderBy(p => p.song_id).ToList();
-
+            int resultNumber = listplaylisttosong.Count;
             if (listplaylisttosong == null)
             {
-                return new O_PlayList()
+                return new O_GetSonginPlaylist()
                 {
                     errordata = new Errordata()
                     {
-                        code = 10,
-                        Detail = Useful.geterrordata(10)
+                        code = 6,
+                        Detail = Useful.geterrordata(6)
                     }
                 };
             }
@@ -97,12 +102,12 @@ namespace SingSpaze.Controllers.API
                 songlist.Add(data.song_id);
             }
 
-            List<Listsongdata> o_listdata = new List<Listsongdata>();
+            List<Playlistsongdata> o_listdata = new List<Playlistsongdata>();
 
-            List<song> listsong = db.song.Where(s => songlist.Contains(s.song_id)).OrderBy(p => p.song_id).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            List<song> listsong = db.song.Where(s => songlist.Contains(s.song_id)).OrderBy(p => p.song_id).ToList();
             foreach (song data in listsong)
             {
-                Listsongdata songdata = new Listsongdata()
+                Songdata songdata = new Songdata()
                 {
                     id = data.song_id,
                     originName = data.song_originName,
@@ -116,33 +121,40 @@ namespace SingSpaze.Controllers.API
                     albumdata = Useful.getalbumdata(data.song_albumId),
                     artistdata = Useful.getartistdata(data.song_artistId),
                     genredata = Useful.getgenredata(data.song_genre),
-                    publisherdata = Useful.getpublisherdata(data.song_publisherId),
+                    publisherdata = Useful.getpublishersongdata(data.publisherforsong_id),
                     //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId),
                     
                 };
-                o_listdata.Add(songdata);
+
+                Playlistsongdata listsongdata = new Playlistsongdata()
+                {
+                    songdata = songdata,
+                    sequence = listplaylisttosong.Where(l => l.song_id == data.song_id).Select(l => l.playlistToSong_sequence).FirstOrDefault()
+                };
+                o_listdata.Add(listsongdata);
             }
 
-            return new O_PlayList()
+            return new O_GetSonginPlaylist()
             {
-                songlists = o_listdata 
+                resultNumber = resultNumber,
+                songlists = o_listdata.OrderBy(l => l.sequence).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList() 
             };
 
         }
 
 
         /// <summary>
-        /// Create new list
+        /// Add new playlist
         /// </summary>
-        /// <param name="i_data">Class I_AddList</param>
-        /// <returns>Class O_AddList</returns>
+        /// <param name="i_data">Class I_AddNewPlaylist</param>
+        /// <returns>Class O_AddNewPlaylist</returns>
         [HttpPost]
-        [ActionName("AddList")]
-        public O_AddList AddList(I_AddList i_data)
+        [ActionName("AddNewPlaylist")]
+        public O_AddNewPlaylist AddNewPlaylist(I_AddNewPlaylist i_data)
         {
             if (i_data == null || String.IsNullOrEmpty(i_data.description))
             {
-                return new O_AddList()
+                return new O_AddNewPlaylist()
                 {
                     result = false,
                     errordata = new Errordata()
@@ -155,8 +167,9 @@ namespace SingSpaze.Controllers.API
 
             if (Useful.checklogin(i_data.logindata) != null)
             {
-                return new O_AddList()
+                return new O_AddNewPlaylist()
                 {
+                    result = false,
                     errordata = Useful.checklogin(i_data.logindata)
                 };
             }
@@ -172,7 +185,7 @@ namespace SingSpaze.Controllers.API
             db.playlist.AddObject(playlistdata);
             db.SaveChanges();
 
-            return new O_AddList()
+            return new O_AddNewPlaylist()
             {
                 result = true
             };
@@ -180,17 +193,17 @@ namespace SingSpaze.Controllers.API
         }
 
         /// <summary>
-        /// Add song to playlist
+        /// Remove playlist
         /// </summary>
-        /// <param name="i_data">Class I_AddSong</param>
-        /// <returns>Class O_AddSong</returns>
+        /// <param name="i_data">Class I_RemovePlaylist</param>
+        /// <returns>Class O_RemovePlaylist</returns>
         [HttpPost]
-        [ActionName("AddSong")]
-        public O_AddSong AddSong(I_AddSong i_data)
+        [ActionName("RemovePlaylist")]
+        public O_RemovePlaylist RemovePlaylist(I_RemovePlaylist i_data)
         {
-            if (i_data == null || String.IsNullOrEmpty(i_data.song_id.ToString()) || string.IsNullOrEmpty(i_data.playlist_id.ToString()))
+            if (i_data == null)
             {
-                return new O_AddSong()
+                return new O_RemovePlaylist()
                 {
                     result = false,
                     errordata = new Errordata()
@@ -203,17 +216,82 @@ namespace SingSpaze.Controllers.API
 
             if (Useful.checklogin(i_data.logindata) != null)
             {
-                return new O_AddSong()
+                return new O_RemovePlaylist()
                 {
+                    result = false,
                     errordata = Useful.checklogin(i_data.logindata)
                 };
             }
+            int user_id = Useful.getuserid(i_data.logindata.token);
+            playlist playlistdata = db.playlist.SingleOrDefault(p => p.playlist_id == i_data.id && p.user_id == user_id);
 
+            if (playlistdata != null)
+            {
+                List<playlisttosong> playlisttosongdata = db.playlisttosong.Where(p => p.playlist_id == i_data.id).ToList();
+                foreach (playlisttosong data in playlisttosongdata)
+                {
+                    db.playlisttosong.DeleteObject(data);
+                }
+                db.playlist.DeleteObject(playlistdata);
+                db.SaveChanges();
+            }
+            else
+            {
+                return new O_RemovePlaylist()
+                {
+                    result = false,
+                    errordata = new Errordata()
+                    {
+                        code = 10,
+                        Detail = Useful.geterrordata(10)
+                    }
+                };
+            }
+
+            return new O_RemovePlaylist()
+            {
+                result = true
+            };
+
+        }
+
+        /// <summary>
+        /// Add song to playlist
+        /// </summary>
+        /// <param name="i_data">Class I_AddSong</param>
+        /// <returns>Class O_AddSong</returns>
+        [HttpPost]
+        [ActionName("AddSongtoPlaylist")]
+        public O_AddSongtoPlaylist AddSongtoPlaylist(I_AddSongtoPlaylist i_data)
+        {
+            if (i_data == null || String.IsNullOrEmpty(i_data.song_id.ToString()) || string.IsNullOrEmpty(i_data.playlist_id.ToString()))
+            {
+                return new O_AddSongtoPlaylist()
+                {
+                    result = false,
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
+
+            if (Useful.checklogin(i_data.logindata) != null)
+            {
+                return new O_AddSongtoPlaylist()
+                {
+                    result = false,
+                    errordata = Useful.checklogin(i_data.logindata)
+                };
+            }
+            
+            int user_id = Useful.getuserid(i_data.logindata.token);
             playlisttosong checkdata = db.playlisttosong.Where(p => p.playlist_id == i_data.playlist_id && p.song_id == i_data.song_id).SingleOrDefault();
 
             if (checkdata != null)
             {
-                return new O_AddSong()
+                return new O_AddSongtoPlaylist()
                 {
                     result = false,
                     errordata = new Errordata()
@@ -224,24 +302,134 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-
-            playlisttosong playlisttosongdata = new playlisttosong()
+            playlist checkplaylist = db.playlist.SingleOrDefault(p => p.user_id == user_id && p.playlist_id == i_data.playlist_id);
+            
+            if (checkplaylist != null)
             {
-                playlist_id = i_data.playlist_id,
-                song_id = i_data.song_id
+                int sequence = db.playlisttosong.Where(p => p.playlist_id == i_data.playlist_id).Select(p => p.playlistToSong_sequence).DefaultIfEmpty().Max();
+                               
+               
+                playlisttosong playlisttosongdata = new playlisttosong()
+                {
+                    playlist_id = i_data.playlist_id,
+                    song_id = i_data.song_id,
+                    playlistToSong_sequence = sequence + 1
 
-            };
+                };
 
-            db.playlisttosong.AddObject(playlisttosongdata);
-            db.SaveChanges();
+                db.playlisttosong.AddObject(playlisttosongdata);
+                db.SaveChanges();
+            }
+            else
+            {
+                return new O_AddSongtoPlaylist()
+                {
+                    result = false,
+                    errordata = new Errordata()
+                    {
+                        code = 10,
+                        Detail = Useful.geterrordata(10)
+                    }
+                };
+            }
 
-            return new O_AddSong()
+            return new O_AddSongtoPlaylist()
             {
                 result = true
             };
 
         }
 
+        /// <summary>
+        /// Update playlist
+        /// </summary>
+        /// <param name="i_data">Class I_UpdatePlaylist</param>
+        /// <returns>Class O_UpdatePlaylist</returns>
+        [HttpPost]
+        [ActionName("UpdatePlaylist")]
+        public O_UpdatePlaylist UpdatePlaylist(I_UpdatePlaylist i_data)
+        {
+            if (i_data == null || string.IsNullOrEmpty(i_data.playlist_id.ToString()))
+            {
+                return new O_UpdatePlaylist()
+                {
+                    result = false,
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
 
+            if (Useful.checklogin(i_data.logindata) != null)
+            {
+                return new O_UpdatePlaylist()
+                {
+                    result = false,
+                    errordata = Useful.checklogin(i_data.logindata)
+                };
+            }
+
+            int user_id = Useful.getuserid(i_data.logindata.token);
+            
+
+            playlist checkplaylist = db.playlist.SingleOrDefault(p => p.user_id == user_id && p.playlist_id == i_data.playlist_id);
+
+            if (checkplaylist != null)
+            {
+                //change name
+                if(!string.IsNullOrEmpty(i_data.playlist_name))
+                    checkplaylist.playlist_description = i_data.playlist_name;
+                //remove old playlisttosong
+                List<playlisttosong> oldplaylisttosongdata = db.playlisttosong.Where(p => p.playlist_id == i_data.playlist_id).ToList();
+                foreach (playlisttosong data in oldplaylisttosongdata)
+                {
+                    db.playlisttosong.DeleteObject(data);
+                }
+
+                List<long> listsong = Useful.getlistdata(i_data.song_id);
+                List<long> insertsong = new List<long>();
+               
+                int sequence = 0;
+                foreach (long data in listsong)
+                {
+                    if(!insertsong.Contains(data))
+                    {
+
+                        sequence = sequence + 1;
+                        playlisttosong playlisttosongdata = new playlisttosong()
+                        {
+                            playlist_id = i_data.playlist_id,
+                            song_id = Int32.Parse(data.ToString()),
+                            playlistToSong_sequence = sequence
+
+                        };
+
+                        db.playlisttosong.AddObject(playlisttosongdata);
+                        insertsong.Add(data);
+                    }
+                }
+                db.SaveChanges();
+            }
+            else
+            {
+                return new O_UpdatePlaylist()
+                {
+                    result = false,
+                    errordata = new Errordata()
+                    {
+                        code = 10,
+                        Detail = Useful.geterrordata(10)
+                    }
+                };
+            }
+
+            return new O_UpdatePlaylist()
+            {
+                result = true
+            };
+
+        }
     }
 }

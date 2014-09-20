@@ -4,11 +4,10 @@
     ViewBag.Title = "Song Lists";
 }
 <div style="padding-top: 25px;padding-bottom: 30px;">
-<form id="upload" name="upload" action="song/import" method="post" enctype="multipart/form-data">Import  <input name="filedata" style="margin-top: 30px;" type="file" onchange="ajaxupload();" /></form>
 <table style="width:100%;border: 1px solid black;text-align: center;">
     <tr style="border: 1px solid black;background-color: rgb(218, 216, 216);">
         <td style="text-align: left;padding-left: 15px;"><h2>Song Lists</h2></td>
-        <td style="text-align: right;" ><input style="margin-top: 30px;" type="button" value="Create New" onclick="location.href='@Url.Action("create", "song")'" /></td>
+        <td style="text-align: right;" ><input style="margin-top: 30px;" type="button" value="Import" onclick="location.href='@Url.Action("importdata", "song")'" /><input style="margin-top: 30px;" type="button" value="Create New" onclick="location.href='@Url.Action("create", "song")'" /></td>
     </tr>
     <tr>
         <td colspan="2" style="padding: 15px;">
@@ -163,30 +162,3 @@
     </tr>
 </table>
 </div>
-<script type="text/javascript">
-    function ajaxupload() {
-        var frm = $(document.upload);
-        var data = new FormData(document.getElementById("upload"));
-
-        $.ajax({
-            type: "POST",
-            url: frm.attr("action"),
-            enctype: 'multipart/form-data',
-            data: data,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,   // tell jQuery not to set contentType
-            success: function (response) {
-                alert(response)
-                //alert("<?php echo base_url(); ?>" + "/" +response);
-            }
-        });
-
-        //$.post(frm.attr("action"), data, function(response) {
-        //	document.getElementById("picprofile").src = response;
-
-        //});
-
-
-    }
-
-</script>

@@ -17,6 +17,7 @@ using System.Text;
 using SingSpaze.Models.Input;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Mail;
 
 
 
@@ -478,7 +479,7 @@ namespace SingSpaze.Controllers.API
         }
 
         /// <summary>
-        /// Send data to get token for set new password (Facebook account cannot use this)
+        /// Send data for set new password to email (Facebook account cannot use this)
         /// </summary>
         /// <param name="i_data">Class I_Forgot</param>
         /// <returns>Class O_Forgot</returns>
@@ -492,6 +493,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_Forgot()
                 {
+                    result = false,
                     errordata = new Errordata()
                     {
                         code = 6,
@@ -504,6 +506,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_Forgot()
                 {
+                    result = false,
                     errordata = new Errordata()
                     {
                         code = 13,
@@ -515,10 +518,51 @@ namespace SingSpaze.Controllers.API
             /// time + reset md5
             string Retoken = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString()  + "reset");
             userdata.user_retoken = Retoken;
+
+            //mail server
+            var smtpClient = new SmtpClient("Singspaze.com")
+            {
+                UseDefaultCredentials = false,
+                //Port = 25,
+                //DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                EnableSsl = false,
+                Credentials = new NetworkCredential("no-reply@singspaze.com", ";XS@}n6")
+            };
+
+            string url = HttpContext.Current.Request.ServerVariables["LOCAL_ADDR"] + ":" + HttpContext.Current.Request.ServerVariables["server_port"] + @"/api/account/reset?token=" + Retoken + "&email="+userdata.user_email;
+            string message = "";
+            StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("~/data/forgot.html"), Encoding.UTF8);
+            try
+            {
+                message = sr.ReadToEnd();
+                message = message.Replace("[URL]", url);
+            }
+            catch (Exception e)
+            {
+            }
+            sr.Close();
+
+            //send mail
+            MailMessage mail = new MailMessage();
+
+            //Setting From , To and CC
+            mail.From = new MailAddress("no-reply@singspaze.com");
+            mail.To.Add(new MailAddress(userdata.user_email));
+            mail.Subject = "Forgot password";
+            mail.Body = message;
+            mail.IsBodyHtml = true;
+
+            
+            smtpClient.Send(mail);
             db.SaveChanges();
+
+            
+
+
+
             return new O_Forgot()
             {
-                retoken = Retoken
+                result = true
             };
             
             
@@ -553,6 +597,44 @@ namespace SingSpaze.Controllers.API
 
                 edituser.user_password = i_data.newpassword;
                 edituser.user_retoken = null;
+
+                //mail server
+                var smtpClient = new SmtpClient("Singspaze.com")
+                {
+                    UseDefaultCredentials = false,
+                    //Port = 25,
+                    //DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                    EnableSsl = false,
+                    Credentials = new NetworkCredential("no-reply@singspaze.com", ";XS@}n6")
+                };
+
+                string ip = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+                string time = DateTime.Now.ToString();
+                string message = "";
+                StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("~/data/reset.html"), Encoding.UTF8);
+                try
+                {
+                    message = sr.ReadToEnd();
+                    message = message.Replace("[TIME]", time);
+                    message = message.Replace("[IP]", ip);
+                }
+                catch (Exception e)
+                {
+                }
+                sr.Close();
+
+                //send mail
+                MailMessage mail = new MailMessage();
+
+                //Setting From , To and CC
+                mail.From = new MailAddress("no-reply@singspaze.com");
+                mail.To.Add(new MailAddress(edituser.user_email));
+                mail.Subject = "Reset password";
+                mail.Body = message;
+                mail.IsBodyHtml = true;
+
+                smtpClient.Send(mail);
+
                 db.SaveChanges();
 
                 return new O_Reset()
@@ -647,7 +729,7 @@ namespace SingSpaze.Controllers.API
                     docfiles.Add(filePath);
 
                     //add database
-                    userdata.user_avartar = "Picture/" + filename;
+                    userdata.user_avartar = HttpContext.Current.Request.ServerVariables["LOCAL_ADDR"] + ":" + HttpContext.Current.Request.ServerVariables["server_port"] + @"/Picture/" + filename;
 
                     db.SaveChanges();
                 }
