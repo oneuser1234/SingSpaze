@@ -281,6 +281,27 @@ namespace SingSpaze.Models
 
     }
 
+
+    /// <summary>
+    /// Class for SplashPage 
+    /// </summary>
+    public class SplashPagedata
+    {
+        /// <summary>
+        /// Splash Page Id
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// URL
+        /// </summary>
+        public string url { get; set; }
+        /// <summary>
+        /// Message
+        /// </summary>
+        public string message { get; set; }
+
+    }
+
     /// <summary>
     /// Class for get logindata (ex.id,token)
     /// </summary>

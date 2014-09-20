@@ -222,5 +222,30 @@ namespace SingSpaze.Controllers.API
 
             };
         }
+
+        /// <summary>
+        /// Get Splash Page
+        /// </summary>
+        /// <returns>Class O_getSplashPage</returns>
+        [HttpGet]
+        [ActionName("SplashPage")]
+        public O_SplashPage SplashPage()
+        {
+            List<splashpage> splashdata = db.splashpage.Where(s => s.StartDate <= DateTime.Now && s.EndDate >= DateTime.Now).ToList();
+
+            List<SplashPagedata> o_data = new List<SplashPagedata>();
+            foreach (splashpage data in splashdata)
+            {
+                o_data.Add(new SplashPagedata() {
+                    id = data.SplashPage_id,
+                    message = data.Message,
+                    url = data.URL
+                });
+            }
+
+
+            return new O_SplashPage() { splashpagedata = o_data };
+            
+        }
     }
 }

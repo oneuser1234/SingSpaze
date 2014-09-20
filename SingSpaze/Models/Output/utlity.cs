@@ -34,4 +34,17 @@ namespace SingSpaze.Models.Output
         /// </summary>
         public Errordata errordata { get; set; }
     }
+
+
+    /// <summary>
+    /// Class output getSplashPage
+    /// </summary>
+    public class O_SplashPage
+    {
+        
+        /// <summary>
+        /// List Class SplashPagedata
+        /// </summary>
+        public List<SplashPagedata> splashpagedata { get; set; }
+    }
 }

@@ -336,7 +336,7 @@ namespace SingSpaze.Controllers.API
                        join dbalbum in db.album.ToList()
                        on dbsong.song_albumId equals dbalbum.album_id
                        where dbsong.song_status == 1 && dbsong.song_languageId == i_data.language_id
-                       orderby dbsong.song_originName descending
+                       orderby dbsong.song_originName ascending
                        select dbsong).ToList();
                        
 
@@ -361,7 +361,7 @@ namespace SingSpaze.Controllers.API
             int resultNumber = listsong.Count();
 
             // skip take
-            listsong = listsong.Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
+            listsong = listsong.OrderBy(l => l.song_originName).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
 
             if (listsong == null)
             {

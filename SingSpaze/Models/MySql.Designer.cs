@@ -276,6 +276,22 @@ namespace SingSpaze.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<splashpage> splashpage
+        {
+            get
+            {
+                if ((_splashpage == null))
+                {
+                    _splashpage = base.CreateObjectSet<splashpage>("splashpage");
+                }
+                return _splashpage;
+            }
+        }
+        private ObjectSet<splashpage> _splashpage;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<status> status
         {
             get
@@ -443,6 +459,14 @@ namespace SingSpaze.Models
         public void AddTosongrequest(songrequest songrequest)
         {
             base.AddObject("songrequest", songrequest);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the splashpage EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTosplashpage(splashpage splashpage)
+        {
+            base.AddObject("splashpage", splashpage);
         }
     
         /// <summary>
@@ -3116,6 +3140,167 @@ namespace SingSpaze.Models
         private global::System.String _songRequest_artistname;
         partial void OnsongRequest_artistnameChanging(global::System.String value);
         partial void OnsongRequest_artistnameChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="singspazeModel", Name="splashpage")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class splashpage : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new splashpage object.
+        /// </summary>
+        /// <param name="splashPage_id">Initial value of the SplashPage_id property.</param>
+        /// <param name="uRL">Initial value of the URL property.</param>
+        /// <param name="message">Initial value of the Message property.</param>
+        /// <param name="startDate">Initial value of the StartDate property.</param>
+        /// <param name="endDate">Initial value of the EndDate property.</param>
+        public static splashpage Createsplashpage(global::System.Int32 splashPage_id, global::System.String uRL, global::System.String message, global::System.DateTime startDate, global::System.DateTime endDate)
+        {
+            splashpage splashpage = new splashpage();
+            splashpage.SplashPage_id = splashPage_id;
+            splashpage.URL = uRL;
+            splashpage.Message = message;
+            splashpage.StartDate = startDate;
+            splashpage.EndDate = endDate;
+            return splashpage;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SplashPage_id
+        {
+            get
+            {
+                return _SplashPage_id;
+            }
+            set
+            {
+                if (_SplashPage_id != value)
+                {
+                    OnSplashPage_idChanging(value);
+                    ReportPropertyChanging("SplashPage_id");
+                    _SplashPage_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("SplashPage_id");
+                    OnSplashPage_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _SplashPage_id;
+        partial void OnSplashPage_idChanging(global::System.Int32 value);
+        partial void OnSplashPage_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String URL
+        {
+            get
+            {
+                return _URL;
+            }
+            set
+            {
+                OnURLChanging(value);
+                ReportPropertyChanging("URL");
+                _URL = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("URL");
+                OnURLChanged();
+            }
+        }
+        private global::System.String _URL;
+        partial void OnURLChanging(global::System.String value);
+        partial void OnURLChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                OnMessageChanging(value);
+                ReportPropertyChanging("Message");
+                _Message = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Message");
+                OnMessageChanged();
+            }
+        }
+        private global::System.String _Message;
+        partial void OnMessageChanging(global::System.String value);
+        partial void OnMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime StartDate
+        {
+            get
+            {
+                return _StartDate;
+            }
+            set
+            {
+                OnStartDateChanging(value);
+                ReportPropertyChanging("StartDate");
+                _StartDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StartDate");
+                OnStartDateChanged();
+            }
+        }
+        private global::System.DateTime _StartDate;
+        partial void OnStartDateChanging(global::System.DateTime value);
+        partial void OnStartDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime EndDate
+        {
+            get
+            {
+                return _EndDate;
+            }
+            set
+            {
+                OnEndDateChanging(value);
+                ReportPropertyChanging("EndDate");
+                _EndDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EndDate");
+                OnEndDateChanged();
+            }
+        }
+        private global::System.DateTime _EndDate;
+        partial void OnEndDateChanging(global::System.DateTime value);
+        partial void OnEndDateChanged();
 
         #endregion
 

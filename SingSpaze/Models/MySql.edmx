@@ -19,6 +19,7 @@
           <EntitySet Name="singinghistory" EntityType="singspazeModel.Store.singinghistory" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="song" EntityType="singspazeModel.Store.song" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="songrequest" EntityType="singspazeModel.Store.songrequest" store:Type="Tables" Schema="singspaze" />
+          <EntitySet Name="splashpage" EntityType="singspazeModel.Store.splashpage" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="status" EntityType="singspazeModel.Store.status" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="user" EntityType="singspazeModel.Store.user" store:Type="Tables" Schema="singspaze" />
           <EntitySet Name="viewhistory" EntityType="singspazeModel.Store.viewhistory" store:Type="Tables" Schema="singspaze" />
@@ -178,6 +179,16 @@
           <Property Name="songRequest_songname" Type="varchar" Nullable="false" MaxLength="150" />
           <Property Name="songRequest_artistname" Type="varchar" Nullable="false" MaxLength="150" />
         </EntityType>
+        <EntityType Name="splashpage">
+          <Key>
+            <PropertyRef Name="SplashPage_id" />
+          </Key>
+          <Property Name="SplashPage_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="Message" Type="text" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="status">
           <Key>
             <PropertyRef Name="status_id" />
@@ -244,6 +255,7 @@
           <EntitySet Name="singinghistory" EntityType="singspazeModel.singinghistory" />
           <EntitySet Name="song" EntityType="singspazeModel.song" />
           <EntitySet Name="songrequest" EntityType="singspazeModel.songrequest" />
+          <EntitySet Name="splashpage" EntityType="singspazeModel.splashpage" />
           <EntitySet Name="status" EntityType="singspazeModel.status" />
           <EntitySet Name="user" EntityType="singspazeModel.user" />
           <EntitySet Name="viewhistory" EntityType="singspazeModel.viewhistory" />
@@ -402,6 +414,16 @@
           <Property Name="songRequest_datetime" Type="DateTime" Nullable="false" />
           <Property Name="songRequest_songname" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
           <Property Name="songRequest_artistname" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="splashpage">
+          <Key>
+            <PropertyRef Name="SplashPage_id" />
+          </Key>
+          <Property Name="SplashPage_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -623,6 +645,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="splashpage">
+            <EntityTypeMapping TypeName="singspazeModel.splashpage">
+              <MappingFragment StoreEntitySet="splashpage">
+                <ScalarProperty Name="SplashPage_id" ColumnName="SplashPage_id" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="status">
             <EntityTypeMapping TypeName="singspazeModel.status">
               <MappingFragment StoreEntitySet="status">
@@ -708,10 +741,11 @@
         <EntityTypeShape EntityType="singspazeModel.singinghistory" Width="1.5" PointX="8.75" PointY="0.75" Height="1.9802864583333353" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.song" Width="1.5" PointX="8.75" PointY="3.75" Height="5.6340136718750031" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.songrequest" Width="1.5" PointX="2.75" PointY="9.75" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.status" Width="1.5" PointX="4.75" PointY="9.75" Height="1.4033821614583388" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.user" Width="1.5" PointX="10.75" PointY="0.75" Height="4.0956022135416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.viewhistory" Width="1.5" PointX="10.75" PointY="5.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.wtbtokens" Width="1.5" PointX="6.75" PointY="10.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.splashpage" Width="1.5" PointX="4.75" PointY="9.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.status" Width="1.5" PointX="10.75" PointY="0.75" Height="1.4033821614583388" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.user" Width="1.5" PointX="10.75" PointY="3.75" Height="4.0956022135416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.viewhistory" Width="1.5" PointX="6.75" PointY="10.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.wtbtokens" Width="1.5" PointX="10.75" PointY="8.75" Height="1.9802864583333388" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>
