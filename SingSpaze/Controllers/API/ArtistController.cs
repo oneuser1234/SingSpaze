@@ -39,7 +39,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<artist> listartist = new List<artist>();
+            List<artist> listartist = db.artist.ToList();
 
             var before = DateTime.Now.AddDays(-i_data.time);
 
@@ -57,7 +57,7 @@ namespace SingSpaze.Controllers.API
                               select new { artist_id = ghistory.Key, count = ghistory.Count() };
             // order
             if (string.IsNullOrEmpty(i_data.type))
-                listartist = db.artist.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
+                listartist = listartist.OrderBy(s => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
             //else if (i_data.type == "new")
             //    listartist = db.artist.Where(s => s.song_releasedDate ?? DateTime.Now > before).OrderByDescending(s => s.song_releasedDate).ToList();
             else if (i_data.type == "hot")
@@ -77,8 +77,8 @@ namespace SingSpaze.Controllers.API
                 listartist = joinhistory.ToList();
 
             }
-            //else if (i_data.type == "recommend")
-            //    listartist = db.artist.ToList();
+            else
+                listartist = listartist.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
 
             // where
             if(i_data.artist_id != null)
@@ -212,7 +212,7 @@ namespace SingSpaze.Controllers.API
             int resultNumber = listartist.Count();
 
             // skip take
-            listartist = listartist.OrderBy(a => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(a.artist_description_th))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            listartist = listartist.OrderBy(a => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(a.artist_description_th))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
 
             if (listartist == null)
             {

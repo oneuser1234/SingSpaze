@@ -40,7 +40,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<song> listsong = new List<song>();
+            List<song> listsong = db.song.ToList();
 
             var before = DateTime.Now.AddDays(-i_data.time);
             var grouphistorysong = from history in db.viewhistory
@@ -50,30 +50,30 @@ namespace SingSpaze.Controllers.API
 
             // order
             if (string.IsNullOrEmpty(i_data.type))
-                listsong = db.song.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
+                listsong = listsong.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
             else if (i_data.type.ToLower() == "new")
-                listsong = db.song.Where(s => s.song_releasedDate > before).OrderByDescending(s => s.song_releasedDate).ToList();
+                listsong = listsong.Where(s => s.song_releasedDate > before).OrderByDescending(s => s.song_releasedDate).ToList();
             else if (i_data.type.ToLower() == "hot")
             {
-               //var grouphistorysong = from history in db.singinghistory
-               //                        where history.singinghistory_date > before
-               //                        group history by history.song_id into ghistory
-               //                        select new { song_id = ghistory.Key, count = ghistory.Count() };
+                //var grouphistorysong = from history in db.singinghistory
+                //                        where history.singinghistory_date > before
+                //                        group history by history.song_id into ghistory
+                //                        select new { song_id = ghistory.Key, count = ghistory.Count() };
 
-               
 
-               var joinhistory = from dbsong in db.song.AsEnumerable()
+
+                var joinhistory = from dbsong in db.song.AsEnumerable()
                                   join history in grouphistorysong.AsEnumerable()
                                   on dbsong.song_id equals history.song_id
                                   orderby history.count descending
                                   select dbsong;
-                                  //select new { dbsong,count = history.count}
-                
+                //select new { dbsong,count = history.count}
+
                 listsong = joinhistory.ToList();
-                
+
             }
             else
-                listsong = db.song.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
+                listsong = listsong.OrderBy(s => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
             //else if (i_data.type == "recommend")
             //    listsong = db.song.ToList();
 
@@ -366,8 +366,8 @@ namespace SingSpaze.Controllers.API
 
             
             // skip take
-            
-            listsong = listsong.OrderBy(l => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(l.song_originName))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+
+            listsong = listsong.OrderBy(l => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(l.song_originName))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
             //listsong = listsong.OrderBy(l => l.song_originName).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
 
             if (listsong == null)
