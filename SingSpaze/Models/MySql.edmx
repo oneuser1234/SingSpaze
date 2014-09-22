@@ -43,6 +43,10 @@
           <Property Name="artist_type" Type="varchar" MaxLength="30" />
           <Property Name="artist_view" Type="int" Nullable="false" />
           <Property Name="artist_picture" Type="varchar" MaxLength="50" />
+          <Property Name="ArtistPicture_L_Lo" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ArtistPicture_L_Hi" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ArtistPicture_S_Lo" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ArtistPicture_S_Hi" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="artist_publisherforartistId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="contactus">
@@ -279,6 +283,10 @@
           <Property Name="artist_type" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
           <Property Name="artist_view" Type="Int32" Nullable="false" />
           <Property Name="artist_picture" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ArtistPicture_L_Lo" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="ArtistPicture_L_Hi" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="ArtistPicture_S_Lo" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="ArtistPicture_S_Hi" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="artist_publisherforartistId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="contactus">
@@ -496,6 +504,10 @@
                 <ScalarProperty Name="artist_type" ColumnName="artist_type" />
                 <ScalarProperty Name="artist_view" ColumnName="artist_view" />
                 <ScalarProperty Name="artist_picture" ColumnName="artist_picture" />
+                <ScalarProperty Name="ArtistPicture_L_Lo" ColumnName="ArtistPicture_L_Lo" />
+                <ScalarProperty Name="ArtistPicture_L_Hi" ColumnName="ArtistPicture_L_Hi" />
+                <ScalarProperty Name="ArtistPicture_S_Lo" ColumnName="ArtistPicture_S_Lo" />
+                <ScalarProperty Name="ArtistPicture_S_Hi" ColumnName="ArtistPicture_S_Hi" />
                 <ScalarProperty Name="artist_publisherforartistId" ColumnName="artist_publisherforartistId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -729,7 +741,7 @@
     <Diagrams>
       <Diagram Name="MySql">
         <EntityTypeShape EntityType="singspazeModel.album" Width="1.5" PointX="0.75" PointY="0.75" Height="1.59568359375" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="2.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="2.75" PointY="0.75" Height="3.1340950520833326" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.contactus" Width="1.5" PointX="4.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.csv" Width="1.5" PointX="0.75" PointY="4.75" Height="5.4417122395833335" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.genre" Width="1.5" PointX="2.75" PointY="4.75" Height="1.4033821614583317" IsExpanded="true" />

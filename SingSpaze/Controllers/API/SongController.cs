@@ -96,7 +96,7 @@ namespace SingSpaze.Controllers.API
                 {
                     //others
                     //categories_id = db.genre.Select(g => g.genre_id).ToList();
-                    string data = "pop,rock,classic";
+                    string data = "pop,rock,classic,luktung";
                     List<string> others = new List<string>();
                     string[] arraydata = data.Split(',');
 
@@ -518,14 +518,14 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            if (Useful.checklogin(i_data.logindata) != null)
-            {
-                return new O_PlaySong()
-                {
-                    errordata = Useful.checklogin(i_data.logindata)
-                };
-            }
-            int user_id = Useful.getuserid(i_data.logindata.token);
+            //if (Useful.checklogin(i_data.logindata) != null)
+            //{
+            //    return new O_PlaySong()
+            //    {
+            //        errordata = Useful.checklogin(i_data.logindata)
+            //    };
+            //}
+            //int user_id = Useful.getuserid(i_data.logindata.token);
             song datasong = db.song.FirstOrDefault(u => u.song_id == i_data.id);
 
             //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, datauser);
@@ -550,29 +550,29 @@ namespace SingSpaze.Controllers.API
             //dataartist.artist_view = dataartist.artist_view + 1;
 
             //add singinghistory
-            singinghistory singhistory = new singinghistory()
-            {
-                song_id = i_data.id,
-                user_id = user_id,
-                artist_id = datasong.song_artistId,
-                singinghistory_date = DateTime.Now
-            };
-            db.singinghistory.AddObject(singhistory);
+            //singinghistory singhistory = new singinghistory()
+            //{
+            //    song_id = i_data.id,
+            //    user_id = user_id,
+            //    artist_id = datasong.song_artistId,
+            //    singinghistory_date = DateTime.Now
+            //};
+            //db.singinghistory.AddObject(singhistory);
 
-            viewhistory lastview = db.viewhistory.Where(v => v.Song_Id == i_data.id).OrderByDescending(v => v.ViewHistory_Date).FirstOrDefault();
+            //viewhistory lastview = db.viewhistory.Where(v => v.Song_Id == i_data.id).OrderByDescending(v => v.ViewHistory_Date).FirstOrDefault();
             //DateTime lastview = view.ViewHistory_Date;
 
-            if (lastview == null || lastview.ViewHistory_Date.Day != DateTime.Now.Day || lastview.ViewHistory_Date.Month != DateTime.Now.Month)
-            {
-                //add viewhistory
-                viewhistory viewhistory = new viewhistory()
-                {
-                    Song_Id = i_data.id,
-                    User_Id = user_id,
-                    ViewHistory_Date = DateTime.Now
-                };
-                db.viewhistory.AddObject(viewhistory);
-            }
+            //if (lastview == null || lastview.ViewHistory_Date.Day != DateTime.Now.Day || lastview.ViewHistory_Date.Month != DateTime.Now.Month)
+            //{
+            //    //add viewhistory
+            //    viewhistory viewhistory = new viewhistory()
+            //    {
+            //        Song_Id = i_data.id,
+            //        User_Id = user_id,
+            //        ViewHistory_Date = DateTime.Now
+            //    };
+            //    db.viewhistory.AddObject(viewhistory);
+            //}
 
             //add WTBtoken
 
@@ -594,7 +594,7 @@ namespace SingSpaze.Controllers.API
             //else
             //    db.wtbtokens.AddObject(wtbtokens);
             //save
-            db.SaveChanges();
+            //db.SaveChanges();
 
 
             Songdata data = new Songdata()

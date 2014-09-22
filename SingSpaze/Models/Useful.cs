@@ -158,6 +158,10 @@ namespace SingSpaze.Models
                 description_TH = data.artist_description_th,
                 description_EN = data.artist_description_en,
                 picture = data.artist_picture,
+                picture_l_lo = data.ArtistPicture_L_Lo,
+                picture_l_hi = data.ArtistPicture_L_Hi,
+                picture_s_lo = data.ArtistPicture_S_Lo,
+                picture_s_hi = data.ArtistPicture_S_Hi,
                 artistType = data.artist_type,
                 songs = db.song.Where(s => s.song_artistId == data.artist_id).Count(),
                 publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
@@ -581,38 +585,38 @@ namespace SingSpaze.Models
     /// <summary>
     /// Class data listartist data (ex.id,name,picture)
     /// </summary>
-    public class Listartistdata
-    {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public long id { get; set; }
-        /// <summary>
-        /// Thai description
-        /// </summary>
-        public string description_TH { get; set; }
-        /// <summary>
-        /// English description
-        /// </summary>
-        public string description_EN { get; set; }
-        /// /// <summary>
-        /// Photo 
-        /// </summary>
-        public string picture { get; set; }
-        /// /// <summary>
-        /// Artist Type
-        /// </summary>
-        public string artistType { get; set; }
-        /// /// <summary>
-        /// View form order type (hot,name)
-        /// </summary>
-        public int view { get; set; }
-        /// <summary>
-        /// Class Publisherdata
-        /// </summary>
-        public Publisherdata publisherdata { get; set; }
+    //public class Listartistdata
+    //{
+    //    /// <summary>
+    //    /// Id
+    //    /// </summary>
+    //    public long id { get; set; }
+    //    /// <summary>
+    //    /// Thai description
+    //    /// </summary>
+    //    public string description_TH { get; set; }
+    //    /// <summary>
+    //    /// English description
+    //    /// </summary>
+    //    public string description_EN { get; set; }
+    //    /// /// <summary>
+    //    /// Photo 
+    //    /// </summary>
+    //    public string picture { get; set; }
+    //    /// /// <summary>
+    //    /// Artist Type
+    //    /// </summary>
+    //    public string artistType { get; set; }
+    //    /// /// <summary>
+    //    /// View form order type (hot,name)
+    //    /// </summary>
+    //    public int view { get; set; }
+    //    /// <summary>
+    //    /// Class Publisherdata
+    //    /// </summary>
+    //    public Publisherdata publisherdata { get; set; }
 
-    }
+    //}
 
     /// <summary>
     /// Class data artist (ex.id,description)
@@ -635,6 +639,22 @@ namespace SingSpaze.Models
         /// Photo 
         /// </summary>
         public string picture { get; set; }
+        /// /// <summary>
+        /// Big picture low resolution 
+        /// </summary>
+        public string picture_l_lo { get; set; }
+        /// /// <summary>
+        /// Big picture high resolution  
+        /// </summary>
+        public string picture_l_hi { get; set; }
+        /// /// <summary>
+        /// Small picture low resolution  
+        /// </summary>
+        public string picture_s_lo { get; set; }
+        /// /// <summary>
+        /// Small picture high resolution 
+        /// </summary>
+        public string picture_s_hi { get; set; }
         /// /// <summary>
         /// Artist Type
         /// </summary>

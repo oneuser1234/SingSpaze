@@ -635,14 +635,22 @@ namespace SingSpaze.Models
         /// <param name="artist_description_th">Initial value of the artist_description_th property.</param>
         /// <param name="artist_description_en">Initial value of the artist_description_en property.</param>
         /// <param name="artist_view">Initial value of the artist_view property.</param>
+        /// <param name="artistPicture_L_Lo">Initial value of the ArtistPicture_L_Lo property.</param>
+        /// <param name="artistPicture_L_Hi">Initial value of the ArtistPicture_L_Hi property.</param>
+        /// <param name="artistPicture_S_Lo">Initial value of the ArtistPicture_S_Lo property.</param>
+        /// <param name="artistPicture_S_Hi">Initial value of the ArtistPicture_S_Hi property.</param>
         /// <param name="artist_publisherforartistId">Initial value of the artist_publisherforartistId property.</param>
-        public static artist Createartist(global::System.Int64 artist_id, global::System.String artist_description_th, global::System.String artist_description_en, global::System.Int32 artist_view, global::System.Int32 artist_publisherforartistId)
+        public static artist Createartist(global::System.Int64 artist_id, global::System.String artist_description_th, global::System.String artist_description_en, global::System.Int32 artist_view, global::System.String artistPicture_L_Lo, global::System.String artistPicture_L_Hi, global::System.String artistPicture_S_Lo, global::System.String artistPicture_S_Hi, global::System.Int32 artist_publisherforartistId)
         {
             artist artist = new artist();
             artist.artist_id = artist_id;
             artist.artist_description_th = artist_description_th;
             artist.artist_description_en = artist_description_en;
             artist.artist_view = artist_view;
+            artist.ArtistPicture_L_Lo = artistPicture_L_Lo;
+            artist.ArtistPicture_L_Hi = artistPicture_L_Hi;
+            artist.ArtistPicture_S_Lo = artistPicture_S_Lo;
+            artist.ArtistPicture_S_Hi = artistPicture_S_Hi;
             artist.artist_publisherforartistId = artist_publisherforartistId;
             return artist;
         }
@@ -797,6 +805,102 @@ namespace SingSpaze.Models
         private global::System.String _artist_picture;
         partial void Onartist_pictureChanging(global::System.String value);
         partial void Onartist_pictureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ArtistPicture_L_Lo
+        {
+            get
+            {
+                return _ArtistPicture_L_Lo;
+            }
+            set
+            {
+                OnArtistPicture_L_LoChanging(value);
+                ReportPropertyChanging("ArtistPicture_L_Lo");
+                _ArtistPicture_L_Lo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ArtistPicture_L_Lo");
+                OnArtistPicture_L_LoChanged();
+            }
+        }
+        private global::System.String _ArtistPicture_L_Lo;
+        partial void OnArtistPicture_L_LoChanging(global::System.String value);
+        partial void OnArtistPicture_L_LoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ArtistPicture_L_Hi
+        {
+            get
+            {
+                return _ArtistPicture_L_Hi;
+            }
+            set
+            {
+                OnArtistPicture_L_HiChanging(value);
+                ReportPropertyChanging("ArtistPicture_L_Hi");
+                _ArtistPicture_L_Hi = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ArtistPicture_L_Hi");
+                OnArtistPicture_L_HiChanged();
+            }
+        }
+        private global::System.String _ArtistPicture_L_Hi;
+        partial void OnArtistPicture_L_HiChanging(global::System.String value);
+        partial void OnArtistPicture_L_HiChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ArtistPicture_S_Lo
+        {
+            get
+            {
+                return _ArtistPicture_S_Lo;
+            }
+            set
+            {
+                OnArtistPicture_S_LoChanging(value);
+                ReportPropertyChanging("ArtistPicture_S_Lo");
+                _ArtistPicture_S_Lo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ArtistPicture_S_Lo");
+                OnArtistPicture_S_LoChanged();
+            }
+        }
+        private global::System.String _ArtistPicture_S_Lo;
+        partial void OnArtistPicture_S_LoChanging(global::System.String value);
+        partial void OnArtistPicture_S_LoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ArtistPicture_S_Hi
+        {
+            get
+            {
+                return _ArtistPicture_S_Hi;
+            }
+            set
+            {
+                OnArtistPicture_S_HiChanging(value);
+                ReportPropertyChanging("ArtistPicture_S_Hi");
+                _ArtistPicture_S_Hi = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ArtistPicture_S_Hi");
+                OnArtistPicture_S_HiChanged();
+            }
+        }
+        private global::System.String _ArtistPicture_S_Hi;
+        partial void OnArtistPicture_S_HiChanging(global::System.String value);
+        partial void OnArtistPicture_S_HiChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

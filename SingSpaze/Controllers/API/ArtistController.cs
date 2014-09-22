@@ -83,7 +83,7 @@ namespace SingSpaze.Controllers.API
             if(i_data.artist_id != null)
                 listartist = listartist.Where(a => Useful.getlistdata(i_data.artist_id).Contains(a.artist_id)).ToList();
             if (i_data.artist_type != null)
-                listartist = listartist.Where(a => a.artist_type == i_data.artist_type).ToList();
+                listartist = listartist.Where(a => a.artist_type.ToLower() == i_data.artist_type.ToLower()).ToList();
 
             int resultNumber = listartist.Count();
 
@@ -102,7 +102,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<Listartistdata> o_listartist = new List<Listartistdata>();
+            List<Artistdata> o_listartist = new List<Artistdata>();
 
             foreach (artist data in listartist)
             {
@@ -110,16 +110,19 @@ namespace SingSpaze.Controllers.API
                 if(i_data.type == "hot")
                     view = groupartist.Where(s => s.artist_id == data.artist_id).Select(s => s.count).SingleOrDefault();
 
-                o_listartist.Add(new Listartistdata()
-                {
-                    id = data.artist_id,
-                    description_TH = data.artist_description_th,
-                    description_EN = data.artist_description_en,
-                    picture = data.artist_picture,
-                    artistType = data.artist_type,
-                    view = view,
-                    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
-                });
+                //o_listartist.Add(new Listartistdata()
+                //{
+                //    id = data.artist_id,
+                //    description_TH = data.artist_description_th,
+                //    description_EN = data.artist_description_en,
+                //    picture = data.artist_picture,
+                //    artistType = data.artist_type,
+                //    view = view,
+                //    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
+                //});
+
+                o_listartist.Add(Useful.getartistdata(int.Parse(data.artist_id.ToString())));
+                
             }
             
            
@@ -167,16 +170,7 @@ namespace SingSpaze.Controllers.API
 
             return new O_ArtistDetails()
             {
-                artistdata = new Artistdata()
-                {
-                    id = data.artist_id,
-                    description_TH = data.artist_description_th,
-                    description_EN = data.artist_description_en,
-                    artistType = data.artist_type,
-                    picture = data.artist_picture,
-                    songs = db.song.Where( s => s.song_artistId == data.artist_id).Count(),
-                    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
-                }
+                artistdata = Useful.getartistdata(int.Parse(data.artist_id.ToString()))
             };
         }
 
@@ -236,17 +230,17 @@ namespace SingSpaze.Controllers.API
 
             foreach (artist data in listartist)
             {
-                o_artist.Add(new Artistdata()
-                {
-                    id = data.artist_id,
-                    description_TH = data.artist_description_th,
-                    description_EN = data.artist_description_en,
-                    artistType = data.artist_type,
-                    picture = data.artist_picture,
-                    songs = db.song.Where( s => s.song_artistId == data.artist_id).Count(),
-                    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
-                });
-
+                //o_artist.Add(new Artistdata()
+                //{
+                //    id = data.artist_id,
+                //    description_TH = data.artist_description_th,
+                //    description_EN = data.artist_description_en,
+                //    artistType = data.artist_type,
+                //    picture = data.artist_picture,
+                //    songs = db.song.Where( s => s.song_artistId == data.artist_id).Count(),
+                //    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
+                //});
+                o_artist.Add(Useful.getartistdata(int.Parse(data.artist_id.ToString())));
                 
             }
 

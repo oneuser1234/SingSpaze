@@ -17,7 +17,7 @@ namespace SingSpaze.Models.Output
         /// <summary>
         /// List class artistdata 
         /// </summary>
-        public List<Listartistdata> listartist { get; set; }
+        public List<Artistdata> listartist { get; set; }
         /// <summary>
         /// Class errordata
         /// </summary>
