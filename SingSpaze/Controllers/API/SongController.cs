@@ -7,6 +7,7 @@ using SingSpaze.Models.Input;
 using SingSpaze.Models.Output;
 using System.Security.Cryptography;
 using System.Web;
+using System.Text;
 
 namespace SingSpaze.Controllers.API
 {
@@ -49,7 +50,7 @@ namespace SingSpaze.Controllers.API
 
             // order
             if (string.IsNullOrEmpty(i_data.type))
-                listsong = db.song.OrderBy(s => s.song_originName).ToList();
+                listsong = db.song.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
             else if (i_data.type.ToLower() == "new")
                 listsong = db.song.Where(s => s.song_releasedDate > before).OrderByDescending(s => s.song_releasedDate).ToList();
             else if (i_data.type.ToLower() == "hot")
@@ -72,7 +73,7 @@ namespace SingSpaze.Controllers.API
                 
             }
             else
-                listsong = db.song.OrderBy(s => s.song_originName).ToList();
+                listsong = db.song.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
             //else if (i_data.type == "recommend")
             //    listsong = db.song.ToList();
 
@@ -137,25 +138,27 @@ namespace SingSpaze.Controllers.API
                 int view = Useful.getview(data.song_id); //all time
                 if (i_data.type == "hot")
                     view = grouphistorysong.Where(s => s.song_id == data.song_id).Select(s => s.count).SingleOrDefault();
+                
+                o_song.Add(Useful.getsongdata(data.song_id,view));
+                //o_song.Add(new Songdata()
+                //    {
+                //        id = data.song_id,
+                //        originName = data.song_originName,
+                //        engName = data.song_engName,
+                //        price = data.song_price,
+                //        //thumbnail = data.song_thumbnail,
+                //        URL_picture = data.song_URL_picture,
+                //        view = view,
+                //        length = data.song_length,
+                //        releasedDate = data.song_releasedDate,
 
-                o_song.Add(new Songdata()
-                    {
-                        id = data.song_id,
-                        originName = data.song_originName,
-                        engName = data.song_engName,
-                        price = data.song_price,
-                        //thumbnail = data.song_thumbnail,
-                        URL_picture = data.song_URL_picture,
-                        view = view,
-                        length = data.song_length,
-
-                        //languagedata = Useful.getlanguagedata(data.song_languageId),
-                        albumdata = Useful.getalbumdata(data.song_albumId),
-                        artistdata = Useful.getartistdata(data.song_artistId),
-                        genredata = Useful.getgenredata(data.song_genre),
-                        publisherdata = Useful.getpublishersongdata(data.publisherforsong_id),
-                        //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
-                    });
+                //        //languagedata = Useful.getlanguagedata(data.song_languageId),
+                //        albumdata = Useful.getalbumdata(data.song_albumId),
+                //        artistdata = Useful.getartistdata(data.song_artistId),
+                //        genredata = Useful.getgenredata(data.song_genre),
+                //        publisherdata = Useful.getpublishersongdata(data.publisherforsong_id),
+                //        //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
+                //    });
             }
 
             return new O_SongList()
@@ -266,40 +269,41 @@ namespace SingSpaze.Controllers.API
             db.SaveChanges();
             
 
-            Songdata data = new Songdata()
-            {
-                id = datasong.song_id,
-                engName = datasong.song_engName,
-                originName = datasong.song_originName,
-                lyrics = datasong.song_lyrics,
-                URL_picture = datasong.song_URL_picture,
-                price = datasong.song_price,
-                releasedDate = datasong.song_releasedDate,
-                //thumbnail = datasong.song_thumbnail,
-                view = Useful.getview(datasong.song_id),
-                //filePath = datasong.song_filePath,
-                length = datasong.song_length,
-                //keywords = datasong.song_keywords,
+            //Songdata data = new Songdata()
+            //{
 
-                //url
-                url_iOS = datasong.song_URL_iOS + "?token=" +Token,
-                url_Android_Other = datasong.song_URL_Android_Other + "?token=" + Token,
-                url_RTMP = datasong.song_URL_RTMP + "?token=" + Token,
+            //    id = datasong.song_id,
+            //    engName = datasong.song_engName,
+            //    originName = datasong.song_originName,
+            //    lyrics = datasong.song_lyrics,
+            //    URL_picture = datasong.song_URL_picture,
+            //    price = datasong.song_price,
+            //    releasedDate = datasong.song_releasedDate,
+            //    //thumbnail = datasong.song_thumbnail,
+            //    view = Useful.getview(datasong.song_id),
+            //    //filePath = datasong.song_filePath,
+            //    length = datasong.song_length,
+            //    //keywords = datasong.song_keywords,
 
-                //data
-                //languagedata = Useful.getlanguagedata(datasong.song_languageId),
-                albumdata = Useful.getalbumdata(datasong.song_albumId),
-                artistdata = Useful.getartistdata(datasong.song_artistId),
-                genredata = Useful.getgenredata(datasong.song_genre),
-                publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
-                //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+            //    //url
+            //    url_iOS = datasong.song_URL_iOS + "?token=" +Token,
+            //    url_Android_Other = datasong.song_URL_Android_Other + "?token=" + Token,
+            //    url_RTMP = datasong.song_URL_RTMP + "?token=" + Token,
+
+            //    //data
+            //    //languagedata = Useful.getlanguagedata(datasong.song_languageId),
+            //    albumdata = Useful.getalbumdata(datasong.song_albumId),
+            //    artistdata = Useful.getartistdata(datasong.song_artistId),
+            //    genredata = Useful.getgenredata(datasong.song_genre),
+            //    publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
+            //    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
                 
-            };
+            //};
 
             
             return new O_PlaySong()
                 {
-                  songdata = data  
+                    songdata = Useful.getsongdata(datasong.song_id,0, Token)  
                 };
             
         }
@@ -360,8 +364,11 @@ namespace SingSpaze.Controllers.API
 
             int resultNumber = listsong.Count();
 
+            
             // skip take
-            listsong = listsong.OrderBy(l => l.song_originName).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
+            
+            listsong = listsong.OrderBy(l => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(l.song_originName))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            //listsong = listsong.OrderBy(l => l.song_originName).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
 
             if (listsong == null)
             {
@@ -379,24 +386,25 @@ namespace SingSpaze.Controllers.API
 
             foreach (song data in listsong)
             {
-                o_song.Add(new Songdata()
-                {
-                    id = data.song_id,
-                    originName = data.song_originName,
-                    engName = data.song_engName,
-                    price = data.song_price,
-                    //thumbnail = data.song_thumbnail,
-                    URL_picture = data.song_URL_picture,
-                    view = Useful.getview(data.song_id),
-                    length = data.song_length,
+                o_song.Add(Useful.getsongdata(data.song_id));
+                //o_song.Add(new Songdata()
+                //{
+                //    id = data.song_id,
+                //    originName = data.song_originName,
+                //    engName = data.song_engName,
+                //    price = data.song_price,
+                //    //thumbnail = data.song_thumbnail,
+                //    URL_picture = data.song_URL_picture,
+                //    view = Useful.getview(data.song_id),
+                //    length = data.song_length,
 
-                    //languagedata = Useful.getlanguagedata(data.song_languageId),
-                    albumdata = Useful.getalbumdata(data.song_albumId),
-                    artistdata = Useful.getartistdata(data.song_artistId),
-                    genredata = Useful.getgenredata(data.song_genre),
-                    publisherdata = Useful.getpublishersongdata(data.publisherforsong_id),
-                    //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
-                });
+                //    //languagedata = Useful.getlanguagedata(data.song_languageId),
+                //    albumdata = Useful.getalbumdata(data.song_albumId),
+                //    artistdata = Useful.getartistdata(data.song_artistId),
+                //    genredata = Useful.getgenredata(data.song_genre),
+                //    publisherdata = Useful.getpublishersongdata(data.publisherforsong_id),
+                //    //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
+                //});
             }
 
             return new O_SearchSong()
@@ -550,28 +558,28 @@ namespace SingSpaze.Controllers.API
             //dataartist.artist_view = dataartist.artist_view + 1;
 
             //add singinghistory
-            //singinghistory singhistory = new singinghistory()
-            //{
-            //    song_id = i_data.id,
-            //    user_id = user_id,
-            //    artist_id = datasong.song_artistId,
-            //    singinghistory_date = DateTime.Now
-            //};
-            //db.singinghistory.AddObject(singhistory);
+            singinghistory singhistory = new singinghistory()
+            {
+                song_id = i_data.id,
+                user_id = 0,
+                artist_id = datasong.song_artistId,
+                singinghistory_date = DateTime.Now
+            };
+            db.singinghistory.AddObject(singhistory);
 
             //viewhistory lastview = db.viewhistory.Where(v => v.Song_Id == i_data.id).OrderByDescending(v => v.ViewHistory_Date).FirstOrDefault();
             //DateTime lastview = view.ViewHistory_Date;
 
             //if (lastview == null || lastview.ViewHistory_Date.Day != DateTime.Now.Day || lastview.ViewHistory_Date.Month != DateTime.Now.Month)
             //{
-            //    //add viewhistory
-            //    viewhistory viewhistory = new viewhistory()
-            //    {
-            //        Song_Id = i_data.id,
-            //        User_Id = user_id,
-            //        ViewHistory_Date = DateTime.Now
-            //    };
-            //    db.viewhistory.AddObject(viewhistory);
+            //add viewhistory
+            viewhistory viewhistory = new viewhistory()
+            {
+                Song_Id = i_data.id,
+                User_Id = 0,
+                ViewHistory_Date = DateTime.Now
+            };
+            db.viewhistory.AddObject(viewhistory);
             //}
 
             //add WTBtoken
@@ -594,46 +602,46 @@ namespace SingSpaze.Controllers.API
             //else
             //    db.wtbtokens.AddObject(wtbtokens);
             //save
-            //db.SaveChanges();
+            db.SaveChanges();
 
 
-            Songdata data = new Songdata()
-            {
-                id = datasong.song_id,
-                engName = datasong.song_engName,
-                originName = datasong.song_originName,
-                lyrics = datasong.song_lyrics,
-                URL_picture = datasong.song_URL_picture,
-                price = datasong.song_price,
-                releasedDate = datasong.song_releasedDate,
-                //thumbnail = datasong.song_thumbnail,
-                view = Useful.getview(datasong.song_id),
-                //filePath = datasong.song_filePath,
-                length = datasong.song_length,
-                //keywords = datasong.song_keywords,
+            //Songdata data = new Songdata()
+            //{
+            //    id = datasong.song_id,
+            //    engName = datasong.song_engName,
+            //    originName = datasong.song_originName,
+            //    lyrics = datasong.song_lyrics,
+            //    URL_picture = datasong.song_URL_picture,
+            //    price = datasong.song_price,
+            //    releasedDate = datasong.song_releasedDate,
+            //    //thumbnail = datasong.song_thumbnail,
+            //    view = Useful.getview(datasong.song_id),
+            //    //filePath = datasong.song_filePath,
+            //    length = datasong.song_length,
+            //    //keywords = datasong.song_keywords,
 
-                //url
-                //url_iOS = datasong.song_URL_iOS + "?token=" + Token,
-                //url_Android_Other = datasong.song_URL_Android_Other + "?token=" + Token,
-                //url_RTMP = datasong.song_URL_RTMP + "?token=" + Token,
-                url_iOS = datasong.song_URL_iOS,
-                url_Android_Other = datasong.song_URL_Android_Other,
-                url_RTMP = datasong.song_URL_RTMP,
+            //    //url
+            //    //url_iOS = datasong.song_URL_iOS + "?token=" + Token,
+            //    //url_Android_Other = datasong.song_URL_Android_Other + "?token=" + Token,
+            //    //url_RTMP = datasong.song_URL_RTMP + "?token=" + Token,
+            //    url_iOS = datasong.song_URL_iOS,
+            //    url_Android_Other = datasong.song_URL_Android_Other,
+            //    url_RTMP = datasong.song_URL_RTMP,
 
-                //data
-                //languagedata = Useful.getlanguagedata(datasong.song_languageId),
-                albumdata = Useful.getalbumdata(datasong.song_albumId),
-                artistdata = Useful.getartistdata(datasong.song_artistId),
-                genredata = Useful.getgenredata(datasong.song_genre),
-                publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
-                //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+            //    //data
+            //    //languagedata = Useful.getlanguagedata(datasong.song_languageId),
+            //    albumdata = Useful.getalbumdata(datasong.song_albumId),
+            //    artistdata = Useful.getartistdata(datasong.song_artistId),
+            //    genredata = Useful.getgenredata(datasong.song_genre),
+            //    publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
+            //    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
 
-            };
+            //};
 
 
             return new O_PlaySong()
             {
-                songdata = data
+                songdata = Useful.getsongdata(datasong.song_id,0, "")
             };
 
         }

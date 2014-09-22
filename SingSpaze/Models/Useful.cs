@@ -131,6 +131,88 @@ namespace SingSpaze.Models
             return response;
         }
 
+        public static Songdata getsongdata(long id,int view = 0,string Token = null)
+        {
+            singspazeEntities db = new singspazeEntities();
+            song datasong = db.song.Where(s => s.song_id == id).SingleOrDefault();
+            if (datasong == null)
+                return null;
+
+            Songdata response = null;
+            if (view == 0)
+                view = Useful.getview(datasong.song_id);
+
+            if (Token != null)
+            {
+                if (Token != "")
+                    Token = "?token=" + Token;
+                else
+                    Token = "";
+                response = new Songdata()
+                {
+                    id = datasong.song_id,
+                    engName = datasong.song_engName,
+                    originName = datasong.song_originName,
+                    lyrics = datasong.song_lyrics,
+                    URL_picture = datasong.song_URL_picture,
+                    price = datasong.song_price,
+                    releasedDate = datasong.song_releasedDate,
+                    //thumbnail = datasong.song_thumbnail,
+                    view = view,
+                    //filePath = datasong.song_filePath,
+                    length = datasong.song_length,
+                    //keywords = datasong.song_keywords,
+
+
+                    //url
+                    url_iOS = datasong.song_URL_iOS + Token,
+                    url_Android_Other = datasong.song_URL_Android_Other + Token,
+                    url_RTMP = datasong.song_URL_RTMP + Token,
+
+                    //data
+                    //languagedata = Useful.getlanguagedata(datasong.song_languageId),
+                    albumdata = Useful.getalbumdata(datasong.song_albumId),
+                    artistdata = Useful.getartistdata(datasong.song_artistId),
+                    genredata = Useful.getgenredata(datasong.song_genre),
+                    publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
+                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+
+
+                };
+            }
+            else
+            {
+                response = new Songdata()
+                {
+                    id = datasong.song_id,
+                    engName = datasong.song_engName,
+                    originName = datasong.song_originName,
+                    lyrics = datasong.song_lyrics,
+                    URL_picture = datasong.song_URL_picture,
+                    price = datasong.song_price,
+                    releasedDate = datasong.song_releasedDate,
+                    //thumbnail = datasong.song_thumbnail,
+                    view = view,
+                    //filePath = datasong.song_filePath,
+                    length = datasong.song_length,
+                    //keywords = datasong.song_keywords,
+
+                    //data
+                    //languagedata = Useful.getlanguagedata(datasong.song_languageId),
+                    albumdata = Useful.getalbumdata(datasong.song_albumId),
+                    artistdata = Useful.getartistdata(datasong.song_artistId),
+                    genredata = Useful.getgenredata(datasong.song_genre),
+                    publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
+                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+
+
+                };
+            }
+
+            return response;
+
+        }
+
         public static Albumdata getalbumdata(int id)
         {
             singspazeEntities db = new singspazeEntities();

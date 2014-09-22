@@ -7,6 +7,7 @@ using System.Web.Http;
 using SingSpaze.Models.Output;
 using SingSpaze.Models.Input;
 using SingSpaze.Models;
+using System.Text;
 
 namespace SingSpaze.Controllers.API
 {
@@ -56,7 +57,7 @@ namespace SingSpaze.Controllers.API
                               select new { artist_id = ghistory.Key, count = ghistory.Count() };
             // order
             if (string.IsNullOrEmpty(i_data.type))
-                listartist = db.artist.OrderBy(s => s.artist_description_th).ToList();
+                listartist = db.artist.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
             //else if (i_data.type == "new")
             //    listartist = db.artist.Where(s => s.song_releasedDate ?? DateTime.Now > before).OrderByDescending(s => s.song_releasedDate).ToList();
             else if (i_data.type == "hot")
@@ -211,7 +212,7 @@ namespace SingSpaze.Controllers.API
             int resultNumber = listartist.Count();
 
             // skip take
-            listartist = listartist.OrderBy(a => a.artist_description_th).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            listartist = listartist.OrderBy(a => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(a.artist_description_th))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
 
             if (listartist == null)
             {
