@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Push_Notification";
+}
+
+<div style="padding-top: 25px;padding-bottom: 30px;">
+    <form id="notification" name="notification" action="../api/utility/Push_Notification" method="post">
+        User Id
+        <select id="userid">
+            <option value="0">All</option>
+        </select>
+        <br />
+        Message <input type="text" id="message" />
+        <br />
+        <input type="button" value="send" onclick="ajaxupload();" />
+    </form>
+    <span id="response"></span>
+</div>
+<script>
+    function ajaxupload() {
+        var frm = $(document.notification);
+        //var data = new FormData(document.getElementById("notification"));
+
+
+        document.getElementById("response").innerHTML = "Waiting";
+        $.ajax({
+            type: "POST",
+            url: frm.attr("action") ,
+            data: { userid : document.getElementById("userid").value, message : document.getElementById("message").value },
+            dataType: 'json',
+            success: function (response) {
+                if (response.result)
+                    document.getElementById("response").innerHTML = "Success";
+                else
+                    document.getElementById("response").innerHTML = response.errormessage;
+               }
+        });
+
+       
+
+    }
+</script>

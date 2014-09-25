@@ -134,7 +134,7 @@ namespace SingSpaze.Controllers
                 addsong.song_status = song.Status;
                 addsong.song_addedDate = DateTime.Now;
 
-                db.song.AddObject(addsong);
+                db.song.Add(addsong);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -298,7 +298,7 @@ namespace SingSpaze.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             song song = db.song.Single(s => s.song_id == id);
-            db.song.DeleteObject(song);
+            db.song.Remove(song);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -450,12 +450,19 @@ namespace SingSpaze.Controllers
                         var sql = @"LOAD DATA  INFILE  '" + path.Replace(@"\", @"\\") + @"' IGNORE INTO TABLE  `csv` CHARACTER SET '" + Request.Form.GetValues("encode")[0] + @"' FIELDS TERMINATED BY  ',' ENCLOSED BY  '" + '"' + "' ESCAPED BY  '" + @"\\" + "' LINES TERMINATED BY  '" + @"\r\n" + "' IGNORE 1 LINES;";
                         //else
                         //    sql = @"LOAD DATA  INFILE  '" + path.Replace(@"\", @"\\") + @"' IGNORE INTO TABLE  `csv` CHARACTER SET 'utf8' FIELDS TERMINATED BY  ',' ENCLOSED BY  '" + '"' + "' ESCAPED BY  '" + @"\\" + "' LINES TERMINATED BY  '" + @"\r\n" + "' IGNORE 1 LINES;";
-                        ldb.ExecuteStoreCommand("SET SQL_SAFE_UPDATES = 0;");
-                        ldb.ExecuteStoreCommand("TRUNCATE TABLE  `csv`");
-                        ldb.ExecuteStoreCommand(sql);
+                        ldb.Database.ExecuteSqlCommand("SET SQL_SAFE_UPDATES = 0;");
+                        ldb.Database.ExecuteSqlCommand("TRUNCATE TABLE  `csv`");
+                        ldb.Database.ExecuteSqlCommand(sql);
 
-                        ldb.ExecuteStoreCommand(@"UPDATE `csv` SET `Photo`= concat('" + address.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ',''));");
-                        ldb.ExecuteStoreCommand(@"UPDATE `csv` SET `Lyrics`= concat(concat('" + filepath.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ','')),'\\lyrics.txt');");
+                        ldb.Database.ExecuteSqlCommand(@"UPDATE `csv` SET `Photo`= concat('" + address.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ',''));");
+                        ldb.Database.ExecuteSqlCommand(@"UPDATE `csv` SET `Lyrics`= concat(concat('" + filepath.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ','')),'\\lyrics.txt');");
+
+                        //ldb.ExecuteStoreCommand("SET SQL_SAFE_UPDATES = 0;");
+                        //ldb.ExecuteStoreCommand("TRUNCATE TABLE  `csv`");
+                        //ldb.ExecuteStoreCommand(sql);
+
+                        //ldb.ExecuteStoreCommand(@"UPDATE `csv` SET `Photo`= concat('" + address.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ',''));");
+                        //ldb.ExecuteStoreCommand(@"UPDATE `csv` SET `Lyrics`= concat(concat('" + filepath.Replace(@"\", @"\\") + @"\\" + @"',REPLACE(`Title - EN`,' ','')),'\\lyrics.txt');");
 
                         return "Success";
                     }
@@ -487,18 +494,18 @@ namespace SingSpaze.Controllers
                 //Lyrics
                 string lyrics = "";
                 string lsql = "";
-                IEnumerable<string> resultsstring = ldb.ExecuteStoreQuery<string>(@"select Lyrics from csv;");
-                foreach (string data in resultsstring)
+                List<csv> resultscsv = ldb.csv.SqlQuery(@"select * from csv;").ToList();
+                foreach (csv data in resultscsv)
                 {
                     try
                     {
-                        using (StreamReader sr = new StreamReader(data.Replace(@"\", @"\\")))
+                        using (StreamReader sr = new StreamReader(data.Lyrics.Replace(@"\", @"\\")))
                         {
                             try
                             {
                                 lyrics = sr.ReadToEnd();
 
-                                lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '" + lyrics + "' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
+                                lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '" + lyrics + "' where `Lyrics`='" + data.Lyrics.Replace(@"\", @"\\") + "';";
                             }
                             catch (Exception e)
                             {
@@ -507,14 +514,14 @@ namespace SingSpaze.Controllers
                     }
                     catch (Exception e)
                     {
-                        lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
+                        lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '' where `Lyrics`='" + data.Lyrics.Replace(@"\", @"\\") + "';";
                     }
 
                 }
-                ldb.ExecuteStoreCommand(lsql);
+                ldb.Database.ExecuteSqlCommand(lsql);
 
                 //datetime
-                ldb.ExecuteStoreCommand(@"UPDATE `csv` SET `Released date`= DATE_FORMAT(NOW(), '%d/%m/%Y %T') where `Released date`='';");
+                ldb.Database.ExecuteSqlCommand(@"UPDATE `csv` SET `Released date`= DATE_FORMAT(NOW(), '%d/%m/%Y %T') where `Released date`='';");
                 return "Success";
             }
             catch (Exception e)
@@ -543,7 +550,7 @@ namespace SingSpaze.Controllers
                              SELECT distinct c.`Artist - TH`, c.`Artist - EN`,0 
                              FROM csv as c
                              ON DUPLICATE KEY UPDATE `artist_description_th`= c.`Artist - TH`,`artist_description_en`= c.`Artist - EN`;";
-                ldb.ExecuteStoreCommand(lsql);
+                ldb.Database.ExecuteSqlCommand(lsql);
 
                 //add album
                 //ldb.ExecuteStoreCommand(@"ALTER TABLE  `album`ADD UNIQUE (`album_description_th`,`album_description_en`);");
@@ -551,7 +558,7 @@ namespace SingSpaze.Controllers
                              SELECT distinct c.`Album - TH`, c.`Album - EN` 
                              FROM csv as c
                              ON DUPLICATE KEY UPDATE `album_description_th`= c.`Album - TH`,`album_description_en`= c.`Album - EN`;";
-                ldb.ExecuteStoreCommand(lsql);
+                ldb.Database.ExecuteSqlCommand(lsql);
 
                 //add language
                 //ldb.ExecuteStoreCommand(@"ALTER TABLE  `language`ADD UNIQUE (`language_description`);");
@@ -559,7 +566,7 @@ namespace SingSpaze.Controllers
                              SELECT distinct c.`Language` 
                              FROM csv as c
                              ON DUPLICATE KEY UPDATE `language_description`= c.`Language`;";
-                ldb.ExecuteStoreCommand(lsql);
+                ldb.Database.ExecuteSqlCommand(lsql);
 
                 //add genres
                 //ldb.ExecuteStoreCommand(@"ALTER TABLE  `genre`ADD UNIQUE (`genre_description`);");
@@ -567,7 +574,7 @@ namespace SingSpaze.Controllers
                              SELECT distinct c.`Genres` 
                              FROM csv as c
                              ON DUPLICATE KEY UPDATE `genre_description`= c.`Genres`;";
-                ldb.ExecuteStoreCommand(lsql);
+                ldb.Database.ExecuteSqlCommand(lsql);
 
                 //add publisher
                 //ldb.ExecuteStoreCommand(@"ALTER TABLE  `publisherforsong`ADD UNIQUE (`publisherforsong_description`);");
@@ -575,7 +582,7 @@ namespace SingSpaze.Controllers
                              SELECT distinct c.`Publisher` 
                              FROM csv as c
                              ON DUPLICATE KEY UPDATE `publisherforsong_description`= c.`Publisher`;";
-                ldb.ExecuteStoreCommand(lsql);              
+                ldb.Database.ExecuteSqlCommand(lsql);              
                 
                     
 
@@ -624,7 +631,7 @@ namespace SingSpaze.Controllers
                         s.song_Copyright = c.`Copyright`,
                         s.song_Track_Number = c.`Track Number`,
                         s.song_releasedDate = STR_TO_DATE(c.`Released date`,'%d/%m/%Y %T');";
-            ldb.ExecuteStoreCommand(lsql);
+            ldb.Database.ExecuteSqlCommand(lsql);
 
             //add new song
             lsql = @"INSERT INTO `song`(`song_originName`, `song_engName`, `song_genre`, `song_languageId`, `song_albumId`, `song_artistId`, `song_length`, `song_lyrics`, `publisherforsong_id`, `song_URL_picture`, `song_status`, `song_addedDate`, `song_price`, `song_URL_iOS`, `song_URL_Android/Other`, `song_URL_RTMP`, `song_Copyright`, `song_Track_Number`,`song_releasedDate`)   
@@ -637,7 +644,7 @@ namespace SingSpaze.Controllers
                              (select publisherforsong_id from publisherforsong where publisherforsong_description = c.`Publisher`),
                              c.Photo,c.Status,now(),CAST(c.Price AS DECIMAL(12,2)),c.`URL iOS`, c.`URL Android/Other`, c.`URL RTMP`, c.`Copyright`, c.`Track Number`,STR_TO_DATE(c.`Released date`,'%d/%m/%Y %T')
                              FROM csv as c where c.id = 0;";
-            ldb.ExecuteStoreCommand(lsql);
+            ldb.Database.ExecuteSqlCommand(lsql);
 
 
 

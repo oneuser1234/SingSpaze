@@ -11,6 +11,8 @@ using System.Net.Mail;
 using System.Web;
 using System.IO;
 using System.Text;
+using MoonAPNS;
+
 
 namespace SingSpaze.Controllers.API
 {
@@ -130,7 +132,7 @@ namespace SingSpaze.Controllers.API
                 user_id = Useful.getuserid(i_data.logindata.token)
             };
 
-            db.songrequest.AddObject(requestdata);
+            db.songrequest.Add(requestdata);
             db.SaveChanges();
 
             return new O_SongRequest()
@@ -171,7 +173,7 @@ namespace SingSpaze.Controllers.API
                 contactUs_message = i_data.message
             };
 
-            db.contactus.AddObject(contactdata);
+            db.contactus.Add(contactdata);
 
             //mail server
             var smtpClient = new SmtpClient("Singspaze.com")
@@ -246,6 +248,85 @@ namespace SingSpaze.Controllers.API
 
             return new O_SplashPage() { splashpagedata = o_data };
             
+        }
+
+        /// <summary>
+        /// Push Notification
+        /// </summary>
+        /// <param name="i_data">class I_Push_Notification</param>
+        /// <returns>class O_Push_Notification</returns>
+        [HttpPost]
+        [ActionName("Push_Notification")]
+        public O_Push_Notification Push_Notification(I_Push_Notification i_data)
+        {
+            string errormessage = "";
+            try
+            {
+
+            //DataTable tab = datalogic.GetDeviceTokens(); // Getting all device ids from the table
+
+            List<user> userdata = db.user.ToList();
+
+            if (i_data.userid != 0)
+                userdata = userdata.Where(u => u.user_id == i_data.userid).ToList();
+
+
+            var p = new List<NotificationPayload>();
+
+            //for (int i = 0; i < tab.Count; i++)
+            foreach (user data in userdata)
+            {
+
+                string message = i_data.message;
+
+                var payload = new NotificationPayload(data.APNS_token.ToString(), message, 1, "default");
+
+                //payload.AddCustom("ID", data.user_id);
+                //payload.AddCustom("ID", CardId);   // Custom fields as id and card name
+
+                //payload.AddCustom("CardName", data.user_firstname + "" + data.user_lastname);
+                //payload.AddCustom("CardName", CardName);
+
+                p.Add(payload);
+
+            }
+
+            var push = new PushNotification(true, Path.Combine(HttpContext.Current.Request.MapPath("~/data/"), "SingSpazeCerKey.pem"), "singspaze1234");
+
+            //path is iphone app’s p12 certificate file, put password for that certificate also,
+
+            var rejected = push.SendToApple(p);  // error list
+            
+
+            foreach (var item in rejected)
+            {
+                errormessage = errormessage + " " + item;
+
+                //Console.WriteLine(item);
+
+            }
+
+            //success;
+
+            }
+
+            catch (Exception ep)
+            {
+
+                string syserrormessage = ep.ToString();
+
+            }
+
+            if(errormessage == "")
+                return new O_Push_Notification(){ result = true};
+            else
+            { 
+                return new O_Push_Notification(){
+                    result = false,
+                    errormessage = errormessage
+                };
+            }
+
         }
     }
 }

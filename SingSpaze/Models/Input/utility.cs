@@ -56,5 +56,23 @@ namespace SingSpaze.Models.Input
             [DataMember(Name = "message")]
             public string message { get; set; }
         }
-    
+
+        /// <summary>
+        /// Class input data for Push Notification
+        /// </summary>
+        [DataContract]
+        public class I_Push_Notification
+        {
+            /// <summary>
+            /// User Id
+            /// </summary>
+            [DataMember(Name = "userid")]
+            public int userid { get; set; }
+            /// <summary>
+            /// Message
+            /// </summary>
+            [DataMember(Name = "message")]
+            public string message { get; set; }
+            
+        }
 }

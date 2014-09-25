@@ -16,6 +16,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +50,9 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.12-beta\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="MoonAPNS">
+      <HintPath>..\..\..\IPhonePushBin\MoonAPNS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -195,13 +202,41 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\album.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\artist.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contactus.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\csv.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\genre.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Input\artist.cs" />
     <Compile Include="Models\Input\playlist.cs" />
     <Compile Include="Models\Input\song.cs" />
     <Compile Include="Models\Input\utility.cs" />
+    <Compile Include="Models\language.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Management\Account.cs" />
     <Compile Include="Models\Management\Helper.cs" />
     <Compile Include="Models\Management\Song.cs" />
+    <Compile Include="Models\MySql.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MySql.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MySql.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MySql.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,7 +248,43 @@
     <Compile Include="Models\Output\playlist.cs" />
     <Compile Include="Models\Output\song.cs" />
     <Compile Include="Models\Output\utlity.cs" />
+    <Compile Include="Models\playlist.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\playlisttosong.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\publisherforartist.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\publisherforsong.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\singinghistory.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\song.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\songrequest.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\splashpage.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\status.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Useful.cs" />
+    <Compile Include="Models\user.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\viewhistory.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\wtbtokens.cs">
+      <DependentUpon>MySql.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -449,10 +520,34 @@
     <Content Include="Views\Song\CSV.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Push_Notification.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\MySql.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MySql.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\MySql.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MySql.edmx</DependentUpon>
+      <LastGenOutput>MySql.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MySql.edmx.diagram">
+      <DependentUpon>MySql.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\MySql.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MySql.edmx</DependentUpon>
+      <LastGenOutput>MySql.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

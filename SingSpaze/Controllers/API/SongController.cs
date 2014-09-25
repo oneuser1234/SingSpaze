@@ -229,7 +229,7 @@ namespace SingSpaze.Controllers.API
                 artist_id = datasong.song_artistId,
                 singinghistory_date = DateTime.Now
             };
-            db.singinghistory.AddObject(singhistory);
+            db.singinghistory.Add(singhistory);
 
             viewhistory lastview = db.viewhistory.Where(v =>  v.Song_Id == i_data.id).OrderByDescending(v => v.ViewHistory_Date).FirstOrDefault();
             //DateTime lastview = view.ViewHistory_Date;
@@ -243,7 +243,7 @@ namespace SingSpaze.Controllers.API
                     User_Id = user_id,
                     ViewHistory_Date = DateTime.Now
                 };
-                db.viewhistory.AddObject(viewhistory);
+                db.viewhistory.Add(viewhistory);
             }
 
             //add WTBtoken
@@ -264,7 +264,7 @@ namespace SingSpaze.Controllers.API
                 lasttoken.WTBTokens_ipaddress = wtbtokens.WTBTokens_ipaddress;
             }
             else
-                db.wtbtokens.AddObject(wtbtokens);
+                db.wtbtokens.Add(wtbtokens);
             //save
             db.SaveChanges();
             
@@ -343,7 +343,7 @@ namespace SingSpaze.Controllers.API
                        orderby dbsong.song_originName ascending
                        select dbsong).ToList();
                        
-
+            
 
             // where 
             if (i_data.type != null)
@@ -366,7 +366,6 @@ namespace SingSpaze.Controllers.API
 
             
             // skip take
-
             listsong = listsong.OrderBy(l => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(l.song_originName))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
             //listsong = listsong.OrderBy(l => l.song_originName).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
 
@@ -565,7 +564,7 @@ namespace SingSpaze.Controllers.API
                 artist_id = datasong.song_artistId,
                 singinghistory_date = DateTime.Now
             };
-            db.singinghistory.AddObject(singhistory);
+            db.singinghistory.Add(singhistory);
 
             //viewhistory lastview = db.viewhistory.Where(v => v.Song_Id == i_data.id).OrderByDescending(v => v.ViewHistory_Date).FirstOrDefault();
             //DateTime lastview = view.ViewHistory_Date;
@@ -579,7 +578,7 @@ namespace SingSpaze.Controllers.API
                 User_Id = 0,
                 ViewHistory_Date = DateTime.Now
             };
-            db.viewhistory.AddObject(viewhistory);
+            db.viewhistory.Add(viewhistory);
             //}
 
             //add WTBtoken

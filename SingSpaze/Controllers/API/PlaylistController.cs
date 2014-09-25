@@ -182,7 +182,7 @@ namespace SingSpaze.Controllers.API
 
             };
 
-            db.playlist.AddObject(playlistdata);
+            db.playlist.Add(playlistdata);
             db.SaveChanges();
 
             return new O_AddNewPlaylist()
@@ -230,9 +230,9 @@ namespace SingSpaze.Controllers.API
                 List<playlisttosong> playlisttosongdata = db.playlisttosong.Where(p => p.playlist_id == i_data.id).ToList();
                 foreach (playlisttosong data in playlisttosongdata)
                 {
-                    db.playlisttosong.DeleteObject(data);
+                    db.playlisttosong.Remove(data);
                 }
-                db.playlist.DeleteObject(playlistdata);
+                db.playlist.Remove(playlistdata);
                 db.SaveChanges();
             }
             else
@@ -317,7 +317,7 @@ namespace SingSpaze.Controllers.API
 
                 };
 
-                db.playlisttosong.AddObject(playlisttosongdata);
+                db.playlisttosong.Add(playlisttosongdata);
                 db.SaveChanges();
             }
             else
@@ -385,7 +385,7 @@ namespace SingSpaze.Controllers.API
                 List<playlisttosong> oldplaylisttosongdata = db.playlisttosong.Where(p => p.playlist_id == i_data.playlist_id).ToList();
                 foreach (playlisttosong data in oldplaylisttosongdata)
                 {
-                    db.playlisttosong.DeleteObject(data);
+                    db.playlisttosong.Remove(data);
                 }
 
                 List<long> listsong = Useful.getlistdata(i_data.song_id);
@@ -406,7 +406,7 @@ namespace SingSpaze.Controllers.API
 
                         };
 
-                        db.playlisttosong.AddObject(playlisttosongdata);
+                        db.playlisttosong.Add(playlisttosongdata);
                         insertsong.Add(data);
                     }
                 }

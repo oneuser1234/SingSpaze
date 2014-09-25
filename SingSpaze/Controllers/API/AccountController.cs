@@ -87,7 +87,45 @@ namespace SingSpaze.Controllers.API
                     user_type = 0,
                     usergroup_id = 0
                 };
-                db.user.AddObject(userdata);
+
+                db.user.Add(userdata);
+
+                //mail server
+                var smtpClient = new SmtpClient("Singspaze.com")
+                {
+                    UseDefaultCredentials = false,
+                    //Port = 25,
+                    //DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                    EnableSsl = false,
+                    Credentials = new NetworkCredential("no-reply@singspaze.com", ";XS@}n6")
+                };
+
+                string url = HttpContext.Current.Request.ServerVariables["LOCAL_ADDR"] + ":" + HttpContext.Current.Request.ServerVariables["server_port"];
+                string message = "";
+                StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("~/data/welcome.html"), Encoding.UTF8);
+                try
+                {
+                    message = sr.ReadToEnd();
+                    message = message.Replace("[URL]", url);
+                    message = message.Replace("[EMAIL]", userdata.user_email);
+                    message = message.Replace("[NAME]", userdata.user_firstname + " " + userdata.user_lastname);
+                }
+                catch (Exception e)
+                {
+                }
+                sr.Close();
+
+                //send mail
+                MailMessage mail = new MailMessage();
+
+                //Setting From , To and CC
+                mail.From = new MailAddress("no-reply@singspaze.com");
+                mail.To.Add(new MailAddress(userdata.user_email));
+                mail.Subject = "Thank you for confirming your registration at SingSpaze";
+                mail.Body = message;
+                mail.IsBodyHtml = true;
+
+                smtpClient.Send(mail);
                 db.SaveChanges();
 
                 return new O_Register()
@@ -162,27 +200,51 @@ namespace SingSpaze.Controllers.API
                 user_type = 0,
                 usergroup_id = 0
             };
-            db.user.AddObject(userdata);
+            db.user.Add(userdata);
+
+            //mail server
+            var smtpClient = new SmtpClient("Singspaze.com")
+            {
+                UseDefaultCredentials = false,
+                //Port = 25,
+                //DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                EnableSsl = false,
+                Credentials = new NetworkCredential("no-reply@singspaze.com", ";XS@}n6")
+            };
+
+            string url = HttpContext.Current.Request.ServerVariables["LOCAL_ADDR"] + ":" + HttpContext.Current.Request.ServerVariables["server_port"];
+            string message = "";
+            StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("~/data/welcome.html"), Encoding.UTF8);
+            try
+            {
+                message = sr.ReadToEnd();
+                message = message.Replace("[URL]", url);
+                message = message.Replace("[EMAIL]", userdata.user_email);
+                message = message.Replace("[NAME]", userdata.user_firstname + " " + userdata.user_lastname);
+            }
+            catch (Exception e)
+            {
+            }
+            sr.Close();
+
+            //send mail
+            MailMessage mail = new MailMessage();
+
+            //Setting From , To and CC
+            mail.From = new MailAddress("no-reply@singspaze.com");
+            mail.To.Add(new MailAddress(userdata.user_email));
+            mail.Subject = "Thank you for confirming your registration at SingSpaze";
+            mail.Body = message;
+            mail.IsBodyHtml = true;
+
+            smtpClient.Send(mail);
             db.SaveChanges();
 
             return new O_FBRegister()
             {
                 result = true
             };
-            //}
-            //else
-            // {
-
-            //     return new O_Register()
-            //     {
-            //         result = false,
-            //         errordata = new errordata()
-            //         {
-            //             code = 1,
-            //             Detail = Useful.geterrordata(1)
-            //         }
-            //     };
-            //}
+            
         }
 
         /// <summary>
@@ -231,6 +293,7 @@ namespace SingSpaze.Controllers.API
                string Token = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString() + i_data.Mac_Address.ToString() + i_data.Device_ID.ToString() + "sing");
                datauser.user_lastlogin = DateTime.Now;
                datauser.user_token = Token;
+               datauser.APNS_token = i_data.Device_ID;
                db.SaveChanges();
                //datauser 
                return new O_Login()
@@ -302,6 +365,7 @@ namespace SingSpaze.Controllers.API
                 string Token = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString() + i_data.Mac_Address.ToString() + i_data.Device_ID.ToString() + "sing");
                 datauser.user_lastlogin = DateTime.Now;
                 datauser.user_token = Token;
+                datauser.APNS_token = i_data.Device_ID;
                 db.SaveChanges();
                 return new O_FBLogin()
                 {

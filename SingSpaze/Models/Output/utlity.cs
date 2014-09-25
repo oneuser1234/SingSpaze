@@ -47,4 +47,20 @@ namespace SingSpaze.Models.Output
         /// </summary>
         public List<SplashPagedata> splashpagedata { get; set; }
     }
+
+    /// <summary>
+    /// Class output Push_Notification
+    /// </summary>
+    public class O_Push_Notification
+    {
+
+        /// <summary>
+        /// Return True or False
+        /// </summary>
+        public Boolean result { get; set; }
+        /// <summary>
+        /// Error message
+        /// </summary>
+        public string errormessage { get; set; }
+    }
 }

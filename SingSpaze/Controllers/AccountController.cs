@@ -55,7 +55,7 @@ namespace SingSpaze.Controllers
                 };
                 
 
-                db.user.AddObject(adduser);
+                db.user.Add(adduser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -139,7 +139,7 @@ namespace SingSpaze.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             user user = db.user.Single(s => s.user_id == id);
-            db.user.DeleteObject(user);
+            db.user.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -148,6 +148,12 @@ namespace SingSpaze.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index","home");
+        }
+
+        public ActionResult Push_Notification()
+        {
+
+            return View();
         }
 
     }
