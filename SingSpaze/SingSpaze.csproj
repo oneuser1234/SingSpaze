@@ -202,45 +202,51 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\access_rule.cs">
+      <DependentUpon>Mysql.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\album.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\artist.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\contactus.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\csv.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\deviceinfo.cs">
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\genre.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Input\artist.cs" />
     <Compile Include="Models\Input\playlist.cs" />
     <Compile Include="Models\Input\song.cs" />
     <Compile Include="Models\Input\utility.cs" />
     <Compile Include="Models\language.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Management\Account.cs" />
     <Compile Include="Models\Management\Helper.cs" />
     <Compile Include="Models\Management\Song.cs" />
-    <Compile Include="Models\MySql.Context.cs">
+    <Compile Include="Models\Mysql.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MySql.Context.tt</DependentUpon>
+      <DependentUpon>Mysql.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MySql.cs">
+    <Compile Include="Models\Mysql.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MySql.Designer.cs">
+    <Compile Include="Models\Mysql.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MySql.edmx</DependentUpon>
+      <DependentUpon>Mysql.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Output\account.cs" />
     <Compile Include="Models\Input\account.cs" />
@@ -249,41 +255,41 @@
     <Compile Include="Models\Output\song.cs" />
     <Compile Include="Models\Output\utlity.cs" />
     <Compile Include="Models\playlist.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\playlisttosong.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\publisherforartist.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\publisherforsong.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\singinghistory.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\song.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\songrequest.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\splashpage.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\status.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Useful.cs" />
     <Compile Include="Models\user.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\viewhistory.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\wtbtokens.cs">
-      <DependentUpon>MySql.tt</DependentUpon>
+      <DependentUpon>Mysql.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -526,27 +532,23 @@
     <Content Include="Views\Account\Push_Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\MySql.edmx">
+    <EntityDeploy Include="Models\Mysql.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MySql.Designer.cs</LastGenOutput>
+      <LastGenOutput>Mysql.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\MySql.Context.tt">
+    <Content Include="Models\Mysql.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MySql.edmx</DependentUpon>
-      <LastGenOutput>MySql.Context.cs</LastGenOutput>
+      <DependentUpon>Mysql.edmx</DependentUpon>
+      <LastGenOutput>Mysql.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\MySql.edmx.diagram">
-      <DependentUpon>MySql.edmx</DependentUpon>
+    <Content Include="Models\Mysql.edmx.diagram">
+      <DependentUpon>Mysql.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\MySql.tt">
+    <Content Include="Models\Mysql.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MySql.edmx</DependentUpon>
-      <LastGenOutput>MySql.cs</LastGenOutput>
+      <DependentUpon>Mysql.edmx</DependentUpon>
+      <LastGenOutput>Mysql.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
   </ItemGroup>
   <PropertyGroup>

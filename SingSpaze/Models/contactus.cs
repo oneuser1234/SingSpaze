@@ -14,7 +14,7 @@ namespace SingSpaze.Models
     
     public partial class contactus
     {
-        public int contactUs_id { get; set; }
+        public long contactUs_id { get; set; }
         public System.DateTime contactUs_datetime { get; set; }
         public string contactUs_name { get; set; }
         public string contactUs_email { get; set; }

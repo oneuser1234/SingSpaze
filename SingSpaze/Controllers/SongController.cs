@@ -494,18 +494,18 @@ namespace SingSpaze.Controllers
                 //Lyrics
                 string lyrics = "";
                 string lsql = "";
-                List<csv> resultscsv = ldb.csv.SqlQuery(@"select * from csv;").ToList();
-                foreach (csv data in resultscsv)
+                List<string> resultscsv = ldb.Database.SqlQuery<string>(@"select Lyrics from csv;").ToList();
+                foreach (string data in resultscsv)
                 {
                     try
                     {
-                        using (StreamReader sr = new StreamReader(data.Lyrics.Replace(@"\", @"\\")))
+                        using (StreamReader sr = new StreamReader(data.Replace(@"\", @"\\")))
                         {
                             try
                             {
                                 lyrics = sr.ReadToEnd();
 
-                                lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '" + lyrics + "' where `Lyrics`='" + data.Lyrics.Replace(@"\", @"\\") + "';";
+                                lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '" + lyrics + "' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
                             }
                             catch (Exception e)
                             {
@@ -514,7 +514,7 @@ namespace SingSpaze.Controllers
                     }
                     catch (Exception e)
                     {
-                        lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '' where `Lyrics`='" + data.Lyrics.Replace(@"\", @"\\") + "';";
+                        lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
                     }
 
                 }

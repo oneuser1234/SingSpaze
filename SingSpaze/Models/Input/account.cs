@@ -16,8 +16,8 @@ namespace SingSpaze.Models.Input
         /// <summary>
         /// Username 
         /// </summary>
-        [DataMember(Name="username")]
-        public string Username { get; set; }
+        //[DataMember(Name="username")]
+        //public string Username { get; set; }
         /// <summary>
         /// Password 
         /// </summary>
@@ -64,13 +64,19 @@ namespace SingSpaze.Models.Input
         /// <summary>
         /// Username
         /// </summary>
-        [DataMember(Name = "username")]
-        public string Username { get; set; }
+        //[DataMember(Name = "username")]
+        //public string Username { get; set; }
+        /// <summary>
+        /// Email
+        /// </summary>
+        [DataMember(Name = "email")]
+        public string email { get; set; }
         /// <summary>
         /// Password
         /// </summary>
         [DataMember(Name = "password")]
-        public string Password { get; set; }
+        public string password { get; set; }
+        
         /// <summary>
         /// Mac address 
         /// </summary>

@@ -14,16 +14,26 @@ namespace SingSpaze.Models
     
     public partial class artist
     {
+        public artist()
+        {
+            this.singinghistory = new HashSet<singinghistory>();
+            this.song = new HashSet<song>();
+        }
+    
         public long artist_id { get; set; }
         public string artist_description_th { get; set; }
         public string artist_description_en { get; set; }
         public string artist_type { get; set; }
-        public int artist_view { get; set; }
+        public long artist_view { get; set; }
         public string artist_picture { get; set; }
         public string ArtistPicture_L_Lo { get; set; }
         public string ArtistPicture_L_Hi { get; set; }
         public string ArtistPicture_S_Lo { get; set; }
         public string ArtistPicture_S_Hi { get; set; }
-        public int artist_publisherforartistId { get; set; }
+        public long artist_publisherforartistId { get; set; }
+    
+        public virtual publisherforartist publisherforartist { get; set; }
+        public virtual ICollection<singinghistory> singinghistory { get; set; }
+        public virtual ICollection<song> song { get; set; }
     }
 }

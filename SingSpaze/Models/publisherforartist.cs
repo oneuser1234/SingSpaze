@@ -14,7 +14,14 @@ namespace SingSpaze.Models
     
     public partial class publisherforartist
     {
-        public int publisherforartist_Id { get; set; }
+        public publisherforartist()
+        {
+            this.artist = new HashSet<artist>();
+        }
+    
+        public long publisherforartist_Id { get; set; }
         public string publisherforartist_description { get; set; }
+    
+        public virtual ICollection<artist> artist { get; set; }
     }
 }

@@ -14,10 +14,12 @@ namespace SingSpaze.Models
     
     public partial class songrequest
     {
-        public int songRequest_id { get; set; }
-        public int user_id { get; set; }
+        public long songRequest_id { get; set; }
+        public long user_id { get; set; }
         public System.DateTime songRequest_datetime { get; set; }
         public string songRequest_songname { get; set; }
         public string songRequest_artistname { get; set; }
+    
+        public virtual user user { get; set; }
     }
 }

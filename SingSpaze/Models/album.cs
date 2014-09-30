@@ -14,8 +14,15 @@ namespace SingSpaze.Models
     
     public partial class album
     {
+        public album()
+        {
+            this.song = new HashSet<song>();
+        }
+    
         public long album_id { get; set; }
         public string album_description_th { get; set; }
         public string album_description_en { get; set; }
+    
+        public virtual ICollection<song> song { get; set; }
     }
 }

@@ -14,10 +14,14 @@ namespace SingSpaze.Models
     
     public partial class singinghistory
     {
-        public int singinghistory_id { get; set; }
-        public int user_id { get; set; }
-        public int song_id { get; set; }
-        public int artist_id { get; set; }
+        public long singinghistory_id { get; set; }
+        public long user_id { get; set; }
+        public long song_id { get; set; }
+        public long artist_id { get; set; }
         public System.DateTime singinghistory_date { get; set; }
+    
+        public virtual artist artist { get; set; }
+        public virtual user user { get; set; }
+        public virtual song song { get; set; }
     }
 }

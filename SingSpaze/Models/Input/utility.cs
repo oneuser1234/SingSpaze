@@ -75,4 +75,29 @@ namespace SingSpaze.Models.Input
             public string message { get; set; }
             
         }
+
+
+        /// <summary>
+        /// Class input data for deviceInfo
+        /// </summary>
+        [DataContract]
+        public class I_DeviceInfo
+        {
+            /// <summary>
+            /// Device id
+            /// </summary>
+            [DataMember(Name = "device_id")]
+            public string device_id { get; set; }
+            /// <summary>
+            /// Device model
+            /// </summary>
+            [DataMember(Name = "model")]
+            public string model { get; set; }
+            /// <summary>
+            /// Device token
+            /// </summary>
+            [DataMember(Name = "token")]
+            public string token { get; set; }
+
+        }
 }

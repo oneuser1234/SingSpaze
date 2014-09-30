@@ -8,6 +8,7 @@ using SingSpaze.Models.Output;
 using System.Security.Cryptography;
 using System.Web;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SingSpaze.Controllers.API
 {
@@ -92,7 +93,7 @@ namespace SingSpaze.Controllers.API
             //    listsong = listsong.Where(s => Useful.getlistdata(i_data.language_id).Contains(s.song_languageId)).ToList();
             if(i_data.categories != null)
             {
-                List<int> categories_id = new List<int>();
+                List<long> categories_id = new List<long>();
                 if(i_data.categories.ToLower() == "others")
                 {
                     //others
@@ -197,7 +198,7 @@ namespace SingSpaze.Controllers.API
                     errordata = Useful.checklogin(i_data.logindata)
                 };
             }
-            int user_id = Useful.getuserid(i_data.logindata.token);
+            long user_id = Useful.getuserid(i_data.logindata.token);
             song datasong = db.song.FirstOrDefault(u => u.song_id == i_data.id);
 
             //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, datauser);
@@ -444,7 +445,7 @@ namespace SingSpaze.Controllers.API
             }
 
 
-            int user_id = Useful.getuserid(i_data.logindata.token);
+            long user_id = Useful.getuserid(i_data.logindata.token);
             var before = DateTime.Now.AddDays(-i_data.time);
 
             List<singinghistory> listhistory = db.singinghistory.Where(h => h.user_id == user_id && h.singinghistory_date > before).ToList();
@@ -644,6 +645,201 @@ namespace SingSpaze.Controllers.API
             };
 
         }
+
+        /// <summary>
+        /// For searchsong v2
+        /// </summary>
+        /// <param name="i_data">Class I_SearchSong_v2</param>
+        /// <returns>Class O_SearchSong_v2</returns>
+        [HttpPost]
+        [ActionName("SearchSong_v2")]
+        public O_SearchSong SearchSong_v2(I_SearchSong_v2 i_data)
+        {
+            if (i_data == null)
+            {
+                return new O_SearchSong()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 11,
+                        Detail = Useful.geterrordata(11)
+                    }
+                };
+            }
+
+           
+
+            List<song> o_listsong = new List<song>();
+
+            //all song
+            List<song> listsong = (from dbsong in db.song.ToList()
+                        join dbartist in db.artist.ToList()
+                        on dbsong.song_artistId equals dbartist.artist_id
+                        join dbalbum in db.album.ToList()
+                        on dbsong.song_albumId equals dbalbum.album_id
+                        where dbsong.song_status == 1 && dbsong.song_languageId == i_data.language_id
+                        orderby dbsong.song_originName ascending
+                        select dbsong).ToList();
+
+            List<string> keyword = new List<string>();
+            if (i_data.keyword != null)
+            {
+                // with comma
+                string[] arraydata = i_data.keyword.Split(',');
+                foreach (string stringdata in arraydata)
+                    keyword.Add(stringdata);
+                // with space
+                arraydata = i_data.keyword.Split(' ');
+                foreach (string stringdata in arraydata)
+                    keyword.Add(stringdata);
+
+
+
+                List<song> searchsong = new List<song>();
+                List<artist> searchartist = new List<artist>();
+
+                //var patterns = @"^[\xA1-\xF9]";
+
+                //Regex rx = new Regex(patterns, RegexOptions.IgnoreCase);
+                //    //if (rx.IsMatch(haystack))
+                    //{
+                    //    Console.WriteLine("{0} matches our pattern.", haystack);
+                    //}
+               
+
+                //song_originname
+                foreach (string keydata in keyword)
+                {
+                    //if(rx.IsMatch(keydata))
+                    //{ 
+                    searchsong = listsong.Where(s => s.song_originName.ToLower().Contains(keydata.ToLower())).ToList();
+                        if (searchsong != null)
+                        {
+                            foreach (song songdata in searchsong)
+                                o_listsong.Add(songdata);
+                        }
+                    //}
+
+                }
+                //song_engname   
+                foreach (string keydata in keyword)
+                {
+                    //if (!rx.IsMatch(keydata))
+                    //{
+                        searchsong = listsong.Where(s => s.song_engName.ToLower().Contains(keydata.ToLower())).ToList();
+                        if (searchsong != null)
+                        {
+                            foreach (song songdata in searchsong)
+                                o_listsong.Add(songdata);
+                        }
+                    //}
+
+                }
+                //artist_description_th 
+                foreach (string keydata in keyword)
+                {
+                    //if (rx.IsMatch(keydata))
+                    //{
+                    searchartist = db.artist.Where(a => a.artist_description_th.ToLower().Contains(keydata.ToLower())).ToList();
+
+                        if (searchartist != null)
+                        {
+                            foreach (artist artistdata in searchartist)
+                            {
+                                searchsong = listsong.Where(s => s.song_artistId == artistdata.artist_id).ToList();
+                                if (searchsong != null)
+                                {
+                                    foreach (song songdata in searchsong)
+                                        o_listsong.Add(songdata);
+                                }
+                            }
+                        }
+                    //}
+
+                }
+                //artist_description_en
+                foreach (string keydata in keyword)
+                {
+                    //if (!rx.IsMatch(keydata))
+                    //{
+                        //artist artistdata = db.artist.FirstOrDefault(a => a.artist_description_en == keydata);
+
+                        //if (artistdata != null)
+                        //{
+                        //    searchsong = listsong.Where(s => s.song_artistId == artistdata.artist_id).ToList();
+                        //    if (searchsong != null)
+                        //    {
+                        //        foreach (song songdata in searchsong)
+                        //            o_listsong.Add(songdata);
+                        //    }
+                        //}
+                    searchartist = db.artist.Where(a => a.artist_description_en.ToLower().Contains(keydata.ToLower())).ToList();
+
+                    if (searchartist != null)
+                    {
+                        foreach (artist artistdata in searchartist)
+                        {
+                            searchsong = listsong.Where(s => s.song_artistId == artistdata.artist_id).ToList();
+                            if (searchsong != null)
+                            {
+                                foreach (song songdata in searchsong)
+                                    o_listsong.Add(songdata);
+                            }
+                        }
+                    }
+                    //}
+
+                }
+                //lylics
+                foreach (string keydata in keyword)
+                {
+                    searchsong = listsong.Where(s => s.song_lyrics.ToLower().Contains(keydata.ToLower())).ToList();
+                    if (searchsong != null)
+                    {
+                        foreach (song songdata in searchsong)
+                            o_listsong.Add(songdata);
+                    }
+
+                }
+            }
+            else
+                o_listsong = listsong;
+
+            o_listsong = o_listsong.Distinct().ToList();
+            int resultNumber = o_listsong.Count();
+
+
+            // skip take
+            o_listsong = o_listsong.Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            //listsong = listsong.OrderBy(l => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(l.song_originName))).Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            //listsong = listsong.OrderBy(l => l.song_originName).Skip(i_data.selectdata.startindex-1).Take(i_data.selectdata.endindex-i_data.selectdata.startindex+1).ToList();
+
+            if (o_listsong == null)
+            {
+                return new O_SearchSong()
+                {
+                    errordata = new Errordata()
+                    {
+                        code = 6,
+                        Detail = Useful.geterrordata(6)
+                    }
+                };
+            }
+
+            List<Songdata> o_song = new List<Songdata>();
+
+            foreach (song data in o_listsong)
+            {
+                o_song.Add(Useful.getsongdata(data.song_id));                
+            }
+
+            return new O_SearchSong()
+            {
+                listsong = o_song,
+                resultNumber = resultNumber
+            };
+        }
+
         
     }
 }

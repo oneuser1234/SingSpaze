@@ -19,7 +19,7 @@ namespace SingSpaze.Models.Management
         //    this.Email = email;
         //}
 
-        public int id { set; get; }
+        public long id { set; get; }
         public string originname { set; get; }
         public string engname { set; get; }
         public string photo { set; get; }

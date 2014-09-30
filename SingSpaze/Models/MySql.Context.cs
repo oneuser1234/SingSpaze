@@ -25,10 +25,12 @@ namespace SingSpaze.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<access_rule> access_rule { get; set; }
         public DbSet<album> album { get; set; }
         public DbSet<artist> artist { get; set; }
         public DbSet<contactus> contactus { get; set; }
         public DbSet<csv> csv { get; set; }
+        public DbSet<deviceinfo> deviceinfo { get; set; }
         public DbSet<genre> genre { get; set; }
         public DbSet<language> language { get; set; }
         public DbSet<playlist> playlist { get; set; }

@@ -53,7 +53,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
                 user checkuser = new user();
-                checkuser = db.user.FirstOrDefault(u => u.user_login == i_data.Username || u.user_email == i_data.Email);
+                checkuser = db.user.FirstOrDefault(u => u.user_fbUserId == 0 && u.user_email == i_data.Email);
                
 
                 if (checkuser != null)
@@ -72,10 +72,8 @@ namespace SingSpaze.Controllers.API
                 
                 user userdata = new user()
                 {
-                    user_fbUserId = 0,
                     user_firstname = i_data.Firstname,
                     user_lastname = i_data.Lastname,
-                    user_login = i_data.Username,
                     user_password = i_data.Password,
                     user_email = i_data.Email,
                     user_createdDatetime = DateTime.Now,
@@ -125,7 +123,7 @@ namespace SingSpaze.Controllers.API
                 mail.Body = message;
                 mail.IsBodyHtml = true;
 
-                smtpClient.Send(mail);
+                //smtpClient.Send(mail);
                 db.SaveChanges();
 
                 return new O_Register()
@@ -258,7 +256,7 @@ namespace SingSpaze.Controllers.API
         {
                        
             user datauser = new user();
-            if (i_data == null || string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password) || string.IsNullOrEmpty(i_data.Mac_Address) || string.IsNullOrEmpty(i_data.Device_ID))
+            if (i_data == null || string.IsNullOrEmpty(i_data.email) || string.IsNullOrEmpty(i_data.password) || string.IsNullOrEmpty(i_data.Mac_Address) || string.IsNullOrEmpty(i_data.Device_ID))
             {
                 return new O_Login()
                 {
@@ -273,7 +271,7 @@ namespace SingSpaze.Controllers.API
             //if (string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password))
             //        errorinput = true;
 
-            datauser = db.user.FirstOrDefault(u => u.user_login == i_data.Username && u.user_password == i_data.Password);
+            datauser = db.user.FirstOrDefault(u => u.user_email == i_data.email && u.user_password == i_data.password && u.user_fbUserId == 0);
             
           
            if (datauser == null)

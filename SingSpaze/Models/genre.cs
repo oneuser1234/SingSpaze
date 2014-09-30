@@ -14,7 +14,14 @@ namespace SingSpaze.Models
     
     public partial class genre
     {
-        public int genre_id { get; set; }
+        public genre()
+        {
+            this.song = new HashSet<song>();
+        }
+    
+        public long genre_id { get; set; }
         public string genre_description { get; set; }
+    
+        public virtual ICollection<song> song { get; set; }
     }
 }

@@ -14,9 +14,12 @@ namespace SingSpaze.Models
     
     public partial class viewhistory
     {
-        public int ViewHistory_Id { get; set; }
-        public int User_Id { get; set; }
-        public int Song_Id { get; set; }
+        public long ViewHistory_Id { get; set; }
+        public long User_Id { get; set; }
+        public long Song_Id { get; set; }
         public System.DateTime ViewHistory_Date { get; set; }
+    
+        public virtual song song { get; set; }
+        public virtual user user { get; set; }
     }
 }

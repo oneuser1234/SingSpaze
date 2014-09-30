@@ -14,7 +14,14 @@ namespace SingSpaze.Models
     
     public partial class language
     {
-        public int language_id { get; set; }
+        public language()
+        {
+            this.song = new HashSet<song>();
+        }
+    
+        public long language_id { get; set; }
         public string language_description { get; set; }
+    
+        public virtual ICollection<song> song { get; set; }
     }
 }

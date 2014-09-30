@@ -14,9 +14,12 @@ namespace SingSpaze.Models
     
     public partial class playlisttosong
     {
-        public int playlisttosong_id { get; set; }
-        public int playlist_id { get; set; }
-        public int song_id { get; set; }
+        public long playlisttosong_id { get; set; }
+        public long playlist_id { get; set; }
+        public long song_id { get; set; }
         public int playlistToSong_sequence { get; set; }
+    
+        public virtual playlist playlist { get; set; }
+        public virtual song song { get; set; }
     }
 }

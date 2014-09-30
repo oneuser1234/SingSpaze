@@ -213,7 +213,7 @@ namespace SingSpaze.Models
 
         }
 
-        public static Albumdata getalbumdata(int id)
+        public static Albumdata getalbumdata(long id)
         {
             singspazeEntities db = new singspazeEntities();
             album data = db.album.Where(a => a.album_id == id).SingleOrDefault();
@@ -228,7 +228,7 @@ namespace SingSpaze.Models
                        
         }
 
-        public static Artistdata getartistdata(int id)
+        public static Artistdata getartistdata(long id)
         {
             singspazeEntities db = new singspazeEntities();
             artist data = db.artist.Where(a => a.artist_id == id).SingleOrDefault();
@@ -251,7 +251,7 @@ namespace SingSpaze.Models
 
         }
 
-        public static Genredata getgenredata(int id)
+        public static Genredata getgenredata(long id)
         {
             singspazeEntities db = new singspazeEntities();
             genre data = db.genre.Where(a => a.genre_id == id).SingleOrDefault();
@@ -265,7 +265,7 @@ namespace SingSpaze.Models
 
         }
 
-        public static Publisherdata getpublishersongdata(int id)
+        public static Publisherdata getpublishersongdata(long id)
         {
             singspazeEntities db = new singspazeEntities();
             publisherforsong data = db.publisherforsong.Where(a => a.publisherforsong_Id == id).SingleOrDefault();
@@ -279,7 +279,7 @@ namespace SingSpaze.Models
 
         }
 
-        public static Publisherdata getpublisherartistdata(int id)
+        public static Publisherdata getpublisherartistdata(long id)
         {
             singspazeEntities db = new singspazeEntities();
             publisherforartist data = db.publisherforartist.Where(a => a.publisherforartist_Id == id).SingleOrDefault();
@@ -321,7 +321,7 @@ namespace SingSpaze.Models
 
         }
 
-        public static int getuserid(string token)
+        public static long getuserid(string token)
         {
             singspazeEntities db = new singspazeEntities();
             user getuser = db.user.SingleOrDefault(u => u.user_token == token);
@@ -376,7 +376,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Splash Page Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// URL
         /// </summary>
@@ -428,7 +428,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Username
         /// </summary>
@@ -436,7 +436,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// FacebookId
         /// </summary>
-        public int fbUserId { get; set; }
+        public long fbUserId { get; set; }
         /// <summary>
         /// Firstname
         /// </summary>
@@ -462,7 +462,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Description
         /// </summary>
@@ -556,7 +556,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Origin name
         /// </summary>
@@ -653,7 +653,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Thai description
         /// </summary>
@@ -779,7 +779,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Description
         /// </summary>
@@ -794,7 +794,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Description
         /// </summary>
@@ -809,7 +809,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int id { get; set; }
+        public long id { get; set; }
         /// <summary>
         /// Description
         /// </summary>

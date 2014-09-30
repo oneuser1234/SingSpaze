@@ -328,5 +328,41 @@ namespace SingSpaze.Controllers.API
             }
 
         }
+
+
+        /// <summary>
+        /// Device Info 
+        /// </summary>
+        /// <param name="i_data">class I_DeviceInfo</param>
+        /// <returns>class O_DeviceInfo</returns>
+        [HttpPost]
+        [ActionName("DeviceInfo")]
+        public O_DeviceInfo DeviceInfo(I_DeviceInfo i_data)
+        {
+            try
+            {
+                db.deviceinfo.Add(new deviceinfo()
+                    {
+                        deviceInfo_deviceID = i_data.device_id,
+                        deviceInfo_model = i_data.model,
+                        deviceInfo_deviceToken = i_data.token
+
+                    });
+                db.SaveChanges();
+            }
+            catch
+            {
+                return new O_DeviceInfo()
+                {
+                    result = false
+                };
+            }
+
+            return new O_DeviceInfo()
+            {
+                result = true
+            };
+        }
+
     }
 }

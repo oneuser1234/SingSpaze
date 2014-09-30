@@ -19,5 +19,7 @@ namespace SingSpaze.Models
         public System.DateTime WTBTokens_timestamp { get; set; }
         public string WTBTokens_ipaddress { get; set; }
         public string WTBTokens_token { get; set; }
+    
+        public virtual user user { get; set; }
     }
 }

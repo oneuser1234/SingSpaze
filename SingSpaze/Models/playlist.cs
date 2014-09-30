@@ -14,9 +14,17 @@ namespace SingSpaze.Models
     
     public partial class playlist
     {
-        public int playlist_id { get; set; }
-        public Nullable<int> user_id { get; set; }
+        public playlist()
+        {
+            this.playlisttosong = new HashSet<playlisttosong>();
+        }
+    
+        public long playlist_id { get; set; }
+        public long user_id { get; set; }
         public string playlist_description { get; set; }
-        public Nullable<System.DateTime> playlist_createdDatetime { get; set; }
+        public System.DateTime playlist_createdDatetime { get; set; }
+    
+        public virtual user user { get; set; }
+        public virtual ICollection<playlisttosong> playlisttosong { get; set; }
     }
 }

@@ -14,7 +14,14 @@ namespace SingSpaze.Models
     
     public partial class publisherforsong
     {
-        public int publisherforsong_Id { get; set; }
+        public publisherforsong()
+        {
+            this.song = new HashSet<song>();
+        }
+    
+        public long publisherforsong_Id { get; set; }
         public string publisherforsong_description { get; set; }
+    
+        public virtual ICollection<song> song { get; set; }
     }
 }

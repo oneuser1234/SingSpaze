@@ -14,7 +14,7 @@ namespace SingSpaze.Models
     
     public partial class splashpage
     {
-        public int SplashPage_id { get; set; }
+        public long SplashPage_id { get; set; }
         public string URL { get; set; }
         public string Message { get; set; }
         public System.DateTime StartDate { get; set; }

@@ -4,7 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="singspazeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="singspazeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="access_rule">
+          <Key>
+            <PropertyRef Name="Access_Rule_id" />
+          </Key>
+          <Property Name="Access_Rule_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="album">
           <Key>
             <PropertyRef Name="album_id" />
@@ -21,19 +27,19 @@
           <Property Name="artist_description_th" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="artist_description_en" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="artist_type" Type="varchar" MaxLength="30" />
-          <Property Name="artist_view" Type="int" Nullable="false" />
+          <Property Name="artist_view" Type="bigint" Nullable="false" />
           <Property Name="artist_picture" Type="varchar" MaxLength="50" />
           <Property Name="ArtistPicture_L_Lo" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ArtistPicture_L_Hi" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ArtistPicture_S_Lo" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ArtistPicture_S_Hi" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="artist_publisherforartistId" Type="int" Nullable="false" />
+          <Property Name="artist_publisherforartistId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="contactus">
           <Key>
             <PropertyRef Name="contactUs_id" />
           </Key>
-          <Property Name="contactUs_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contactUs_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="contactUs_datetime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="contactUs_name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="contactUs_email" Type="varchar" MaxLength="150" Nullable="false" />
@@ -44,7 +50,7 @@
           <Key>
             <PropertyRef Name="csv_id" />
           </Key>
-          <Property Name="id" Type="int" />
+          <Property Name="id" Type="bigint" />
           <Property Name="Title - TH" Type="varchar" MaxLength="100" />
           <Property Name="Title - EN" Type="varchar" MaxLength="100" />
           <Property Name="Photo" Type="varchar" MaxLength="200" />
@@ -66,99 +72,109 @@
           <Property Name="URL iOS" Type="varchar" MaxLength="80" />
           <Property Name="URL Android/Other" Type="varchar" MaxLength="62" />
           <Property Name="URL RTMP" Type="varchar" MaxLength="66" />
-          <Property Name="csv_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="csv_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="deviceinfo">
+          <Key>
+            <PropertyRef Name="deviceInfo_id" />
+          </Key>
+          <Property Name="deviceInfo_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deviceInfo_deviceID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="deviceInfo_model" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="deviceInfo_deviceToken" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="genre">
           <Key>
             <PropertyRef Name="genre_id" />
           </Key>
-          <Property Name="genre_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="genre_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="genre_description" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="language">
           <Key>
             <PropertyRef Name="language_id" />
           </Key>
-          <Property Name="language_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="language_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="language_description" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="playlist">
           <Key>
             <PropertyRef Name="playlist_id" />
           </Key>
-          <Property Name="playlist_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" />
-          <Property Name="playlist_description" Type="varchar" MaxLength="255" />
-          <Property Name="playlist_createdDatetime" Type="datetime" Precision="0" />
+          <Property Name="playlist_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="bigint" Nullable="false" />
+          <Property Name="playlist_description" Type="varchar" MaxLength="100" />
+          <Property Name="playlist_createdDatetime" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="playlisttosong">
           <Key>
             <PropertyRef Name="playlisttosong_id" />
           </Key>
-          <Property Name="playlisttosong_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="playlist_id" Type="int" Nullable="false" />
-          <Property Name="song_id" Type="int" Nullable="false" />
+          <Property Name="playlisttosong_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="playlist_id" Type="bigint" Nullable="false" />
+          <Property Name="song_id" Type="bigint" Nullable="false" />
           <Property Name="playlistToSong_sequence" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="publisherforartist">
           <Key>
             <PropertyRef Name="publisherforartist_Id" />
           </Key>
-          <Property Name="publisherforartist_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="publisherforartist_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="publisherforartist_description" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="publisherforsong">
           <Key>
             <PropertyRef Name="publisherforsong_Id" />
           </Key>
-          <Property Name="publisherforsong_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="publisherforsong_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="publisherforsong_description" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="singinghistory">
           <Key>
             <PropertyRef Name="singinghistory_id" />
           </Key>
-          <Property Name="singinghistory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" Nullable="false" />
-          <Property Name="song_id" Type="int" Nullable="false" />
-          <Property Name="artist_id" Type="int" Nullable="false" />
+          <Property Name="singinghistory_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="bigint" Nullable="false" />
+          <Property Name="song_id" Type="bigint" Nullable="false" />
+          <Property Name="artist_id" Type="bigint" Nullable="false" />
           <Property Name="singinghistory_date" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="song">
           <Key>
             <PropertyRef Name="song_id" />
           </Key>
-          <Property Name="song_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="song_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="song_originName" Type="varchar" MaxLength="255" />
           <Property Name="song_engName" Type="varchar" MaxLength="255" />
-          <Property Name="song_genre" Type="int" Nullable="false" />
-          <Property Name="song_languageId" Type="int" Nullable="false" />
-          <Property Name="song_albumId" Type="int" Nullable="false" />
-          <Property Name="song_artistId" Type="int" Nullable="false" />
+          <Property Name="song_genre" Type="bigint" Nullable="false" />
+          <Property Name="song_languageId" Type="bigint" Nullable="false" />
+          <Property Name="song_albumId" Type="bigint" Nullable="false" />
+          <Property Name="song_artistId" Type="bigint" Nullable="false" />
           <Property Name="song_length" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="song_keywords" Type="varchar" MaxLength="255" />
           <Property Name="song_lyrics" Type="text" />
-          <Property Name="publisherforsong_id" Type="int" Nullable="false" />
+          <Property Name="publisherforsong_id" Type="bigint" Nullable="false" />
           <Property Name="song_releasedDate" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="song_URL_picture" Type="varchar" MaxLength="255" />
           <Property Name="song_status" Type="int" Nullable="false" />
           <Property Name="song_addedDate" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="song_price" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="song_view" Type="int" Nullable="false" />
+          <Property Name="song_view" Type="bigint" Nullable="false" />
           <Property Name="song_URL_iOS" Type="varchar" MaxLength="200" />
           <Property Name="song_URL_Android/Other" Type="varchar" MaxLength="200" />
           <Property Name="song_URL_RTMP" Type="varchar" MaxLength="200" />
           <Property Name="song_Copyright" Type="varchar" MaxLength="100" />
-          <Property Name="song_Track_Number" Type="int" />
+          <Property Name="song_Track_Number" Type="int" Nullable="false" />
           <Property Name="song_streamURLWithVocal" Type="varchar" MaxLength="200" />
           <Property Name="song_streamURLWithoutVocal" Type="varchar" MaxLength="200" />
+          <Property Name="Song_accessRule" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="songrequest">
           <Key>
             <PropertyRef Name="songRequest_id" />
           </Key>
-          <Property Name="songRequest_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="songRequest_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="bigint" Nullable="false" />
           <Property Name="songRequest_datetime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="songRequest_songname" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="songRequest_artistname" Type="varchar" MaxLength="150" Nullable="false" />
@@ -167,7 +183,7 @@
           <Key>
             <PropertyRef Name="SplashPage_id" />
           </Key>
-          <Property Name="SplashPage_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SplashPage_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Message" Type="text" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Precision="0" Nullable="false" />
@@ -184,11 +200,11 @@
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_status" Type="tinyint" Nullable="false" />
           <Property Name="usergroup_id" Type="int" Nullable="false" />
           <Property Name="user_type" Type="int" Nullable="false" />
-          <Property Name="user_fbUserId" Type="int" Nullable="false" />
+          <Property Name="user_fbUserId" Type="bigint" Nullable="false" />
           <Property Name="user_firstname" Type="varchar" MaxLength="255" />
           <Property Name="user_lastname" Type="varchar" MaxLength="255" />
           <Property Name="user_login" Type="varchar" MaxLength="255" />
@@ -206,9 +222,9 @@
           <Key>
             <PropertyRef Name="ViewHistory_Id" />
           </Key>
-          <Property Name="ViewHistory_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="User_Id" Type="int" Nullable="false" />
-          <Property Name="Song_Id" Type="int" Nullable="false" />
+          <Property Name="ViewHistory_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="bigint" Nullable="false" />
+          <Property Name="Song_Id" Type="bigint" Nullable="false" />
           <Property Name="ViewHistory_Date" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="wtbtokens">
@@ -221,11 +237,205 @@
           <Property Name="WTBTokens_ipaddress" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="WTBTokens_token" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="artist_ibfk_1">
+          <End Role="publisherforartist" Type="Self.publisherforartist" Multiplicity="1" />
+          <End Role="artist" Type="Self.artist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publisherforartist">
+              <PropertyRef Name="publisherforartist_Id" />
+            </Principal>
+            <Dependent Role="artist">
+              <PropertyRef Name="artist_publisherforartistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="playlist_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="playlist" Type="Self.playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="playlist">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="playlisttosong_ibfk_1">
+          <End Role="playlist" Type="Self.playlist" Multiplicity="1" />
+          <End Role="playlisttosong" Type="Self.playlisttosong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playlist">
+              <PropertyRef Name="playlist_id" />
+            </Principal>
+            <Dependent Role="playlisttosong">
+              <PropertyRef Name="playlist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="playlisttosong_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="playlisttosong" Type="Self.playlisttosong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="playlisttosong">
+              <PropertyRef Name="song_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="singinghistory_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="singinghistory" Type="Self.singinghistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="singinghistory">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="singinghistory_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="singinghistory" Type="Self.singinghistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="singinghistory">
+              <PropertyRef Name="song_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="singinghistory_ibfk_3">
+          <End Role="artist" Type="Self.artist" Multiplicity="1" />
+          <End Role="singinghistory" Type="Self.singinghistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artist">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="singinghistory">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_1">
+          <End Role="genre" Type="Self.genre" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="genre_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_2">
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="language_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_languageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_3">
+          <End Role="album" Type="Self.album" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_albumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_4">
+          <End Role="artist" Type="Self.artist" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artist">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_artistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_5">
+          <End Role="publisherforsong" Type="Self.publisherforsong" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publisherforsong">
+              <PropertyRef Name="publisherforsong_Id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="publisherforsong_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="songrequest_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="songrequest" Type="Self.songrequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="songrequest">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="viewhistory_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="viewhistory" Type="Self.viewhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="viewhistory">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="viewhistory_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="viewhistory" Type="Self.viewhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="viewhistory">
+              <PropertyRef Name="Song_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="wtbtokens_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="wtbtokens" Type="Self.wtbtokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="wtbtokens">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="singspazeModelStoreContainer">
+          <EntitySet Name="access_rule" EntityType="Self.access_rule" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="album" EntityType="Self.album" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="artist" EntityType="Self.artist" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="contactus" EntityType="Self.contactus" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="csv" EntityType="Self.csv" Schema="singspaze" store:Type="Tables" />
+          <EntitySet Name="deviceinfo" EntityType="Self.deviceinfo" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="genre" EntityType="Self.genre" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="language" EntityType="Self.language" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="playlist" EntityType="Self.playlist" Schema="singspaze" store:Type="Tables" />
@@ -240,12 +450,82 @@
           <EntitySet Name="user" EntityType="Self.user" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="viewhistory" EntityType="Self.viewhistory" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="wtbtokens" EntityType="Self.wtbtokens" Schema="singspaze" store:Type="Tables" />
+          <AssociationSet Name="artist_ibfk_1" Association="Self.artist_ibfk_1">
+            <End Role="publisherforartist" EntitySet="publisherforartist" />
+            <End Role="artist" EntitySet="artist" />
+          </AssociationSet>
+          <AssociationSet Name="playlist_ibfk_1" Association="Self.playlist_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="playlist" EntitySet="playlist" />
+          </AssociationSet>
+          <AssociationSet Name="playlisttosong_ibfk_1" Association="Self.playlisttosong_ibfk_1">
+            <End Role="playlist" EntitySet="playlist" />
+            <End Role="playlisttosong" EntitySet="playlisttosong" />
+          </AssociationSet>
+          <AssociationSet Name="playlisttosong_ibfk_2" Association="Self.playlisttosong_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="playlisttosong" EntitySet="playlisttosong" />
+          </AssociationSet>
+          <AssociationSet Name="singinghistory_ibfk_1" Association="Self.singinghistory_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="singinghistory" EntitySet="singinghistory" />
+          </AssociationSet>
+          <AssociationSet Name="singinghistory_ibfk_2" Association="Self.singinghistory_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="singinghistory" EntitySet="singinghistory" />
+          </AssociationSet>
+          <AssociationSet Name="singinghistory_ibfk_3" Association="Self.singinghistory_ibfk_3">
+            <End Role="artist" EntitySet="artist" />
+            <End Role="singinghistory" EntitySet="singinghistory" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_1" Association="Self.song_ibfk_1">
+            <End Role="genre" EntitySet="genre" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_2" Association="Self.song_ibfk_2">
+            <End Role="language" EntitySet="language" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_3" Association="Self.song_ibfk_3">
+            <End Role="album" EntitySet="album" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_4" Association="Self.song_ibfk_4">
+            <End Role="artist" EntitySet="artist" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_5" Association="Self.song_ibfk_5">
+            <End Role="publisherforsong" EntitySet="publisherforsong" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="songrequest_ibfk_1" Association="Self.songrequest_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="songrequest" EntitySet="songrequest" />
+          </AssociationSet>
+          <AssociationSet Name="viewhistory_ibfk_1" Association="Self.viewhistory_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="viewhistory" EntitySet="viewhistory" />
+          </AssociationSet>
+          <AssociationSet Name="viewhistory_ibfk_2" Association="Self.viewhistory_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="viewhistory" EntitySet="viewhistory" />
+          </AssociationSet>
+          <AssociationSet Name="wtbtokens_ibfk_1" Association="Self.wtbtokens_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="wtbtokens" EntitySet="wtbtokens" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="singspazeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <Schema Namespace="singspazeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="access_rule">
+          <Key>
+            <PropertyRef Name="Access_Rule_id" />
+          </Key>
+          <Property Name="Access_Rule_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="album">
           <Key>
             <PropertyRef Name="album_id" />
@@ -253,6 +533,7 @@
           <Property Name="album_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="album_description_th" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="album_description_en" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="song" Relationship="Self.song_ibfk_3" FromRole="album" ToRole="song" />
         </EntityType>
         <EntityType Name="artist">
           <Key>
@@ -262,19 +543,22 @@
           <Property Name="artist_description_th" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="artist_description_en" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="artist_type" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="artist_view" Type="Int32" Nullable="false" />
+          <Property Name="artist_view" Type="Int64" Nullable="false" />
           <Property Name="artist_picture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ArtistPicture_L_Lo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArtistPicture_L_Hi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArtistPicture_S_Lo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArtistPicture_S_Hi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="artist_publisherforartistId" Type="Int32" Nullable="false" />
+          <Property Name="artist_publisherforartistId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="publisherforartist" Relationship="Self.artist_ibfk_1" FromRole="artist" ToRole="publisherforartist" />
+          <NavigationProperty Name="singinghistory" Relationship="Self.singinghistory_ibfk_3" FromRole="artist" ToRole="singinghistory" />
+          <NavigationProperty Name="song" Relationship="Self.song_ibfk_4" FromRole="artist" ToRole="song" />
         </EntityType>
         <EntityType Name="contactus">
           <Key>
             <PropertyRef Name="contactUs_id" />
           </Key>
-          <Property Name="contactUs_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contactUs_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="contactUs_datetime" Type="DateTime" Nullable="false" />
           <Property Name="contactUs_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="contactUs_email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
@@ -285,7 +569,7 @@
           <Key>
             <PropertyRef Name="csv_id" />
           </Key>
-          <Property Name="id" Type="Int32" />
+          <Property Name="id" Type="Int64" />
           <Property Name="Title___TH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Title___EN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -307,108 +591,138 @@
           <Property Name="URL_iOS" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="URL_Android_Other" Type="String" MaxLength="62" FixedLength="false" Unicode="false" />
           <Property Name="URL_RTMP" Type="String" MaxLength="66" FixedLength="false" Unicode="false" />
-          <Property Name="csv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="csv_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="deviceinfo">
+          <Key>
+            <PropertyRef Name="deviceInfo_id" />
+          </Key>
+          <Property Name="deviceInfo_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deviceInfo_deviceID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="deviceInfo_model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="deviceInfo_deviceToken" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="genre">
           <Key>
             <PropertyRef Name="genre_id" />
           </Key>
-          <Property Name="genre_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genre_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="genre_description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="song" Relationship="Self.song_ibfk_1" FromRole="genre" ToRole="song" />
         </EntityType>
         <EntityType Name="language">
           <Key>
             <PropertyRef Name="language_id" />
           </Key>
-          <Property Name="language_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="language_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="language_description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="song" Relationship="Self.song_ibfk_2" FromRole="language" ToRole="song" />
         </EntityType>
         <EntityType Name="playlist">
           <Key>
             <PropertyRef Name="playlist_id" />
           </Key>
-          <Property Name="playlist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="playlist_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="playlist_createdDatetime" Type="DateTime" />
+          <Property Name="playlist_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int64" Nullable="false" />
+          <Property Name="playlist_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="playlist_createdDatetime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.playlist_ibfk_1" FromRole="playlist" ToRole="user" />
+          <NavigationProperty Name="playlisttosong" Relationship="Self.playlisttosong_ibfk_1" FromRole="playlist" ToRole="playlisttosong" />
         </EntityType>
         <EntityType Name="playlisttosong">
           <Key>
             <PropertyRef Name="playlisttosong_id" />
           </Key>
-          <Property Name="playlisttosong_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="playlist_id" Type="Int32" Nullable="false" />
-          <Property Name="song_id" Type="Int32" Nullable="false" />
+          <Property Name="playlisttosong_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="playlist_id" Type="Int64" Nullable="false" />
+          <Property Name="song_id" Type="Int64" Nullable="false" />
           <Property Name="playlistToSong_sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="playlist" Relationship="Self.playlisttosong_ibfk_1" FromRole="playlisttosong" ToRole="playlist" />
+          <NavigationProperty Name="song" Relationship="Self.playlisttosong_ibfk_2" FromRole="playlisttosong" ToRole="song" />
         </EntityType>
         <EntityType Name="publisherforartist">
           <Key>
             <PropertyRef Name="publisherforartist_Id" />
           </Key>
-          <Property Name="publisherforartist_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="publisherforartist_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="publisherforartist_description" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="artist" Relationship="Self.artist_ibfk_1" FromRole="publisherforartist" ToRole="artist" />
         </EntityType>
         <EntityType Name="publisherforsong">
           <Key>
             <PropertyRef Name="publisherforsong_Id" />
           </Key>
-          <Property Name="publisherforsong_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="publisherforsong_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="publisherforsong_description" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="song" Relationship="Self.song_ibfk_5" FromRole="publisherforsong" ToRole="song" />
         </EntityType>
         <EntityType Name="singinghistory">
           <Key>
             <PropertyRef Name="singinghistory_id" />
           </Key>
-          <Property Name="singinghistory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
-          <Property Name="song_id" Type="Int32" Nullable="false" />
-          <Property Name="artist_id" Type="Int32" Nullable="false" />
+          <Property Name="singinghistory_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int64" Nullable="false" />
+          <Property Name="song_id" Type="Int64" Nullable="false" />
+          <Property Name="artist_id" Type="Int64" Nullable="false" />
           <Property Name="singinghistory_date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="artist" Relationship="Self.singinghistory_ibfk_3" FromRole="singinghistory" ToRole="artist" />
+          <NavigationProperty Name="user" Relationship="Self.singinghistory_ibfk_1" FromRole="singinghistory" ToRole="user" />
+          <NavigationProperty Name="song" Relationship="Self.singinghistory_ibfk_2" FromRole="singinghistory" ToRole="song" />
         </EntityType>
         <EntityType Name="song">
           <Key>
             <PropertyRef Name="song_id" />
           </Key>
-          <Property Name="song_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="song_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="song_originName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="song_engName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="song_genre" Type="Int32" Nullable="false" />
-          <Property Name="song_languageId" Type="Int32" Nullable="false" />
-          <Property Name="song_albumId" Type="Int32" Nullable="false" />
-          <Property Name="song_artistId" Type="Int32" Nullable="false" />
+          <Property Name="song_genre" Type="Int64" Nullable="false" />
+          <Property Name="song_languageId" Type="Int64" Nullable="false" />
+          <Property Name="song_albumId" Type="Int64" Nullable="false" />
+          <Property Name="song_artistId" Type="Int64" Nullable="false" />
           <Property Name="song_length" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="song_keywords" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="song_lyrics" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="publisherforsong_id" Type="Int32" Nullable="false" />
+          <Property Name="publisherforsong_id" Type="Int64" Nullable="false" />
           <Property Name="song_releasedDate" Type="DateTime" Nullable="false" />
           <Property Name="song_URL_picture" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="song_status" Type="Int32" Nullable="false" />
           <Property Name="song_addedDate" Type="DateTime" Nullable="false" />
           <Property Name="song_price" Type="Decimal" />
-          <Property Name="song_view" Type="Int32" Nullable="false" />
+          <Property Name="song_view" Type="Int64" Nullable="false" />
           <Property Name="song_URL_iOS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="song_URL_Android_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="song_URL_RTMP" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="song_Copyright" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="song_Track_Number" Type="Int32" />
+          <Property Name="song_Track_Number" Type="Int32" Nullable="false" />
           <Property Name="song_streamURLWithVocal" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="song_streamURLWithoutVocal" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Song_accessRule" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="album" Relationship="Self.song_ibfk_3" FromRole="song" ToRole="album" />
+          <NavigationProperty Name="artist" Relationship="Self.song_ibfk_4" FromRole="song" ToRole="artist" />
+          <NavigationProperty Name="genre" Relationship="Self.song_ibfk_1" FromRole="song" ToRole="genre" />
+          <NavigationProperty Name="language" Relationship="Self.song_ibfk_2" FromRole="song" ToRole="language" />
+          <NavigationProperty Name="playlisttosong" Relationship="Self.playlisttosong_ibfk_2" FromRole="song" ToRole="playlisttosong" />
+          <NavigationProperty Name="publisherforsong" Relationship="Self.song_ibfk_5" FromRole="song" ToRole="publisherforsong" />
+          <NavigationProperty Name="singinghistory" Relationship="Self.singinghistory_ibfk_2" FromRole="song" ToRole="singinghistory" />
+          <NavigationProperty Name="viewhistory" Relationship="Self.viewhistory_ibfk_2" FromRole="song" ToRole="viewhistory" />
         </EntityType>
         <EntityType Name="songrequest">
           <Key>
             <PropertyRef Name="songRequest_id" />
           </Key>
-          <Property Name="songRequest_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="songRequest_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int64" Nullable="false" />
           <Property Name="songRequest_datetime" Type="DateTime" Nullable="false" />
           <Property Name="songRequest_songname" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="songRequest_artistname" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.songrequest_ibfk_1" FromRole="songrequest" ToRole="user" />
         </EntityType>
         <EntityType Name="splashpage">
           <Key>
             <PropertyRef Name="SplashPage_id" />
           </Key>
-          <Property Name="SplashPage_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SplashPage_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" />
@@ -425,11 +739,11 @@
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_status" Type="SByte" Nullable="false" />
           <Property Name="usergroup_id" Type="Int32" Nullable="false" />
           <Property Name="user_type" Type="Int32" Nullable="false" />
-          <Property Name="user_fbUserId" Type="Int32" Nullable="false" />
+          <Property Name="user_fbUserId" Type="Int64" Nullable="false" />
           <Property Name="user_firstname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_lastname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -442,15 +756,22 @@
           <Property Name="user_token" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="user_retoken" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="APNS_token" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="playlist" Relationship="Self.playlist_ibfk_1" FromRole="user" ToRole="playlist" />
+          <NavigationProperty Name="singinghistory" Relationship="Self.singinghistory_ibfk_1" FromRole="user" ToRole="singinghistory" />
+          <NavigationProperty Name="songrequest" Relationship="Self.songrequest_ibfk_1" FromRole="user" ToRole="songrequest" />
+          <NavigationProperty Name="viewhistory" Relationship="Self.viewhistory_ibfk_1" FromRole="user" ToRole="viewhistory" />
+          <NavigationProperty Name="wtbtokens" Relationship="Self.wtbtokens_ibfk_1" FromRole="user" ToRole="wtbtokens" />
         </EntityType>
         <EntityType Name="viewhistory">
           <Key>
             <PropertyRef Name="ViewHistory_Id" />
           </Key>
-          <Property Name="ViewHistory_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Song_Id" Type="Int32" Nullable="false" />
+          <Property Name="ViewHistory_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int64" Nullable="false" />
+          <Property Name="Song_Id" Type="Int64" Nullable="false" />
           <Property Name="ViewHistory_Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="song" Relationship="Self.viewhistory_ibfk_2" FromRole="viewhistory" ToRole="song" />
+          <NavigationProperty Name="user" Relationship="Self.viewhistory_ibfk_1" FromRole="viewhistory" ToRole="user" />
         </EntityType>
         <EntityType Name="wtbtokens">
           <Key>
@@ -461,12 +782,207 @@
           <Property Name="WTBTokens_timestamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WTBTokens_ipaddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="WTBTokens_token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.wtbtokens_ibfk_1" FromRole="wtbtokens" ToRole="user" />
         </EntityType>
+        <Association Name="song_ibfk_3">
+          <End Role="album" Type="Self.album" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_albumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="artist_ibfk_1">
+          <End Role="publisherforartist" Type="Self.publisherforartist" Multiplicity="1" />
+          <End Role="artist" Type="Self.artist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publisherforartist">
+              <PropertyRef Name="publisherforartist_Id" />
+            </Principal>
+            <Dependent Role="artist">
+              <PropertyRef Name="artist_publisherforartistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="singinghistory_ibfk_3">
+          <End Role="artist" Type="Self.artist" Multiplicity="1" />
+          <End Role="singinghistory" Type="Self.singinghistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artist">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="singinghistory">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_4">
+          <End Role="artist" Type="Self.artist" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artist">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_artistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_1">
+          <End Role="genre" Type="Self.genre" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="genre_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_2">
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="language_id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="song_languageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="playlist_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="playlist" Type="Self.playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="playlist">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="playlisttosong_ibfk_1">
+          <End Role="playlist" Type="Self.playlist" Multiplicity="1" />
+          <End Role="playlisttosong" Type="Self.playlisttosong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playlist">
+              <PropertyRef Name="playlist_id" />
+            </Principal>
+            <Dependent Role="playlisttosong">
+              <PropertyRef Name="playlist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="playlisttosong_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="playlisttosong" Type="Self.playlisttosong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="playlisttosong">
+              <PropertyRef Name="song_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="song_ibfk_5">
+          <End Role="publisherforsong" Type="Self.publisherforsong" Multiplicity="1" />
+          <End Role="song" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publisherforsong">
+              <PropertyRef Name="publisherforsong_Id" />
+            </Principal>
+            <Dependent Role="song">
+              <PropertyRef Name="publisherforsong_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="singinghistory_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="singinghistory" Type="Self.singinghistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="singinghistory">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="singinghistory_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="singinghistory" Type="Self.singinghistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="singinghistory">
+              <PropertyRef Name="song_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="viewhistory_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="viewhistory" Type="Self.viewhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="viewhistory">
+              <PropertyRef Name="Song_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="songrequest_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="songrequest" Type="Self.songrequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="songrequest">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="viewhistory_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="viewhistory" Type="Self.viewhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="viewhistory">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="wtbtokens_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="wtbtokens" Type="Self.wtbtokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="wtbtokens">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="singspazeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="access_rule" EntityType="Self.access_rule" />
           <EntitySet Name="album" EntityType="Self.album" />
           <EntitySet Name="artist" EntityType="Self.artist" />
           <EntitySet Name="contactus" EntityType="Self.contactus" />
           <EntitySet Name="csv" EntityType="Self.csv" />
+          <EntitySet Name="deviceinfo" EntityType="Self.deviceinfo" />
           <EntitySet Name="genre" EntityType="Self.genre" />
           <EntitySet Name="language" EntityType="Self.language" />
           <EntitySet Name="playlist" EntityType="Self.playlist" />
@@ -481,6 +997,70 @@
           <EntitySet Name="user" EntityType="Self.user" />
           <EntitySet Name="viewhistory" EntityType="Self.viewhistory" />
           <EntitySet Name="wtbtokens" EntityType="Self.wtbtokens" />
+          <AssociationSet Name="song_ibfk_3" Association="Self.song_ibfk_3">
+            <End Role="album" EntitySet="album" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="artist_ibfk_1" Association="Self.artist_ibfk_1">
+            <End Role="publisherforartist" EntitySet="publisherforartist" />
+            <End Role="artist" EntitySet="artist" />
+          </AssociationSet>
+          <AssociationSet Name="singinghistory_ibfk_3" Association="Self.singinghistory_ibfk_3">
+            <End Role="artist" EntitySet="artist" />
+            <End Role="singinghistory" EntitySet="singinghistory" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_4" Association="Self.song_ibfk_4">
+            <End Role="artist" EntitySet="artist" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_1" Association="Self.song_ibfk_1">
+            <End Role="genre" EntitySet="genre" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_2" Association="Self.song_ibfk_2">
+            <End Role="language" EntitySet="language" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="playlist_ibfk_1" Association="Self.playlist_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="playlist" EntitySet="playlist" />
+          </AssociationSet>
+          <AssociationSet Name="playlisttosong_ibfk_1" Association="Self.playlisttosong_ibfk_1">
+            <End Role="playlist" EntitySet="playlist" />
+            <End Role="playlisttosong" EntitySet="playlisttosong" />
+          </AssociationSet>
+          <AssociationSet Name="playlisttosong_ibfk_2" Association="Self.playlisttosong_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="playlisttosong" EntitySet="playlisttosong" />
+          </AssociationSet>
+          <AssociationSet Name="song_ibfk_5" Association="Self.song_ibfk_5">
+            <End Role="publisherforsong" EntitySet="publisherforsong" />
+            <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="singinghistory_ibfk_1" Association="Self.singinghistory_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="singinghistory" EntitySet="singinghistory" />
+          </AssociationSet>
+          <AssociationSet Name="singinghistory_ibfk_2" Association="Self.singinghistory_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="singinghistory" EntitySet="singinghistory" />
+          </AssociationSet>
+          <AssociationSet Name="viewhistory_ibfk_2" Association="Self.viewhistory_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="viewhistory" EntitySet="viewhistory" />
+          </AssociationSet>
+          <AssociationSet Name="songrequest_ibfk_1" Association="Self.songrequest_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="songrequest" EntitySet="songrequest" />
+          </AssociationSet>
+          <AssociationSet Name="viewhistory_ibfk_1" Association="Self.viewhistory_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="viewhistory" EntitySet="viewhistory" />
+          </AssociationSet>
+          <AssociationSet Name="wtbtokens_ibfk_1" Association="Self.wtbtokens_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="wtbtokens" EntitySet="wtbtokens" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -488,6 +1068,13 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="singspazeModelStoreContainer" CdmEntityContainer="singspazeEntities">
+          <EntitySetMapping Name="access_rule">
+            <EntityTypeMapping TypeName="singspazeModel.access_rule">
+              <MappingFragment StoreEntitySet="access_rule">
+                <ScalarProperty Name="Access_Rule_id" ColumnName="Access_Rule_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="album">
             <EntityTypeMapping TypeName="singspazeModel.album">
               <MappingFragment StoreEntitySet="album">
@@ -552,6 +1139,16 @@
                 <ScalarProperty Name="URL_Android_Other" ColumnName="URL Android/Other" />
                 <ScalarProperty Name="URL_RTMP" ColumnName="URL RTMP" />
                 <ScalarProperty Name="csv_id" ColumnName="csv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="deviceinfo">
+            <EntityTypeMapping TypeName="singspazeModel.deviceinfo">
+              <MappingFragment StoreEntitySet="deviceinfo">
+                <ScalarProperty Name="deviceInfo_id" ColumnName="deviceInfo_id" />
+                <ScalarProperty Name="deviceInfo_deviceID" ColumnName="deviceInfo_deviceID" />
+                <ScalarProperty Name="deviceInfo_model" ColumnName="deviceInfo_model" />
+                <ScalarProperty Name="deviceInfo_deviceToken" ColumnName="deviceInfo_deviceToken" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -645,6 +1242,7 @@
                 <ScalarProperty Name="song_Track_Number" ColumnName="song_Track_Number" />
                 <ScalarProperty Name="song_streamURLWithVocal" ColumnName="song_streamURLWithVocal" />
                 <ScalarProperty Name="song_streamURLWithoutVocal" ColumnName="song_streamURLWithoutVocal" />
+                <ScalarProperty Name="Song_accessRule" ColumnName="Song_accessRule" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

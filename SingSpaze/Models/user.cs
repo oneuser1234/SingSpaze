@@ -14,11 +14,20 @@ namespace SingSpaze.Models
     
     public partial class user
     {
-        public int user_id { get; set; }
+        public user()
+        {
+            this.playlist = new HashSet<playlist>();
+            this.singinghistory = new HashSet<singinghistory>();
+            this.songrequest = new HashSet<songrequest>();
+            this.viewhistory = new HashSet<viewhistory>();
+            this.wtbtokens = new HashSet<wtbtokens>();
+        }
+    
+        public long user_id { get; set; }
         public sbyte user_status { get; set; }
         public int usergroup_id { get; set; }
         public int user_type { get; set; }
-        public int user_fbUserId { get; set; }
+        public long user_fbUserId { get; set; }
         public string user_firstname { get; set; }
         public string user_lastname { get; set; }
         public string user_login { get; set; }
@@ -31,5 +40,11 @@ namespace SingSpaze.Models
         public string user_token { get; set; }
         public string user_retoken { get; set; }
         public string APNS_token { get; set; }
+    
+        public virtual ICollection<playlist> playlist { get; set; }
+        public virtual ICollection<singinghistory> singinghistory { get; set; }
+        public virtual ICollection<songrequest> songrequest { get; set; }
+        public virtual ICollection<viewhistory> viewhistory { get; set; }
+        public virtual ICollection<wtbtokens> wtbtokens { get; set; }
     }
 }

@@ -63,4 +63,16 @@ namespace SingSpaze.Models.Output
         /// </summary>
         public string errormessage { get; set; }
     }
+
+    /// <summary>
+    /// Class output DeviceInfo
+    /// </summary>
+    public class O_DeviceInfo
+    {
+
+        /// <summary>
+        /// Return True or False
+        /// </summary>
+        public Boolean result { get; set; }
+    }
 }

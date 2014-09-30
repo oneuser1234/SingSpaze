@@ -39,7 +39,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            int user_id = Useful.getuserid(i_data.logindata.token);
+            long user_id = Useful.getuserid(i_data.logindata.token);
             List<Playlistdata> o_listdata = new List<Playlistdata>();
             List<playlist> listplaylistdata = db.playlist.Where(p => p.user_id == user_id).OrderBy(p => p.playlist_id).ToList();
             int resultNumber = listplaylistdata.Count;
@@ -96,7 +96,7 @@ namespace SingSpaze.Controllers.API
             }
 
 
-            List<int> songlist = new List<int>();
+            List<long> songlist = new List<long>();
             foreach (playlisttosong data in listplaylisttosong)
             {
                 songlist.Add(data.song_id);
@@ -222,7 +222,7 @@ namespace SingSpaze.Controllers.API
                     errordata = Useful.checklogin(i_data.logindata)
                 };
             }
-            int user_id = Useful.getuserid(i_data.logindata.token);
+            long user_id = Useful.getuserid(i_data.logindata.token);
             playlist playlistdata = db.playlist.SingleOrDefault(p => p.playlist_id == i_data.id && p.user_id == user_id);
 
             if (playlistdata != null)
@@ -286,7 +286,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
             
-            int user_id = Useful.getuserid(i_data.logindata.token);
+            long user_id = Useful.getuserid(i_data.logindata.token);
             playlisttosong checkdata = db.playlisttosong.Where(p => p.playlist_id == i_data.playlist_id && p.song_id == i_data.song_id).SingleOrDefault();
 
             if (checkdata != null)
@@ -371,7 +371,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            int user_id = Useful.getuserid(i_data.logindata.token);
+            long user_id = Useful.getuserid(i_data.logindata.token);
             
 
             playlist checkplaylist = db.playlist.SingleOrDefault(p => p.user_id == user_id && p.playlist_id == i_data.playlist_id);

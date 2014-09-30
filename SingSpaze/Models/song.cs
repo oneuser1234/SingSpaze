@@ -14,29 +14,46 @@ namespace SingSpaze.Models
     
     public partial class song
     {
-        public int song_id { get; set; }
+        public song()
+        {
+            this.playlisttosong = new HashSet<playlisttosong>();
+            this.singinghistory = new HashSet<singinghistory>();
+            this.viewhistory = new HashSet<viewhistory>();
+        }
+    
+        public long song_id { get; set; }
         public string song_originName { get; set; }
         public string song_engName { get; set; }
-        public int song_genre { get; set; }
-        public int song_languageId { get; set; }
-        public int song_albumId { get; set; }
-        public int song_artistId { get; set; }
+        public long song_genre { get; set; }
+        public long song_languageId { get; set; }
+        public long song_albumId { get; set; }
+        public long song_artistId { get; set; }
         public string song_length { get; set; }
         public string song_keywords { get; set; }
         public string song_lyrics { get; set; }
-        public int publisherforsong_id { get; set; }
+        public long publisherforsong_id { get; set; }
         public System.DateTime song_releasedDate { get; set; }
         public string song_URL_picture { get; set; }
         public int song_status { get; set; }
         public System.DateTime song_addedDate { get; set; }
         public Nullable<decimal> song_price { get; set; }
-        public int song_view { get; set; }
+        public long song_view { get; set; }
         public string song_URL_iOS { get; set; }
         public string song_URL_Android_Other { get; set; }
         public string song_URL_RTMP { get; set; }
         public string song_Copyright { get; set; }
-        public Nullable<int> song_Track_Number { get; set; }
+        public int song_Track_Number { get; set; }
         public string song_streamURLWithVocal { get; set; }
         public string song_streamURLWithoutVocal { get; set; }
+        public long Song_accessRule { get; set; }
+    
+        public virtual album album { get; set; }
+        public virtual artist artist { get; set; }
+        public virtual genre genre { get; set; }
+        public virtual language language { get; set; }
+        public virtual ICollection<playlisttosong> playlisttosong { get; set; }
+        public virtual publisherforsong publisherforsong { get; set; }
+        public virtual ICollection<singinghistory> singinghistory { get; set; }
+        public virtual ICollection<viewhistory> viewhistory { get; set; }
     }
 }

@@ -83,4 +83,33 @@ namespace SingSpaze.Models.Input
         [DataMember(Name = "selectdata")]
         public Selectdata selectdata { get { return _selectdata; } set { this._selectdata = value; } }
     }
+
+    /// <summary>
+    /// Class input data for search Artis v2 
+    /// </summary>
+    [DataContract]
+    public class I_SearchArtist_v2
+    {
+        /// <summary>
+        /// Keyword data (default = null)
+        /// </summary>
+        [DataMember(Name = "keyword")]
+        public string keyword { get; set; }
+
+
+        int _language_id = 1;
+        /// <summary>
+        /// Focus in language_id (default = 1)
+        /// </summary>
+        [DataMember(Name = "language_id")]
+        public int language_id { get { return _language_id; } set { this._language_id = value; } }
+
+
+        Selectdata _selectdata = Useful.getbaseselectdata();
+        /// <summary>
+        /// Class selectdata
+        /// </summary>
+        [DataMember(Name = "selectdata")]
+        public Selectdata selectdata { get { return _selectdata; } set { this._selectdata = value; } }
+    }
 }

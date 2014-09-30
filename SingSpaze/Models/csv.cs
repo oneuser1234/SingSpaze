@@ -14,7 +14,7 @@ namespace SingSpaze.Models
     
     public partial class csv
     {
-        public Nullable<int> id { get; set; }
+        public Nullable<long> id { get; set; }
         public string Title___TH { get; set; }
         public string Title___EN { get; set; }
         public string Photo { get; set; }
@@ -36,6 +36,6 @@ namespace SingSpaze.Models
         public string URL_iOS { get; set; }
         public string URL_Android_Other { get; set; }
         public string URL_RTMP { get; set; }
-        public int csv_id { get; set; }
+        public long csv_id { get; set; }
     }
 }
