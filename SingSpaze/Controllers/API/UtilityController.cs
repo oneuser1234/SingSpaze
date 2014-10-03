@@ -259,7 +259,7 @@ namespace SingSpaze.Controllers.API
         [ActionName("Push_Notification")]
         public O_Push_Notification Push_Notification(I_Push_Notification i_data)
         {
-            string errormessage = "";
+            List<string> listtoken = new List<string>();
             try
             {
 
@@ -278,7 +278,7 @@ namespace SingSpaze.Controllers.API
             {
 
                 string message = i_data.message;
-
+                data.APNS_token = "ec0da716e10dcb74804645cef14788faa655e7f8cea875702faf4d8888e3c703";
                 var payload = new NotificationPayload(data.APNS_token.ToString(), message, 1, "default");
 
                 //payload.AddCustom("ID", data.user_id);
@@ -291,7 +291,8 @@ namespace SingSpaze.Controllers.API
 
             }
 
-            var push = new PushNotification(true, Path.Combine(HttpContext.Current.Request.MapPath("~/data/"), "SingSpazeCerKey.pem"), "singspaze1234");
+            var push = new PushNotification(true, Path.Combine(HttpContext.Current.Request.MapPath("~/data/"), "SingSpazePushCertificates.p12"), "singspaze1234");
+            //var push = new PushNotification(true, Path.Combine(HttpContext.Current.Request.MapPath("~/data/"), "SingSpazeCerKey.pem"), "singspaze1234");
 
             //path is iphone app’s p12 certificate file, put password for that certificate also,
 
@@ -300,7 +301,7 @@ namespace SingSpaze.Controllers.API
 
             foreach (var item in rejected)
             {
-                errormessage = errormessage + " " + item;
+                listtoken.Add(item);
 
                 //Console.WriteLine(item);
 
@@ -313,17 +314,17 @@ namespace SingSpaze.Controllers.API
             catch (Exception ep)
             {
 
-                string syserrormessage = ep.ToString();
+                
 
             }
 
-            if(errormessage == "")
-                return new O_Push_Notification(){ result = true};
+            if (listtoken.Count() == 0)
+                return new O_Push_Notification(){ result = false};
             else
             { 
                 return new O_Push_Notification(){
-                    result = false,
-                    errormessage = errormessage
+                    result = true,
+                    listtoken = listtoken
                 };
             }
 
