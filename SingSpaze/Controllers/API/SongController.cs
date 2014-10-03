@@ -41,7 +41,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<song> listsong = db.song.ToList();
+            List<song> listsong = db.song.SqlQuery("SELECT * FROM `song` ORDER BY CONVERT( song_originName USING tis620 ) ASC ").ToList();
 
             var before = DateTime.Now.AddDays(-i_data.time);
             var grouphistorysong = from history in db.viewhistory
@@ -51,8 +51,9 @@ namespace SingSpaze.Controllers.API
 
             // order
             if (string.IsNullOrEmpty(i_data.type))
-                listsong = listsong.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
-            else if (i_data.type.ToLower() == "new")
+            {
+                //listsong = listsong.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
+            }else if (i_data.type.ToLower() == "new")
                 listsong = listsong.Where(s => s.song_releasedDate > before).OrderByDescending(s => s.song_releasedDate).ToList();
             else if (i_data.type.ToLower() == "hot")
             {
@@ -73,8 +74,8 @@ namespace SingSpaze.Controllers.API
                 listsong = joinhistory.ToList();
 
             }
-            else
-                listsong = listsong.OrderBy(s => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
+            //else
+            //    listsong = listsong.OrderBy(s => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(s.song_originName))).ToList();
             //else if (i_data.type == "recommend")
             //    listsong = db.song.ToList();
 
@@ -134,32 +135,36 @@ namespace SingSpaze.Controllers.API
 
             List<Songdata> o_song = new List<Songdata>();
 
-            foreach (song data in listsong)
+            foreach (song datasong in listsong)
             {
-                int view = Useful.getview(data.song_id); //all time
+                int view = Useful.getview(datasong.song_id); //all time
                 if (i_data.type == "hot")
-                    view = grouphistorysong.Where(s => s.song_id == data.song_id).Select(s => s.count).SingleOrDefault();
+                    view = grouphistorysong.Where(s => s.song_id == datasong.song_id).Select(s => s.count).SingleOrDefault();
                 
-                o_song.Add(Useful.getsongdata(data.song_id,view));
-                //o_song.Add(new Songdata()
-                //    {
-                //        id = data.song_id,
-                //        originName = data.song_originName,
-                //        engName = data.song_engName,
-                //        price = data.song_price,
-                //        //thumbnail = data.song_thumbnail,
-                //        URL_picture = data.song_URL_picture,
-                //        view = view,
-                //        length = data.song_length,
-                //        releasedDate = data.song_releasedDate,
+                //o_song.Add(Useful.getsongdata(data.song_id,view));
+                o_song.Add(new Songdata()
+                    {
+                        id = datasong.song_id,
+                        engName = datasong.song_engName,
+                        originName = datasong.song_originName,
+                        //lyrics = datasong.song_lyrics,
+                        URL_picture = datasong.song_URL_picture,
+                        price = datasong.song_price,
+                        releasedDate = datasong.song_releasedDate,
+                        //thumbnail = datasong.song_thumbnail,
+                        view = view,
+                        //filePath = datasong.song_filePath,
+                        length = datasong.song_length,
+                        //keywords = datasong.song_keywords,
 
-                //        //languagedata = Useful.getlanguagedata(data.song_languageId),
-                //        albumdata = Useful.getalbumdata(data.song_albumId),
-                //        artistdata = Useful.getartistdata(data.song_artistId),
-                //        genredata = Useful.getgenredata(data.song_genre),
-                //        publisherdata = Useful.getpublishersongdata(data.publisherforsong_id),
-                //        //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
-                //    });
+                        //data
+                        //languagedata = Useful.getlanguagedata(datasong.song_languageId),
+                        albumdata = Useful.getalbumdata(datasong.song_albumId),
+                        artistdata = Useful.getartistdata(datasong.song_artistId),
+                        genredata = Useful.getgenredata(datasong.song_genre),
+                        publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
+                        //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+                    });
             }
 
             return new O_SongList()

@@ -123,7 +123,7 @@ namespace SingSpaze.Controllers.API
                 mail.Body = message;
                 mail.IsBodyHtml = true;
 
-                //smtpClient.Send(mail);
+                smtpClient.Send(mail);
                 db.SaveChanges();
 
                 return new O_Register()

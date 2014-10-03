@@ -39,7 +39,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            List<artist> listartist = db.artist.ToList();
+            List<artist> listartist = db.artist.SqlQuery("SELECT * FROM `artist` ORDER BY CONVERT( artist_description_th USING tis620 ) ASC ").ToList();
 
             var before = DateTime.Now.AddDays(-i_data.time);
 
@@ -56,11 +56,12 @@ namespace SingSpaze.Controllers.API
                               group history by history.artist_id into ghistory
                               select new { artist_id = ghistory.Key, count = ghistory.Count() };
             // order
-            if (string.IsNullOrEmpty(i_data.type))
-                listartist = listartist.OrderBy(s => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
-            //else if (i_data.type == "new")
-            //    listartist = db.artist.Where(s => s.song_releasedDate ?? DateTime.Now > before).OrderByDescending(s => s.song_releasedDate).ToList();
-            else if (i_data.type == "hot")
+            //if (string.IsNullOrEmpty(i_data.type))
+            //    listartist = listartist.OrderBy(s => Encoding.GetEncoding("TIS-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
+            ////else if (i_data.type == "new")
+            ////    listartist = db.artist.Where(s => s.song_releasedDate ?? DateTime.Now > before).OrderByDescending(s => s.song_releasedDate).ToList();
+            //else 
+            if (i_data.type == "hot")
             {
                 //var groupartist = from history in db.singinghistory
                 //                       where history.singinghistory_date > before
@@ -77,8 +78,8 @@ namespace SingSpaze.Controllers.API
                 listartist = joinhistory.ToList();
 
             }
-            else
-                listartist = listartist.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
+            //else
+            //    listartist = listartist.OrderBy(s => Encoding.GetEncoding("tis-620").GetString(Encoding.Default.GetBytes(s.artist_description_th))).ToList();
 
             // where
             if(i_data.artist_id != null)
@@ -122,7 +123,7 @@ namespace SingSpaze.Controllers.API
                 //    publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
                 //});
 
-                o_listartist.Add(Useful.getartistdata(int.Parse(data.artist_id.ToString())));
+                o_listartist.Add(Useful.getartistdata(data.artist_id,view));
                 
             }
             

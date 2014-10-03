@@ -161,7 +161,7 @@
           <Property Name="song_price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="song_view" Type="bigint" Nullable="false" />
           <Property Name="song_URL_iOS" Type="varchar" MaxLength="200" />
-          <Property Name="song_URL_Android/Other" Type="varchar" MaxLength="200" />
+          <Property Name="song_URL_Android_Other" Type="varchar" MaxLength="200" />
           <Property Name="song_URL_RTMP" Type="varchar" MaxLength="200" />
           <Property Name="song_Copyright" Type="varchar" MaxLength="100" />
           <Property Name="song_Track_Number" Type="int" Nullable="false" />
@@ -1236,7 +1236,7 @@
                 <ScalarProperty Name="song_price" ColumnName="song_price" />
                 <ScalarProperty Name="song_view" ColumnName="song_view" />
                 <ScalarProperty Name="song_URL_iOS" ColumnName="song_URL_iOS" />
-                <ScalarProperty Name="song_URL_Android_Other" ColumnName="song_URL_Android/Other" />
+                <ScalarProperty Name="song_URL_Android_Other" ColumnName="song_URL_Android_Other" />
                 <ScalarProperty Name="song_URL_RTMP" ColumnName="song_URL_RTMP" />
                 <ScalarProperty Name="song_Copyright" ColumnName="song_Copyright" />
                 <ScalarProperty Name="song_Track_Number" ColumnName="song_Track_Number" />

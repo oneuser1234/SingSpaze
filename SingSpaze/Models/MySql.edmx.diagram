@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f25b24b58726448a9cace8fcea8ed6f4" Name="Diagram1">
+      <Diagram DiagramId="eab241b3cb09475ab1d643920a608e1a" Name="Diagram1">
         <EntityTypeShape EntityType="singspazeModel.access_rule" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.album" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />

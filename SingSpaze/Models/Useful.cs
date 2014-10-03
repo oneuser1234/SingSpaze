@@ -147,7 +147,7 @@ namespace SingSpaze.Models
                 if (Token != "")
                     Token = "?token=" + Token;
                 else
-                    Token = "";
+                    Token = ""; // playsong no token
                 response = new Songdata()
                 {
                     id = datasong.song_id,
@@ -228,12 +228,14 @@ namespace SingSpaze.Models
                        
         }
 
-        public static Artistdata getartistdata(long id)
+        public static Artistdata getartistdata(long id,int view = 0)
         {
             singspazeEntities db = new singspazeEntities();
             artist data = db.artist.Where(a => a.artist_id == id).SingleOrDefault();
             if (data == null)
                 return null;
+            if (view == 0)
+                view = Useful.getview(id, "artist");
             return new Artistdata()
             {
                 id = id,
@@ -244,6 +246,7 @@ namespace SingSpaze.Models
                 picture_l_hi = data.ArtistPicture_L_Hi,
                 picture_s_lo = data.ArtistPicture_S_Lo,
                 picture_s_hi = data.ArtistPicture_S_Hi,
+                view = view,
                 artistType = data.artist_type,
                 songs = db.song.Where(s => s.song_artistId == data.artist_id).Count(),
                 publisherdata = Useful.getpublisherartistdata(data.artist_publisherforartistId)
@@ -645,6 +648,9 @@ namespace SingSpaze.Models
 
     }
 
+   
+
+
     /// <summary>
     /// Class data album (ex.id,description_TH)
     /// </summary>
@@ -746,9 +752,9 @@ namespace SingSpaze.Models
         /// </summary>
         public int songs { get; set; }   
         /// /// <summary>
-        /// View (All times)
+        /// View 
         /// </summary>
-        //public int view { get; set; }
+        public int view { get; set; }
         /// <summary>
         /// Class Publisherdata
         /// </summary>
