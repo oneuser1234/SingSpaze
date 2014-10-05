@@ -538,20 +538,64 @@ namespace SingSpaze.Controllers
         /// <returns>status</returns>
         public string importstep3()
         {
-            try
-            {
+            //try
+            //{
 
                 singspazeEntities ldb = new singspazeEntities();
-                
+                var address = Request.ServerVariables["LOCAL_ADDR"] + ":" + Request.ServerVariables["server_port"] + @"\Picture\artist";
                 string lsql = "";
                 //add artist
                 //ldb.ExecuteStoreCommand(@"ALTER TABLE  `artist`ADD UNIQUE (`artist_description_th`,`artist_description_en`);");
-                lsql = @"INSERT INTO artist (`artist_description_th`,`artist_description_en`,`artist_view`) 
-                             SELECT distinct c.`Artist - TH`, c.`Artist - EN`,0 
+                lsql = @"INSERT INTO artist (`artist_description_th`,`artist_description_en`,`artist_view`,`ArtistPicture_L_Lo`, `ArtistPicture_L_Hi`, `ArtistPicture_S_Lo`, `ArtistPicture_S_Hi`) 
+                             SELECT distinct c.`Artist - TH`, c.`Artist - EN`,0,'newartist','newartist','newartist','newartist'
                              FROM csv as c
                              ON DUPLICATE KEY UPDATE `artist_description_th`= c.`Artist - TH`,`artist_description_en`= c.`Artist - EN`;";
                 ldb.Database.ExecuteSqlCommand(lsql);
+                address = address.Replace(@"\", @"/");
+                //update artist
+                lsql = @"UPDATE `artist` SET 
+                        `ArtistPicture_L_Lo`= concat('" + address + @"', '/00000' , `artist_id` ,  '_cover_L_1.jpg'),
+                        `ArtistPicture_L_Hi`=concat('" + address + @"' , '/00000' , `artist_id` , '_cover_L_2.jpg'),
+                        `ArtistPicture_S_Lo`=concat('" + address + @"', '/00000' , `artist_id` , '_cover_s_01.jpg') ,
+                        `ArtistPicture_S_Hi`=concat('" + address + @"', '/00000' , `artist_id` , '_cover_s_02.jpg')
+                        where `artist_id`< 10 and `ArtistPicture_L_Lo`= 'newartist';
 
+                        UPDATE `artist` SET 
+                        `ArtistPicture_L_Lo`= concat('" + address + @"', '/0000' , `artist_id` ,  '_cover_L_1.jpg'),
+                        `ArtistPicture_L_Hi`=concat('" + address + @"' , '/0000' , `artist_id` , '_cover_L_2.jpg'),
+                        `ArtistPicture_S_Lo`=concat('" + address + @"', '/0000' , `artist_id` , '_cover_s_01.jpg') ,
+                        `ArtistPicture_S_Hi`=concat('" + address + @"', '/0000' , `artist_id` , '_cover_s_02.jpg')
+                        where `artist_id`> 9 and `artist_id` < 100 and `ArtistPicture_L_Lo`= 'newartist';
+                        
+                        UPDATE `artist` SET 
+                        `ArtistPicture_L_Lo`= concat('" + address + @"', '/000' , `artist_id` ,  '_cover_L_1.jpg'),
+                        `ArtistPicture_L_Hi`=concat('" + address + @"' , '/000' , `artist_id` , '_cover_L_2.jpg'),
+                        `ArtistPicture_S_Lo`=concat('" + address + @"', '/000' , `artist_id` , '_cover_s_01.jpg') ,
+                        `ArtistPicture_S_Hi`=concat('" + address + @"', '/000' , `artist_id` , '_cover_s_02.jpg')
+                        where `artist_id`> 99 and `artist_id` < 1000 and `ArtistPicture_L_Lo`= 'newartist';
+
+                        UPDATE `artist` SET 
+                        `ArtistPicture_L_Lo`= concat('" + address + @"', '/00' , `artist_id` ,  '_cover_L_1.jpg'),
+                        `ArtistPicture_L_Hi`=concat('" + address + @"' , '/00' , `artist_id` , '_cover_L_2.jpg'),
+                        `ArtistPicture_S_Lo`=concat('" + address + @"', '/00' , `artist_id` , '_cover_s_01.jpg') ,
+                        `ArtistPicture_S_Hi`=concat('" + address + @"', '/00' , `artist_id` , '_cover_s_02.jpg')
+                        where `artist_id`> 999 and `artist_id` < 10000 and `ArtistPicture_L_Lo`= 'newartist';
+
+                        UPDATE `artist` SET 
+                        `ArtistPicture_L_Lo`= concat('" + address + @"', '/0' , `artist_id` ,  '_cover_L_1.jpg'),
+                        `ArtistPicture_L_Hi`=concat('" + address + @"' , '/0' , `artist_id` , '_cover_L_2.jpg'),
+                        `ArtistPicture_S_Lo`=concat('" + address + @"', '/0' , `artist_id` , '_cover_s_01.jpg') ,
+                        `ArtistPicture_S_Hi`=concat('" + address + @"', '/0' , `artist_id` , '_cover_s_02.jpg')
+                        where `artist_id`> 9999 and `artist_id` < 100000 and `ArtistPicture_L_Lo`= 'newartist';
+                        
+                        UPDATE `artist` SET 
+                        `ArtistPicture_L_Lo`= concat('" + address + @"', '/' , `artist_id` ,  '_cover_L_1.jpg'),
+                        `ArtistPicture_L_Hi`=concat('" + address + @"' , '/' , `artist_id` , '_cover_L_2.jpg'),
+                        `ArtistPicture_S_Lo`=concat('" + address + @"', '/' , `artist_id` , '_cover_s_01.jpg') ,
+                        `ArtistPicture_S_Hi`=concat('" + address + @"', '/' , `artist_id` , '_cover_s_02.jpg')
+                        where `artist_id`> 99999 and `artist_id` < 1000999 and `ArtistPicture_L_Lo`= 'newartist';
+                        ";
+                ldb.Database.ExecuteSqlCommand(lsql);
                 //add album
                 //ldb.ExecuteStoreCommand(@"ALTER TABLE  `album`ADD UNIQUE (`album_description_th`,`album_description_en`);");
                 lsql = @"INSERT INTO album (`album_description_th`,`album_description_en`) 
@@ -588,11 +632,11 @@ namespace SingSpaze.Controllers
 
 
                 return "Success";
-            }
-            catch (Exception e)
-            {
-                return "Error";
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return "Error";
+            //}
 
 
         }
@@ -610,7 +654,7 @@ namespace SingSpaze.Controllers
 
             string lsql = "";
             //update song
-            lsql = @"UPDATE  song s INNER JOIN  csv c ON  s.song_id = c.id SET
+            lsql = @"SET SQL_SAFE_UPDATES = 0;UPDATE  song s INNER JOIN  csv c ON  s.song_id = c.id SET
                         s.song_originName = c.`Title - TH`,
                         s.song_engName = c.`Title - EN`,
                         s.song_genre = (select genre_id from genre where genre_description = c.Genres),
@@ -634,7 +678,7 @@ namespace SingSpaze.Controllers
             ldb.Database.ExecuteSqlCommand(lsql);
 
             //add new song
-            lsql = @"INSERT INTO `song`(`song_originName`, `song_engName`, `song_genre`, `song_languageId`, `song_albumId`, `song_artistId`, `song_length`, `song_lyrics`, `publisherforsong_id`, `song_URL_picture`, `song_status`, `song_addedDate`, `song_price`, `song_URL_iOS`, `song_URL_Android_Other`, `song_URL_RTMP`, `song_Copyright`, `song_Track_Number`,`song_releasedDate`)   
+            lsql = @"INSERT INTO `song`(`song_originName`, `song_engName`, `song_genre`, `song_languageId`, `song_albumId`, `song_artistId`, `song_length`, `song_lyrics`, `publisherforsong_id`, `song_URL_picture`, `song_status`, `song_addedDate`, `song_price`, `song_URL_iOS`, `song_URL_Android_Other`, `song_URL_RTMP`, `song_Copyright`, `song_Track_Number`,`song_releasedDate`,`song_view`)   
                              SELECT distinct c.`Title - TH`,c.`Title - EN`,
                              (select genre_id from genre where genre_description = c.Genres),
                              (select language_id from language where language_description = c.Language),
@@ -642,7 +686,7 @@ namespace SingSpaze.Controllers
                              (select artist_id from artist where artist_description_th = c.`Artist - TH`),
                              c.Length,c.Lyrics,
                              (select publisherforsong_id from publisherforsong where publisherforsong_description = c.`Publisher`),
-                             c.Photo,c.Status,now(),CAST(c.Price AS DECIMAL(12,2)),c.`URL iOS`, c.`URL Android/Other`, c.`URL RTMP`, c.`Copyright`, c.`Track Number`,STR_TO_DATE(c.`Released date`,'%d/%m/%Y %T')
+                             c.Photo,c.Status,now(),CAST(c.Price AS DECIMAL(12,2)),c.`URL iOS`, c.`URL Android/Other`, c.`URL RTMP`, c.`Copyright`, c.`Track Number`,STR_TO_DATE(c.`Released date`,'%d/%m/%Y %T'),0
                              FROM csv as c where c.id = 0;";
             ldb.Database.ExecuteSqlCommand(lsql);
 
