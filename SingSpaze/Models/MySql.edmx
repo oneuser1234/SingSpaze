@@ -204,7 +204,7 @@
           <Property Name="user_status" Type="tinyint" Nullable="false" />
           <Property Name="usergroup_id" Type="int" Nullable="false" />
           <Property Name="user_type" Type="int" Nullable="false" />
-          <Property Name="user_fbUserId" Type="bigint" Nullable="false" />
+          <Property Name="user_fbUserId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="user_firstname" Type="varchar" MaxLength="255" />
           <Property Name="user_lastname" Type="varchar" MaxLength="255" />
           <Property Name="user_login" Type="varchar" MaxLength="255" />
@@ -743,7 +743,7 @@
           <Property Name="user_status" Type="SByte" Nullable="false" />
           <Property Name="usergroup_id" Type="Int32" Nullable="false" />
           <Property Name="user_type" Type="Int32" Nullable="false" />
-          <Property Name="user_fbUserId" Type="Int64" Nullable="false" />
+          <Property Name="user_fbUserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="user_firstname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_lastname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />

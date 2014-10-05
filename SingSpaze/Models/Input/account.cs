@@ -45,7 +45,7 @@ namespace SingSpaze.Models.Input
     public class I_FBRegister
     {
         [DataMember(Name = "fbuserid")]
-        public int fbUserId { get; set; }
+        public string fbUserId { get; set; }
         [DataMember(Name = "firstname")]
         public string Firstname { get; set; }
         [DataMember(Name = "lastname")]
@@ -101,7 +101,7 @@ namespace SingSpaze.Models.Input
         /// Facebook Id
         /// </summary>
         [DataMember(Name = "fbuserid")]
-        public int fbUserId { get; set; }
+        public string fbUserId { get; set; }
         /// <summary>
         /// Firstname 
         /// </summary>

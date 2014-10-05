@@ -27,7 +27,7 @@ namespace SingSpaze.Models
         public sbyte user_status { get; set; }
         public int usergroup_id { get; set; }
         public int user_type { get; set; }
-        public long user_fbUserId { get; set; }
+        public string user_fbUserId { get; set; }
         public string user_firstname { get; set; }
         public string user_lastname { get; set; }
         public string user_login { get; set; }

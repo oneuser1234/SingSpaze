@@ -47,9 +47,20 @@ namespace SingSpaze.Models
                 response = "input data was wrong";
             else if (code_id == 15)
                 response = "your account was multiple login";
+            else if (code_id == 16)
+                response = "cannot not use this facebook ID";
 
             return response;
 
+        }
+
+        public static Errordata geterror(int code_id)
+        {
+            return new Errordata()
+                    {
+                        code = code_id,
+                        Detail = Useful.geterrordata(code_id)
+                    };
         }
 
         public static string GetMd5Hash(MD5 md5Hash, string input)
@@ -439,7 +450,7 @@ namespace SingSpaze.Models
         /// <summary>
         /// FacebookId
         /// </summary>
-        public long fbUserId { get; set; }
+        public string fbUserId { get; set; }
         /// <summary>
         /// Firstname
         /// </summary>

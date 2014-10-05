@@ -53,7 +53,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
                 user checkuser = new user();
-                checkuser = db.user.FirstOrDefault(u => u.user_fbUserId == 0 && u.user_email == i_data.Email);
+                checkuser = db.user.FirstOrDefault(u => u.user_fbUserId == "0" && u.user_email == i_data.Email);
                
 
                 if (checkuser != null)
@@ -172,11 +172,7 @@ namespace SingSpaze.Controllers.API
                 return new O_FBRegister()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 2,
-                        Detail = Useful.geterrordata(2)
-                    }
+                    errordata = Useful.geterror(16)
                 };
             }
             /// end
@@ -271,7 +267,7 @@ namespace SingSpaze.Controllers.API
             //if (string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password))
             //        errorinput = true;
 
-            datauser = db.user.FirstOrDefault(u => u.user_email == i_data.email && u.user_password == i_data.password && u.user_fbUserId == 0);
+            datauser = db.user.FirstOrDefault(u => u.user_email == i_data.email && u.user_password == i_data.password && u.user_fbUserId == "0");
             
           
            if (datauser == null)
@@ -468,16 +464,12 @@ namespace SingSpaze.Controllers.API
                 if(edituser != null)
                 {
 
-                    if (edituser.user_fbUserId != 0) //facebook
+                    if (edituser.user_fbUserId != "0") //facebook
                     {
                         return new O_EditProfile()
                         {
                             result = false,
-                            errordata = new Errordata()
-                            {
-                                code = 13,
-                                Detail = Useful.geterrordata(13)
-                            }
+                            errordata = Useful.geterror(13)
                         };
                     }
 
@@ -487,11 +479,7 @@ namespace SingSpaze.Controllers.API
                         return new O_EditProfile()
                         {
                             result = false,
-                            errordata = new Errordata()
-                            {
-                                code = 2,
-                                Detail = Useful.geterrordata(2)
-                            }
+                            errordata = Useful.geterror(2)
                         };
 
                     }
@@ -501,11 +489,7 @@ namespace SingSpaze.Controllers.API
                         return new O_EditProfile()
                         {
                             result = false,
-                            errordata = new Errordata()
-                            {
-                                code = 7,
-                                Detail = Useful.geterrordata(7)
-                            }
+                            errordata = Useful.geterror(7)
                         };
                     }
 
@@ -527,11 +511,7 @@ namespace SingSpaze.Controllers.API
                     return new O_EditProfile()
                     {
                         result = false,
-                        errordata = new Errordata()
-                        {
-                            code = 8,
-                            Detail = Useful.geterrordata(8)
-                        }
+                        errordata = Useful.geterror(8)
                     };
                 }
 
@@ -564,7 +544,7 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            if (userdata.user_fbUserId != 0)
+            if (userdata.user_fbUserId != "0")
             {
                 return new O_Forgot()
                 {

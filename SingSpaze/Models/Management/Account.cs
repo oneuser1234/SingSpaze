@@ -19,6 +19,6 @@ namespace SingSpaze.Models.Management
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string email { get; set; }
-        public long facebookid { get; set; }
+        public string facebookid { get; set; }
     }
 }

@@ -626,7 +626,7 @@ namespace SingSpaze.Controllers
                         s.song_price = CAST(c.Price AS DECIMAL(12,2)),
                         s.song_view = 0,
                         s.song_URL_iOS = c.`URL iOS`,
-                        s.`song_URL_Android/Other` = c.`URL Android/Other`,
+                        s.`song_URL_Android_Other` = c.`URL Android/Other`,
                         s.song_URL_RTMP = c.`URL RTMP`,
                         s.song_Copyright = c.`Copyright`,
                         s.song_Track_Number = c.`Track Number`,
@@ -634,7 +634,7 @@ namespace SingSpaze.Controllers
             ldb.Database.ExecuteSqlCommand(lsql);
 
             //add new song
-            lsql = @"INSERT INTO `song`(`song_originName`, `song_engName`, `song_genre`, `song_languageId`, `song_albumId`, `song_artistId`, `song_length`, `song_lyrics`, `publisherforsong_id`, `song_URL_picture`, `song_status`, `song_addedDate`, `song_price`, `song_URL_iOS`, `song_URL_Android/Other`, `song_URL_RTMP`, `song_Copyright`, `song_Track_Number`,`song_releasedDate`)   
+            lsql = @"INSERT INTO `song`(`song_originName`, `song_engName`, `song_genre`, `song_languageId`, `song_albumId`, `song_artistId`, `song_length`, `song_lyrics`, `publisherforsong_id`, `song_URL_picture`, `song_status`, `song_addedDate`, `song_price`, `song_URL_iOS`, `song_URL_Android_Other`, `song_URL_RTMP`, `song_Copyright`, `song_Track_Number`,`song_releasedDate`)   
                              SELECT distinct c.`Title - TH`,c.`Title - EN`,
                              (select genre_id from genre where genre_description = c.Genres),
                              (select language_id from language where language_description = c.Language),
