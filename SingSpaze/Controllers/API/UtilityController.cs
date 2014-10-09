@@ -12,6 +12,8 @@ using System.Web;
 using System.IO;
 using System.Text;
 using MoonAPNS;
+using System.Security.Cryptography;
+using System.Security.AccessControl;
 
 
 namespace SingSpaze.Controllers.API
@@ -259,27 +261,29 @@ namespace SingSpaze.Controllers.API
         [ActionName("Push_Notification")]
         public O_Push_Notification Push_Notification(I_Push_Notification i_data)
         {
+            string errormessage = null;
             List<string> listtoken = new List<string>();
             try
             {
 
             //DataTable tab = datalogic.GetDeviceTokens(); // Getting all device ids from the table
 
-            List<user> userdata = db.user.ToList();
+            List<deviceinfo> devicedata = db.deviceinfo.ToList();
 
-            if (i_data.userid != 0)
-                userdata = userdata.Where(u => u.user_id == i_data.userid).ToList();
+            if (!string.IsNullOrEmpty(i_data.device_token))
+                devicedata = devicedata.Where(d => d.deviceInfo_deviceToken == i_data.device_token).ToList();
 
 
             var p = new List<NotificationPayload>();
 
+          
+
             //for (int i = 0; i < tab.Count; i++)
-            foreach (user data in userdata)
+            foreach (deviceinfo data in devicedata)
             {
 
                 string message = i_data.message;
-                data.APNS_token = "ec0da716e10dcb74804645cef14788faa655e7f8cea875702faf4d8888e3c703";
-                var payload = new NotificationPayload(data.APNS_token.ToString(), message, 1, "default");
+                var payload = new NotificationPayload(data.deviceInfo_deviceToken.ToString(), message, 1, "default");
 
                 //payload.AddCustom("ID", data.user_id);
                 //payload.AddCustom("ID", CardId);   // Custom fields as id and card name
@@ -291,7 +295,7 @@ namespace SingSpaze.Controllers.API
 
             }
 
-            var push = new PushNotification(true, Path.Combine(HttpContext.Current.Request.MapPath("~/data/"), "SingSpazePushCertificates.p12"), "singspaze1234");
+            var push = new PushNotification(false, Path.Combine(HttpContext.Current.Request.MapPath("~/data/"), "Production_key.p12"), "singspaze1234");
             //var push = new PushNotification(true, Path.Combine(HttpContext.Current.Request.MapPath("~/data/"), "SingSpazeCerKey.pem"), "singspaze1234");
 
             //path is iphone app’s p12 certificate file, put password for that certificate also,
@@ -302,7 +306,7 @@ namespace SingSpaze.Controllers.API
             foreach (var item in rejected)
             {
                 listtoken.Add(item);
-
+                errormessage = errormessage +" "+ item.ToString();
                 //Console.WriteLine(item);
 
             }
@@ -314,19 +318,24 @@ namespace SingSpaze.Controllers.API
             catch (Exception ep)
             {
 
-                
+                errormessage = errormessage +" "+ ep.ToString();
 
             }
 
-            if (listtoken.Count() == 0)
-                return new O_Push_Notification(){ result = false};
+            if (string.IsNullOrEmpty(errormessage))
+                return new O_Push_Notification() { result = true };
             else
-            { 
-                return new O_Push_Notification(){
-                    result = true,
-                    listtoken = listtoken
-                };
-            }
+                return new O_Push_Notification() { result = false, errormessage = errormessage };
+
+            //if (listtoken.Count() == 0)
+            //    return new O_Push_Notification(){ result = false,errormessage = errormessage};
+            //else
+            //{ 
+            //    return new O_Push_Notification(){
+            //        result = true,
+            //        listtoken = listtoken
+            //    };
+            //}
 
         }
 

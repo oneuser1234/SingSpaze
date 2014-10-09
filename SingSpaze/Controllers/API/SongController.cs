@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Data.Entity;
 
 namespace SingSpaze.Controllers.API
 {
@@ -140,31 +141,31 @@ namespace SingSpaze.Controllers.API
                 int view = Useful.getview(datasong.song_id); //all time
                 if (i_data.type == "hot")
                     view = grouphistorysong.Where(s => s.song_id == datasong.song_id).Select(s => s.count).SingleOrDefault();
-                
-                //o_song.Add(Useful.getsongdata(data.song_id,view));
-                o_song.Add(new Songdata()
-                    {
-                        id = datasong.song_id,
-                        engName = datasong.song_engName,
-                        originName = datasong.song_originName,
-                        //lyrics = datasong.song_lyrics,
-                        URL_picture = datasong.song_URL_picture,
-                        price = datasong.song_price,
-                        releasedDate = datasong.song_releasedDate,
-                        //thumbnail = datasong.song_thumbnail,
-                        view = view,
-                        //filePath = datasong.song_filePath,
-                        length = datasong.song_length,
-                        //keywords = datasong.song_keywords,
 
-                        //data
-                        //languagedata = Useful.getlanguagedata(datasong.song_languageId),
-                        albumdata = Useful.getalbumdata(datasong.song_albumId),
-                        artistdata = Useful.getartistdata(datasong.song_artistId),
-                        genredata = Useful.getgenredata(datasong.song_genre),
-                        publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
-                        //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
-                    });
+                o_song.Add(Useful.getsongdatanolyrics(datasong.song_id, view));
+                //o_song.Add(new Songdata()
+                //    {
+                //        id = datasong.song_id,
+                //        engName = datasong.song_engName,
+                //        originName = datasong.song_originName,
+                //        //lyrics = datasong.song_lyrics,
+                //        URL_picture = datasong.song_URL_picture,
+                //        price = datasong.song_price,
+                //        releasedDate = datasong.song_releasedDate,
+                //        //thumbnail = datasong.song_thumbnail,
+                //        view = view,
+                //        //filePath = datasong.song_filePath,
+                //        length = datasong.song_length,
+                //        //keywords = datasong.song_keywords,
+
+                //        //data
+                //        //languagedata = Useful.getlanguagedata(datasong.song_languageId),
+                //        albumdata = Useful.getalbumdata(datasong.song_albumId),
+                //        artistdata = Useful.getartistdata(datasong.song_artistId),
+                //        genredata = Useful.getgenredata(datasong.song_genre),
+                //        publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
+                //        //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+                //    });
             }
 
             return new O_SongList()
@@ -453,11 +454,20 @@ namespace SingSpaze.Controllers.API
             long user_id = Useful.getuserid(i_data.logindata.token);
             var before = DateTime.Now.AddDays(-i_data.time);
 
-            List<singinghistory> listhistory = db.singinghistory.Where(h => h.user_id == user_id && h.singinghistory_date > before).ToList();
+            List<singinghistory> listhistory = db.singinghistory.Where(h => h.user_id == user_id && h.singinghistory_date > before).OrderByDescending(h => h.singinghistory_date).ToList();
 
+            //var nlisthistory = (from his in listhistory.ToList()
+            //            group g by his.song_id into n
+            //            select new { song_id = n.Key, singinghistory_date = n.Max(m => m.singinghistory_date) }).ToList();
+
+            var o_listhistory = listhistory.GroupBy(h => h.song_id).Select(n => new { song_id = n.Key, singinghistory_date = n.Max(m => m.singinghistory_date) }).ToList();
+            
             // skip take
-            listhistory = listhistory.Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            o_listhistory = o_listhistory.Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
+            //listhistory = listhistory.Skip(i_data.selectdata.startindex - 1).Take(i_data.selectdata.endindex - i_data.selectdata.startindex + 1).ToList();
 
+            
+           
 
             if (listhistory == null)
             {
@@ -473,28 +483,29 @@ namespace SingSpaze.Controllers.API
 
             List<Singhistorydata> o_singhistorydata = new List<Singhistorydata>();
 
-            foreach (singinghistory data in listhistory)
+            foreach (var data in o_listhistory)
             {
                 song song = db.song.FirstOrDefault(s => s.song_id == data.song_id);
-                Songdata songdata = new Songdata()
-                {
-                    id = song.song_id,
-                    originName = song.song_originName,
-                    engName = song.song_engName,
-                    price = song.song_price,
-                    //thumbnail = data.song_thumbnail,
-                    URL_picture = song.song_URL_picture,
-                    view = Useful.getview(data.song_id),
-                    length = song.song_length,
+                //Songdata songdata = new Songdata()
+                //{
+                //    id = song.song_id,
+                //    originName = song.song_originName,
+                //    engName = song.song_engName,
+                //    price = song.song_price,
+                //    //thumbnail = data.song_thumbnail,
+                //    URL_picture = song.song_URL_picture,
+                //    view = Useful.getview(data.song_id),
+                //    length = song.song_length,
 
-                    //languagedata = Useful.getlanguagedata(data.song_languageId),
-                    albumdata = Useful.getalbumdata(song.song_albumId),
-                    artistdata = Useful.getartistdata(song.song_artistId),
-                    genredata = Useful.getgenredata(song.song_genre),
-                    publisherdata = Useful.getpublishersongdata(song.publisherforsong_id),
-                    //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
+                //    //languagedata = Useful.getlanguagedata(data.song_languageId),
+                //    albumdata = Useful.getalbumdata(song.song_albumId),
+                //    artistdata = Useful.getartistdata(song.song_artistId),
+                //    genredata = Useful.getgenredata(song.song_genre),
+                //    publisherdata = Useful.getpublishersongdata(song.publisherforsong_id),
+                //    //contentpartnerdata = Useful.getcontentpartnerdata(data.song_contentPartnerId)
 
-                };
+                //};
+                Songdata songdata = Useful.getsongdatanolyrics(song.song_id);
 
                 o_singhistorydata.Add(new Singhistorydata()
                 {

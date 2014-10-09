@@ -1,12 +1,17 @@
-﻿@{
+﻿@model IEnumerable<SingSpaze.Models.deviceinfo>
+@{
     ViewBag.Title = "Push_Notification";
 }
 
 <div style="padding-top: 25px;padding-bottom: 30px;">
     <form id="notification" name="notification" action="../api/utility/Push_Notification" method="post">
-        User Id
-        <select id="userid">
-            <option value="0">All</option>
+        Device Token
+        <select id="device_token">
+            <option value="">All</option>
+            @foreach (var item in Model)
+            {
+                <option value="@Html.DisplayFor(modelItem => item.deviceInfo_deviceToken)">@Html.DisplayFor(modelItem => item.deviceInfo_deviceToken)</option>
+            }
         </select>
         <br />
         Message <input type="text" id="message" />
@@ -25,7 +30,7 @@
         $.ajax({
             type: "POST",
             url: frm.attr("action") ,
-            data: { userid : document.getElementById("userid").value, message : document.getElementById("message").value },
+            data: { device_token: document.getElementById("device_token").value, message: document.getElementById("message").value },
             dataType: 'json',
             success: function (response) {
                 if (response.result)

@@ -64,10 +64,10 @@ namespace SingSpaze.Models.Input
         public class I_Push_Notification
         {
             /// <summary>
-            /// User Id
+            /// Device token
             /// </summary>
-            [DataMember(Name = "userid")]
-            public int userid { get; set; }
+            [DataMember(Name = "device_token")]
+            public string device_token { get; set; }
             /// <summary>
             /// Message
             /// </summary>

@@ -152,8 +152,9 @@ namespace SingSpaze.Controllers
 
         public ActionResult Push_Notification()
         {
-
-            return View();
+            List<deviceinfo> devicedata = db.deviceinfo.ToList();
+            
+            return View(devicedata);
         }
 
     }

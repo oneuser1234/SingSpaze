@@ -59,9 +59,13 @@ namespace SingSpaze.Models.Output
         /// </summary>
         public Boolean result { get; set; }
         /// <summary>
+        /// Error detail
+        /// </summary>
+        public string errormessage { get; set; }
+        /// <summary>
         /// List token
         /// </summary>
-        public List<string> listtoken { get; set; }
+        //public List<string> listtoken { get; set; }
     }
 
     /// <summary>

@@ -505,7 +505,7 @@ namespace SingSpaze.Controllers
                             {
                                 lyrics = sr.ReadToEnd();
 
-                                lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '" + lyrics + "' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
+                                lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '" + lyrics + "' where `Lyrics`='" + data.Replace(@"\", @"\\").Replace(@"'",@"\'") + "';";
                             }
                             catch (Exception e)
                             {
@@ -514,7 +514,7 @@ namespace SingSpaze.Controllers
                     }
                     catch (Exception e)
                     {
-                        lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '' where `Lyrics`='" + data.Replace(@"\", @"\\") + "';";
+                        lsql = lsql + @"UPDATE `csv` SET `Lyrics`= '' where `Lyrics`='" + data.Replace(@"\", @"\\").Replace(@"'", @"\'") + "';";
                     }
 
                 }
@@ -526,6 +526,7 @@ namespace SingSpaze.Controllers
             }
             catch (Exception e)
             {
+                return e.ToString();
                 return "Error";
             }
 

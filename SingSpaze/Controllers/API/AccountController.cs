@@ -72,12 +72,14 @@ namespace SingSpaze.Controllers.API
                 
                 user userdata = new user()
                 {
+                    user_fbUserId = "0",
                     user_firstname = i_data.Firstname,
                     user_lastname = i_data.Lastname,
+                    user_login = "",
                     user_password = i_data.Password,
                     user_email = i_data.Email,
                     user_createdDatetime = DateTime.Now,
-
+                    
                     user_avartar = null,
                     user_lastlogin = null,
                     user_modifiedDatetime = null,
