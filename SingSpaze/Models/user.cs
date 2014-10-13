@@ -16,6 +16,7 @@ namespace SingSpaze.Models
     {
         public user()
         {
+            this.myrecord = new HashSet<myrecord>();
             this.playlist = new HashSet<playlist>();
             this.singinghistory = new HashSet<singinghistory>();
             this.songrequest = new HashSet<songrequest>();
@@ -41,6 +42,7 @@ namespace SingSpaze.Models
         public string user_retoken { get; set; }
         public string APNS_token { get; set; }
     
+        public virtual ICollection<myrecord> myrecord { get; set; }
         public virtual ICollection<playlist> playlist { get; set; }
         public virtual ICollection<singinghistory> singinghistory { get; set; }
         public virtual ICollection<songrequest> songrequest { get; set; }

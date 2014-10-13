@@ -44,7 +44,12 @@ namespace SingSpaze.Models.Input
         /// </summary>
         [DataMember(Name = "categories")]
         public string categories { get; set; }
-        
+
+        /// <summary>
+        /// Countrycode
+        /// </summary>
+        [DataMember(Name = "countrycode")]
+        public string countrycode { get; set; }
 
         int _time = 30;
         /// <summary>
@@ -103,6 +108,11 @@ namespace SingSpaze.Models.Input
         [DataMember(Name = "language_id")]
         public int language_id { get { return _language_id; } set { this._language_id = value; } }
 
+        /// <summary>
+        /// Countrycode
+        /// </summary>
+        [DataMember(Name = "countrycode")]
+        public string countrycode{ get; set; }
 
         Selectdata _selectdata = Useful.getbaseselectdata();
         /// <summary>
@@ -160,6 +170,11 @@ namespace SingSpaze.Models.Input
         [DataMember(Name = "language_id")]
         public int language_id { get { return _language_id; } set { this._language_id = value; } }
 
+        /// <summary>
+        /// Countrycode
+        /// </summary>
+        [DataMember(Name = "countrycode")]
+        public string countrycode { get; set; }
 
         Selectdata _selectdata = Useful.getbaseselectdata();
         /// <summary>
@@ -167,6 +182,128 @@ namespace SingSpaze.Models.Input
         /// </summary>
         [DataMember(Name = "selectdata")]
         public Selectdata selectdata { get { return _selectdata; } set { this._selectdata = value; } }
+    }
+
+
+    /// <summary>
+    /// Class input data for add record 
+    /// </summary>
+    [DataContract]
+    public class I_AddRecord
+    {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+        /// <summary>
+        /// Song id
+        /// </summary>
+        [DataMember(Name = "song_id")]
+        public long song_id { get; set; }
+
+        /// <summary>
+        /// Description
+        /// </summary>
+        [DataMember(Name = "description")]
+        public string description { get; set; }
+
+        /// <summary>
+        /// Length
+        /// </summary>
+        [DataMember(Name = "length")]
+        public string length { get; set; }
+
+        /// <summary>
+        /// URL
+        /// </summary>
+        [DataMember(Name = "url")]
+        public string url { get; set; }
+
+    }
+
+    /// <summary>
+    /// Class input data for edit record 
+    /// </summary>
+    [DataContract]
+    public class I_EditRecord
+    {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+        /// <summary>
+        /// Record id
+        /// </summary>
+        [DataMember(Name = "record_id")]
+        public long record_id { get; set; }
+
+        /// <summary>
+        /// Song id
+        /// </summary>
+        [DataMember(Name = "song_id")]
+        public long song_id { get; set; }
+
+        /// <summary>
+        /// Description
+        /// </summary>
+        [DataMember(Name = "description")]
+        public string description { get; set; }
+
+        /// <summary>
+        /// Length
+        /// </summary>
+        [DataMember(Name = "length")]
+        public string length { get; set; }
+
+        /// <summary>
+        /// URL
+        /// </summary>
+        [DataMember(Name = "url")]
+        public string url { get; set; }
+
+    }
+
+    /// <summary>
+    /// Class input data for delete record 
+    /// </summary>
+    [DataContract]
+    public class I_DeleteRecord
+    {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+        /// <summary>
+        /// Record id
+        /// </summary>
+        [DataMember(Name = "record_id")]
+        public long record_id { get; set; }
+        
+
+    }
+
+    /// <summary>
+    /// Class input data for Get Record 
+    /// </summary>
+    [DataContract]
+    public class I_GetRecord
+    {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+        
+        Selectdata _selectdata = Useful.getbaseselectdata();
+        /// <summary>
+        /// Class selectdata
+        /// </summary>
+        [DataMember(Name = "selectdata")]
+        public Selectdata selectdata { get { return _selectdata; } set { this._selectdata = value; } }
+
     }
 
 }

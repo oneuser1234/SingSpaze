@@ -12,8 +12,9 @@ namespace SingSpaze.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class access_rule
+    public partial class accessrule
     {
-        public long Access_Rule_id { get; set; }
+        public long rule_number { get; set; }
+        public string rule_description { get; set; }
     }
 }

@@ -76,4 +76,72 @@ namespace SingSpaze.Models.Output
         public Errordata errordata { get; set; }
     }
 
+    /// <summary>
+    /// Class output for add record
+    /// </summary>
+    public class O_AddRecord
+    {
+        /// <summary>
+        /// result true or false
+        /// </summary>
+        public Boolean result { get; set; }
+
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
+
+    /// <summary>
+    /// Class output for edit record
+    /// </summary>
+    public class O_EditRecord
+    {
+        /// <summary>
+        /// result true or false
+        /// </summary>
+        public Boolean result { get; set; }
+
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
+
+    /// <summary>
+    /// Class output for delete record
+    /// </summary>
+    public class O_DeleteRecord
+    {
+        /// <summary>
+        /// result true or false
+        /// </summary>
+        public Boolean result { get; set; }
+
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
+
+    /// <summary>
+    /// Class output for Get Record (ex.listrecord)
+    /// </summary>
+    public class O_GetRecord
+    {
+        /// <summary>
+        /// Number of this result
+        /// </summary>
+        public int resultnumber { get; set; }
+        /// <summary>
+        /// List class singhistorydata
+        /// </summary>
+        public List<Recorddata> recorddata { get; set; }
+
+        /// <summary>
+        /// Class errordata
+        /// </summary>
+        public Errordata errordata { get; set; }
+    }
+
 }

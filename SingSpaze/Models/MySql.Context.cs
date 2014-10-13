@@ -25,7 +25,7 @@ namespace SingSpaze.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<access_rule> access_rule { get; set; }
+        public DbSet<accessrule> accessrule { get; set; }
         public DbSet<album> album { get; set; }
         public DbSet<artist> artist { get; set; }
         public DbSet<contactus> contactus { get; set; }
@@ -33,6 +33,7 @@ namespace SingSpaze.Models
         public DbSet<deviceinfo> deviceinfo { get; set; }
         public DbSet<genre> genre { get; set; }
         public DbSet<language> language { get; set; }
+        public DbSet<myrecord> myrecord { get; set; }
         public DbSet<playlist> playlist { get; set; }
         public DbSet<playlisttosong> playlisttosong { get; set; }
         public DbSet<publisherforartist> publisherforartist { get; set; }
@@ -45,5 +46,6 @@ namespace SingSpaze.Models
         public DbSet<user> user { get; set; }
         public DbSet<viewhistory> viewhistory { get; set; }
         public DbSet<wtbtokens> wtbtokens { get; set; }
+        public DbSet<accessruletocountrycode> accessruletocountrycode { get; set; }
     }
 }

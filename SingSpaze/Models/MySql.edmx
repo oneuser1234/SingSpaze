@@ -5,11 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="singspazeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityType Name="access_rule">
+        <EntityType Name="accessrule">
           <Key>
-            <PropertyRef Name="Access_Rule_id" />
+            <PropertyRef Name="rule_number" />
           </Key>
-          <Property Name="Access_Rule_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rule_number" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rule_description" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.singspaze.accessruletocountrycode' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="accessruletocountrycode">
+          <Key>
+            <PropertyRef Name="rule_number" />
+            <PropertyRef Name="allowed_countrycode" />
+          </Key>
+          <Property Name="rule_number" Type="bigint" Nullable="false" />
+          <Property Name="allowed_countrycode" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="album">
           <Key>
@@ -69,9 +80,9 @@
           <Property Name="Price" Type="varchar" MaxLength="10" />
           <Property Name="Copyright" Type="varchar" MaxLength="10" />
           <Property Name="Track Number" Type="varchar" MaxLength="10" />
-          <Property Name="URL iOS" Type="varchar" MaxLength="80" />
-          <Property Name="URL Android/Other" Type="varchar" MaxLength="62" />
-          <Property Name="URL RTMP" Type="varchar" MaxLength="66" />
+          <Property Name="URL iOS" Type="varchar" MaxLength="200" />
+          <Property Name="URL Android/Other" Type="varchar" MaxLength="200" />
+          <Property Name="URL RTMP" Type="varchar" MaxLength="200" />
           <Property Name="csv_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="deviceinfo">
@@ -96,6 +107,18 @@
           </Key>
           <Property Name="language_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="language_description" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="myrecord">
+          <Key>
+            <PropertyRef Name="myrecord_id" />
+          </Key>
+          <Property Name="myrecord_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="bigint" Nullable="false" />
+          <Property Name="song_id" Type="bigint" Nullable="false" />
+          <Property Name="myrecord_description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="myrecord_datetime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="myrecord_length" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="myrecord_uploadURL" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="playlist">
           <Key>
@@ -246,6 +269,30 @@
             </Principal>
             <Dependent Role="artist">
               <PropertyRef Name="artist_publisherforartistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="myrecord_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="myrecord" Type="Self.myrecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="myrecord">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="myrecord_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="myrecord" Type="Self.myrecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="myrecord">
+              <PropertyRef Name="song_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -430,7 +477,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="singspazeModelStoreContainer">
-          <EntitySet Name="access_rule" EntityType="Self.access_rule" Schema="singspaze" store:Type="Tables" />
+          <EntitySet Name="accessrule" EntityType="Self.accessrule" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="album" EntityType="Self.album" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="artist" EntityType="Self.artist" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="contactus" EntityType="Self.contactus" Schema="singspaze" store:Type="Tables" />
@@ -438,6 +485,7 @@
           <EntitySet Name="deviceinfo" EntityType="Self.deviceinfo" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="genre" EntityType="Self.genre" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="language" EntityType="Self.language" Schema="singspaze" store:Type="Tables" />
+          <EntitySet Name="myrecord" EntityType="Self.myrecord" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="playlist" EntityType="Self.playlist" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="playlisttosong" EntityType="Self.playlisttosong" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="publisherforartist" EntityType="Self.publisherforartist" Schema="singspaze" store:Type="Tables" />
@@ -450,9 +498,23 @@
           <EntitySet Name="user" EntityType="Self.user" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="viewhistory" EntityType="Self.viewhistory" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="wtbtokens" EntityType="Self.wtbtokens" Schema="singspaze" store:Type="Tables" />
+          <EntitySet Name="accessruletocountrycode" EntityType="Self.accessruletocountrycode" store:Type="Tables" store:Schema="singspaze">
+            <DefiningQuery>SELECT
+`accessruletocountrycode`.`rule_number`, 
+`accessruletocountrycode`.`allowed_countrycode`
+FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="artist_ibfk_1" Association="Self.artist_ibfk_1">
             <End Role="publisherforartist" EntitySet="publisherforartist" />
             <End Role="artist" EntitySet="artist" />
+          </AssociationSet>
+          <AssociationSet Name="myrecord_ibfk_1" Association="Self.myrecord_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="myrecord" EntitySet="myrecord" />
+          </AssociationSet>
+          <AssociationSet Name="myrecord_ibfk_2" Association="Self.myrecord_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="myrecord" EntitySet="myrecord" />
           </AssociationSet>
           <AssociationSet Name="playlist_ibfk_1" Association="Self.playlist_ibfk_1">
             <End Role="user" EntitySet="user" />
@@ -520,11 +582,12 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="singspazeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityType Name="access_rule">
+        <EntityType Name="accessrule">
           <Key>
-            <PropertyRef Name="Access_Rule_id" />
+            <PropertyRef Name="rule_number" />
           </Key>
-          <Property Name="Access_Rule_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rule_number" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rule_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="album">
           <Key>
@@ -588,9 +651,9 @@
           <Property Name="Price" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Copyright" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Track_Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="URL_iOS" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="URL_Android_Other" Type="String" MaxLength="62" FixedLength="false" Unicode="false" />
-          <Property Name="URL_RTMP" Type="String" MaxLength="66" FixedLength="false" Unicode="false" />
+          <Property Name="URL_iOS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="URL_Android_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="URL_RTMP" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="csv_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="deviceinfo">
@@ -617,6 +680,20 @@
           <Property Name="language_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="language_description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="song" Relationship="Self.song_ibfk_2" FromRole="language" ToRole="song" />
+        </EntityType>
+        <EntityType Name="myrecord">
+          <Key>
+            <PropertyRef Name="myrecord_id" />
+          </Key>
+          <Property Name="myrecord_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int64" Nullable="false" />
+          <Property Name="song_id" Type="Int64" Nullable="false" />
+          <Property Name="myrecord_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="myrecord_datetime" Type="DateTime" Nullable="false" />
+          <Property Name="myrecord_length" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="myrecord_uploadURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.myrecord_ibfk_1" FromRole="myrecord" ToRole="user" />
+          <NavigationProperty Name="song" Relationship="Self.myrecord_ibfk_2" FromRole="myrecord" ToRole="song" />
         </EntityType>
         <EntityType Name="playlist">
           <Key>
@@ -702,6 +779,7 @@
           <NavigationProperty Name="artist" Relationship="Self.song_ibfk_4" FromRole="song" ToRole="artist" />
           <NavigationProperty Name="genre" Relationship="Self.song_ibfk_1" FromRole="song" ToRole="genre" />
           <NavigationProperty Name="language" Relationship="Self.song_ibfk_2" FromRole="song" ToRole="language" />
+          <NavigationProperty Name="myrecord" Relationship="Self.myrecord_ibfk_2" FromRole="song" ToRole="myrecord" />
           <NavigationProperty Name="playlisttosong" Relationship="Self.playlisttosong_ibfk_2" FromRole="song" ToRole="playlisttosong" />
           <NavigationProperty Name="publisherforsong" Relationship="Self.song_ibfk_5" FromRole="song" ToRole="publisherforsong" />
           <NavigationProperty Name="singinghistory" Relationship="Self.singinghistory_ibfk_2" FromRole="song" ToRole="singinghistory" />
@@ -756,6 +834,7 @@
           <Property Name="user_token" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="user_retoken" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="APNS_token" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="myrecord" Relationship="Self.myrecord_ibfk_1" FromRole="user" ToRole="myrecord" />
           <NavigationProperty Name="playlist" Relationship="Self.playlist_ibfk_1" FromRole="user" ToRole="playlist" />
           <NavigationProperty Name="singinghistory" Relationship="Self.singinghistory_ibfk_1" FromRole="user" ToRole="singinghistory" />
           <NavigationProperty Name="songrequest" Relationship="Self.songrequest_ibfk_1" FromRole="user" ToRole="songrequest" />
@@ -783,6 +862,14 @@
           <Property Name="WTBTokens_ipaddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="WTBTokens_token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="user" Relationship="Self.wtbtokens_ibfk_1" FromRole="wtbtokens" ToRole="user" />
+        </EntityType>
+        <EntityType Name="accessruletocountrycode">
+          <Key>
+            <PropertyRef Name="rule_number" />
+            <PropertyRef Name="allowed_countrycode" />
+          </Key>
+          <Property Name="rule_number" Type="Int64" Nullable="false" />
+          <Property Name="allowed_countrycode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="song_ibfk_3">
           <End Role="album" Type="Self.album" Multiplicity="1" />
@@ -853,6 +940,30 @@
             </Principal>
             <Dependent Role="song">
               <PropertyRef Name="song_languageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="myrecord_ibfk_1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="myrecord" Type="Self.myrecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="myrecord">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="myrecord_ibfk_2">
+          <End Role="song" Type="Self.song" Multiplicity="1" />
+          <End Role="myrecord" Type="Self.myrecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="song">
+              <PropertyRef Name="song_id" />
+            </Principal>
+            <Dependent Role="myrecord">
+              <PropertyRef Name="song_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -977,7 +1088,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="singspazeEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="access_rule" EntityType="Self.access_rule" />
+          <EntitySet Name="accessrule" EntityType="Self.accessrule" />
           <EntitySet Name="album" EntityType="Self.album" />
           <EntitySet Name="artist" EntityType="Self.artist" />
           <EntitySet Name="contactus" EntityType="Self.contactus" />
@@ -985,6 +1096,7 @@
           <EntitySet Name="deviceinfo" EntityType="Self.deviceinfo" />
           <EntitySet Name="genre" EntityType="Self.genre" />
           <EntitySet Name="language" EntityType="Self.language" />
+          <EntitySet Name="myrecord" EntityType="Self.myrecord" />
           <EntitySet Name="playlist" EntityType="Self.playlist" />
           <EntitySet Name="playlisttosong" EntityType="Self.playlisttosong" />
           <EntitySet Name="publisherforartist" EntityType="Self.publisherforartist" />
@@ -997,6 +1109,7 @@
           <EntitySet Name="user" EntityType="Self.user" />
           <EntitySet Name="viewhistory" EntityType="Self.viewhistory" />
           <EntitySet Name="wtbtokens" EntityType="Self.wtbtokens" />
+          <EntitySet Name="accessruletocountrycode" EntityType="Self.accessruletocountrycode" />
           <AssociationSet Name="song_ibfk_3" Association="Self.song_ibfk_3">
             <End Role="album" EntitySet="album" />
             <End Role="song" EntitySet="song" />
@@ -1020,6 +1133,14 @@
           <AssociationSet Name="song_ibfk_2" Association="Self.song_ibfk_2">
             <End Role="language" EntitySet="language" />
             <End Role="song" EntitySet="song" />
+          </AssociationSet>
+          <AssociationSet Name="myrecord_ibfk_1" Association="Self.myrecord_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="myrecord" EntitySet="myrecord" />
+          </AssociationSet>
+          <AssociationSet Name="myrecord_ibfk_2" Association="Self.myrecord_ibfk_2">
+            <End Role="song" EntitySet="song" />
+            <End Role="myrecord" EntitySet="myrecord" />
           </AssociationSet>
           <AssociationSet Name="playlist_ibfk_1" Association="Self.playlist_ibfk_1">
             <End Role="user" EntitySet="user" />
@@ -1068,10 +1189,11 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="singspazeModelStoreContainer" CdmEntityContainer="singspazeEntities">
-          <EntitySetMapping Name="access_rule">
-            <EntityTypeMapping TypeName="singspazeModel.access_rule">
-              <MappingFragment StoreEntitySet="access_rule">
-                <ScalarProperty Name="Access_Rule_id" ColumnName="Access_Rule_id" />
+          <EntitySetMapping Name="accessrule">
+            <EntityTypeMapping TypeName="singspazeModel.accessrule">
+              <MappingFragment StoreEntitySet="accessrule">
+                <ScalarProperty Name="rule_number" ColumnName="rule_number" />
+                <ScalarProperty Name="rule_description" ColumnName="rule_description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1165,6 +1287,19 @@
               <MappingFragment StoreEntitySet="language">
                 <ScalarProperty Name="language_id" ColumnName="language_id" />
                 <ScalarProperty Name="language_description" ColumnName="language_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="myrecord">
+            <EntityTypeMapping TypeName="singspazeModel.myrecord">
+              <MappingFragment StoreEntitySet="myrecord">
+                <ScalarProperty Name="myrecord_id" ColumnName="myrecord_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="song_id" ColumnName="song_id" />
+                <ScalarProperty Name="myrecord_description" ColumnName="myrecord_description" />
+                <ScalarProperty Name="myrecord_datetime" ColumnName="myrecord_datetime" />
+                <ScalarProperty Name="myrecord_length" ColumnName="myrecord_length" />
+                <ScalarProperty Name="myrecord_uploadURL" ColumnName="myrecord_uploadURL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1317,6 +1452,14 @@
                 <ScalarProperty Name="WTBTokens_timestamp" ColumnName="WTBTokens_timestamp" />
                 <ScalarProperty Name="WTBTokens_ipaddress" ColumnName="WTBTokens_ipaddress" />
                 <ScalarProperty Name="WTBTokens_token" ColumnName="WTBTokens_token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="accessruletocountrycode">
+            <EntityTypeMapping TypeName="singspazeModel.accessruletocountrycode">
+              <MappingFragment StoreEntitySet="accessruletocountrycode">
+                <ScalarProperty Name="rule_number" ColumnName="rule_number" />
+                <ScalarProperty Name="allowed_countrycode" ColumnName="allowed_countrycode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

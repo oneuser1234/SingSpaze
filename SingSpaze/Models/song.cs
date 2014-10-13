@@ -16,6 +16,7 @@ namespace SingSpaze.Models
     {
         public song()
         {
+            this.myrecord = new HashSet<myrecord>();
             this.playlisttosong = new HashSet<playlisttosong>();
             this.singinghistory = new HashSet<singinghistory>();
             this.viewhistory = new HashSet<viewhistory>();
@@ -51,6 +52,7 @@ namespace SingSpaze.Models
         public virtual artist artist { get; set; }
         public virtual genre genre { get; set; }
         public virtual language language { get; set; }
+        public virtual ICollection<myrecord> myrecord { get; set; }
         public virtual ICollection<playlisttosong> playlisttosong { get; set; }
         public virtual publisherforsong publisherforsong { get; set; }
         public virtual ICollection<singinghistory> singinghistory { get; set; }

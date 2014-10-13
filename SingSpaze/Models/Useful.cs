@@ -142,7 +142,7 @@ namespace SingSpaze.Models
             return response;
         }
 
-        public static Songdata getsongdata(long id,int view = 0,string Token = null)
+        public static Songdata getsongdata(long id, string countrycode = "", int view = 0, string Token = null)
         {
             singspazeEntities db = new singspazeEntities();
             song datasong = db.song.Where(s => s.song_id == id).SingleOrDefault();
@@ -150,8 +150,18 @@ namespace SingSpaze.Models
                 return null;
 
             Songdata response = null;
+            //view
             if (view == 0)
                 view = Useful.getview(datasong.song_id);
+
+            //allowedcountry
+            Boolean allowedcountry = true;
+            if (countrycode != "")
+            {
+                accessruletocountrycode access = db.accessruletocountrycode.FirstOrDefault(a => a.rule_number == datasong.Song_accessRule && a.allowed_countrycode == countrycode);
+                if (access == null)
+                    allowedcountry = false;
+            }
 
             if (Token != null)
             {
@@ -186,9 +196,9 @@ namespace SingSpaze.Models
                     artistdata = Useful.getartistdata(datasong.song_artistId),
                     genredata = Useful.getgenredata(datasong.song_genre),
                     publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
-                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId),
 
-
+                    allowedcountry = allowedcountry
                 };
             }
             else
@@ -214,9 +224,9 @@ namespace SingSpaze.Models
                     artistdata = Useful.getartistdata(datasong.song_artistId),
                     genredata = Useful.getgenredata(datasong.song_genre),
                     publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
-                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId),
 
-
+                    allowedcountry = allowedcountry
                 };
             }
 
@@ -224,7 +234,7 @@ namespace SingSpaze.Models
 
         }
 
-        public static Songdata getsongdatanolyrics(long id, int view = 0, string Token = null)
+        public static Songdata getsongdatanolyrics(long id,string countrycode = "", int view = 0, string Token = null)
         {
             singspazeEntities db = new singspazeEntities();
             song datasong = db.song.Where(s => s.song_id == id).SingleOrDefault();
@@ -232,8 +242,18 @@ namespace SingSpaze.Models
                 return null;
 
             Songdata response = null;
+            //view
             if (view == 0)
                 view = Useful.getview(datasong.song_id);
+
+            //allowedcountry
+            Boolean allowedcountry = true;
+            if (countrycode != "")
+            {
+                accessruletocountrycode access = db.accessruletocountrycode.FirstOrDefault(a => a.rule_number == datasong.Song_accessRule && a.allowed_countrycode == countrycode);
+                if (access == null)
+                    allowedcountry = false;
+            }
 
             if (Token != null)
             {
@@ -268,9 +288,9 @@ namespace SingSpaze.Models
                     artistdata = Useful.getartistdata(datasong.song_artistId),
                     genredata = Useful.getgenredata(datasong.song_genre),
                     publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
-                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId),
 
-
+                    allowedcountry = allowedcountry
                 };
             }
             else
@@ -296,9 +316,9 @@ namespace SingSpaze.Models
                     artistdata = Useful.getartistdata(datasong.song_artistId),
                     genredata = Useful.getgenredata(datasong.song_genre),
                     publisherdata = Useful.getpublishersongdata(datasong.publisherforsong_id),
-                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId)
+                    //contentpartnerdata = Useful.getcontentpartnerdata(datasong.song_contentPartnerId),
 
-
+                    allowedcountry = allowedcountry
                 };
             }
 
@@ -439,6 +459,7 @@ namespace SingSpaze.Models
                          on view.Song_Id equals song.song_id
                          join artist in db.artist
                          on song.song_artistId equals artist.artist_id
+                         where artist.artist_id == id
                          select artist).Count();
             return counts;
         }
@@ -738,7 +759,11 @@ namespace SingSpaze.Models
         /// Class Publisherdata
         /// </summary>
         public Publisherdata publisherdata { get; set; }
-
+        /// <summary>
+        /// Allowed country
+        /// </summary>
+        public Boolean allowedcountry { get; set; }
+         
     }
 
    
@@ -933,7 +958,7 @@ namespace SingSpaze.Models
     }
 
     /// <summary>
-    /// Class data song (ex.id,originName,Url)
+    /// Class data historysong (ex.id,originName,Url)
     /// </summary>
     public class Singhistorydata
     {
@@ -947,6 +972,38 @@ namespace SingSpaze.Models
         /// </summary>
         public DateTime singtime { get; set; }
         
+    }
+
+    /// <summary>
+    /// Class data record (ex.id,url)
+    /// </summary>
+    public class Recorddata
+    {
+        /// <summary>
+        /// Id
+        /// </summary>
+        public long id { get; set; }
+        /// <summary>
+        /// Class songdata
+        /// </summary>
+        public Songdata songdata { get; set; }
+        /// <summary>
+        /// Description
+        /// </summary>
+        public string description { get; set; }
+        /// <summary>
+        /// Sing datetime
+        /// </summary>
+        public DateTime recordtime { get; set; }
+        /// <summary>
+        /// Length
+        /// </summary>
+        public string length { get; set; }
+        /// <summary>
+        /// URL
+        /// </summary>
+        public string url { get; set; }
+
     }
 
 }
