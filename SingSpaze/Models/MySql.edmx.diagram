@@ -4,13 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="687d5f8758ba4faaa888b657e3321c61" Name="Diagram1">
+      <Diagram DiagramId="d6a90649a0754128a1f2e55db5b9c82a" Name="Diagram1">
         <EntityTypeShape EntityType="singspazeModel.accessrule" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.accessruletocountrycode" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.album" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.artist" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.contactus" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.contactus" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.csv" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.deviceinfo" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.deviceinfo" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.genre" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.language" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.myrecord" Width="1.5" PointX="10.5" PointY="6" IsExpanded="true" />
@@ -20,13 +21,12 @@
         <EntityTypeShape EntityType="singspazeModel.publisherforsong" Width="1.5" PointX="6" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.singinghistory" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.song" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.songrequest" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.splashpage" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.songrequest" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.splashpage" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.status" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.user" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="singspazeModel.viewhistory" Width="1.5" PointX="13.5" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.wtbtokens" Width="1.5" PointX="5.25" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="singspazeModel.accessruletocountrycode" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="singspazeModel.wtbtokens" Width="1.5" PointX="5.25" PointY="19.875" IsExpanded="true" />
         <AssociationConnector Association="singspazeModel.song_ibfk_3" ManuallyRouted="false" />
         <AssociationConnector Association="singspazeModel.artist_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="singspazeModel.singinghistory_ibfk_3" ManuallyRouted="false" />

@@ -13,6 +13,11 @@ namespace SingSpaze.Models.Input
     public class I_ArtistList
     {
         /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+        /// <summary>
         /// Data for order allow "hot" (Default = Name)
         /// </summary>
         [DataMember(Name = "type")]
@@ -50,6 +55,12 @@ namespace SingSpaze.Models.Input
     public class I_ArtistDetails
     {
         /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+
+        /// <summary>
         /// Artist Id
         /// </summary>
         [DataMember(Name = "id")]
@@ -64,6 +75,11 @@ namespace SingSpaze.Models.Input
     [DataContract]
     public class I_SearchArtist
     {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
         /// <summary>
         /// Keyword data (default = null)
         /// </summary>
@@ -90,6 +106,12 @@ namespace SingSpaze.Models.Input
     [DataContract]
     public class I_SearchArtist_v2
     {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+
         /// <summary>
         /// Keyword data (default = null)
         /// </summary>

@@ -27,15 +27,20 @@ namespace SingSpaze.Controllers.API
         [ActionName("List")]
         public O_ArtistList List(I_ArtistList i_data)
         {
+            //if (Useful.checklogin(i_data.logindata) != null)
+            //{
+            //    return new O_ArtistList()
+            //    {
+            //        errordata = Useful.checklogin(i_data.logindata)
+            //    };
+            //}
+            Useful.checklogin(i_data.logindata);
+
             if (i_data == null)
             {
                 return new O_ArtistList()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -96,11 +101,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_ArtistList()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 6,
-                        Detail = Useful.geterrordata(6)
-                    }
+                    errordata = Useful.geterror(6)
                 };
             }
 
@@ -144,15 +145,20 @@ namespace SingSpaze.Controllers.API
         [ActionName("Details")]
         public O_ArtistDetails Details(I_ArtistDetails i_data)
         {
+            //if (Useful.checklogin(i_data.logindata) != null)
+            //{
+            //    return new O_ArtistDetails()
+            //    {
+            //        errordata = Useful.checklogin(i_data.logindata)
+            //    };
+            //}
+            Useful.checklogin(i_data.logindata);
+
             if (i_data == null)
             {
                 return new O_ArtistDetails()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -162,11 +168,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_ArtistDetails()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 6,
-                        Detail = Useful.geterrordata(6)
-                    }
+                    errordata = Useful.geterror(6)
                 };
             }
 
@@ -186,15 +188,20 @@ namespace SingSpaze.Controllers.API
         [ActionName("SearchArtist")]
         public O_SearchArtist SearchArtist(I_SearchArtist i_data)
         {
+            //if (Useful.checklogin(i_data.logindata) != null)
+            //{
+            //    return new O_SearchArtist()
+            //    {
+            //        errordata = Useful.checklogin(i_data.logindata)
+            //    };
+            //}
+            Useful.checklogin(i_data.logindata);
+
             if (i_data == null)
             {
                 return new O_SearchArtist()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -219,11 +226,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_SearchArtist()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 6,
-                        Detail = Useful.geterrordata(6)
-                    }
+                    errordata = Useful.geterror(6)
                 };
             }
 
@@ -262,15 +265,21 @@ namespace SingSpaze.Controllers.API
         [ActionName("SearchArtist_v2")]
         public O_SearchArtist SearchArtist_v2(I_SearchArtist_v2 i_data)
         {
+            //if (Useful.checklogin(i_data.logindata) != null)
+            //{
+            //    return new O_SearchArtist()
+            //    {
+            //        errordata = Useful.checklogin(i_data.logindata)
+            //    };
+            //}
+
+            Useful.checklogin(i_data.logindata);
+
             if (i_data == null)
             {
                 return new O_SearchArtist()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -392,11 +401,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_SearchArtist()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 6,
-                        Detail = Useful.geterrordata(6)
-                    }
+                    errordata = Useful.geterror(6)
                 };
             }
 

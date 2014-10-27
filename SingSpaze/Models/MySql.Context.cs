@@ -26,6 +26,7 @@ namespace SingSpaze.Models
         }
     
         public DbSet<accessrule> accessrule { get; set; }
+        public DbSet<accessruletocountrycode> accessruletocountrycode { get; set; }
         public DbSet<album> album { get; set; }
         public DbSet<artist> artist { get; set; }
         public DbSet<contactus> contactus { get; set; }
@@ -46,6 +47,5 @@ namespace SingSpaze.Models
         public DbSet<user> user { get; set; }
         public DbSet<viewhistory> viewhistory { get; set; }
         public DbSet<wtbtokens> wtbtokens { get; set; }
-        public DbSet<accessruletocountrycode> accessruletocountrycode { get; set; }
     }
 }

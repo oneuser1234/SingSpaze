@@ -34,13 +34,14 @@ namespace SingSpaze.Models
         public string user_login { get; set; }
         public string user_password { get; set; }
         public string user_email { get; set; }
-        public Nullable<System.DateTime> user_createdDatetime { get; set; }
+        public System.DateTime user_createdDatetime { get; set; }
         public Nullable<System.DateTime> user_modifiedDatetime { get; set; }
         public Nullable<System.DateTime> user_lastlogin { get; set; }
         public string user_avartar { get; set; }
         public string user_token { get; set; }
         public string user_retoken { get; set; }
         public string APNS_token { get; set; }
+        public System.DateTime user_LastActivity { get; set; }
     
         public virtual ICollection<myrecord> myrecord { get; set; }
         public virtual ICollection<playlist> playlist { get; set; }

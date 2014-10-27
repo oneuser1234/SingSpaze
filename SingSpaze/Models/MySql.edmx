@@ -7,19 +7,17 @@
       <Schema Namespace="singspazeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="accessrule">
           <Key>
-            <PropertyRef Name="rule_number" />
+            <PropertyRef Name="accessrule_id" />
           </Key>
-          <Property Name="rule_number" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="rule_description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="accessrule_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accessrule_description" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'def.singspaze.accessruletocountrycode' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="accessruletocountrycode">
           <Key>
-            <PropertyRef Name="rule_number" />
-            <PropertyRef Name="allowed_countrycode" />
+            <PropertyRef Name="accessruletocountrycode_id" />
           </Key>
-          <Property Name="rule_number" Type="bigint" Nullable="false" />
+          <Property Name="accessruletocountrycode_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accessrule_id" Type="bigint" Nullable="false" />
           <Property Name="allowed_countrycode" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="album">
@@ -233,13 +231,14 @@ warning 6002: The table/view 'def.singspaze.accessruletocountrycode' does not ha
           <Property Name="user_login" Type="varchar" MaxLength="255" />
           <Property Name="user_password" Type="varchar" MaxLength="255" />
           <Property Name="user_email" Type="varchar" MaxLength="255" />
-          <Property Name="user_createdDatetime" Type="datetime" Precision="0" />
+          <Property Name="user_createdDatetime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="user_modifiedDatetime" Type="datetime" Precision="0" />
           <Property Name="user_lastlogin" Type="datetime" Precision="0" />
           <Property Name="user_avartar" Type="varchar" MaxLength="255" />
           <Property Name="user_token" Type="varchar" MaxLength="200" />
           <Property Name="user_retoken" Type="varchar" MaxLength="200" />
           <Property Name="APNS_token" Type="varchar" MaxLength="100" />
+          <Property Name="user_LastActivity" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="viewhistory">
           <Key>
@@ -478,6 +477,7 @@ warning 6002: The table/view 'def.singspaze.accessruletocountrycode' does not ha
         </Association>
         <EntityContainer Name="singspazeModelStoreContainer">
           <EntitySet Name="accessrule" EntityType="Self.accessrule" Schema="singspaze" store:Type="Tables" />
+          <EntitySet Name="accessruletocountrycode" EntityType="Self.accessruletocountrycode" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="album" EntityType="Self.album" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="artist" EntityType="Self.artist" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="contactus" EntityType="Self.contactus" Schema="singspaze" store:Type="Tables" />
@@ -498,12 +498,6 @@ warning 6002: The table/view 'def.singspaze.accessruletocountrycode' does not ha
           <EntitySet Name="user" EntityType="Self.user" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="viewhistory" EntityType="Self.viewhistory" Schema="singspaze" store:Type="Tables" />
           <EntitySet Name="wtbtokens" EntityType="Self.wtbtokens" Schema="singspaze" store:Type="Tables" />
-          <EntitySet Name="accessruletocountrycode" EntityType="Self.accessruletocountrycode" store:Type="Tables" store:Schema="singspaze">
-            <DefiningQuery>SELECT
-`accessruletocountrycode`.`rule_number`, 
-`accessruletocountrycode`.`allowed_countrycode`
-FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="artist_ibfk_1" Association="Self.artist_ibfk_1">
             <End Role="publisherforartist" EntitySet="publisherforartist" />
             <End Role="artist" EntitySet="artist" />
@@ -584,10 +578,18 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
       <Schema Namespace="singspazeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityType Name="accessrule">
           <Key>
-            <PropertyRef Name="rule_number" />
+            <PropertyRef Name="accessrule_id" />
           </Key>
-          <Property Name="rule_number" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="rule_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accessrule_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accessrule_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="accessruletocountrycode">
+          <Key>
+            <PropertyRef Name="accessruletocountrycode_id" />
+          </Key>
+          <Property Name="accessruletocountrycode_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accessrule_id" Type="Int64" Nullable="false" />
+          <Property Name="allowed_countrycode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="album">
           <Key>
@@ -827,13 +829,14 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
           <Property Name="user_login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="user_createdDatetime" Type="DateTime" />
+          <Property Name="user_createdDatetime" Type="DateTime" Nullable="false" />
           <Property Name="user_modifiedDatetime" Type="DateTime" />
           <Property Name="user_lastlogin" Type="DateTime" />
           <Property Name="user_avartar" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_token" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="user_retoken" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="APNS_token" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_LastActivity" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="myrecord" Relationship="Self.myrecord_ibfk_1" FromRole="user" ToRole="myrecord" />
           <NavigationProperty Name="playlist" Relationship="Self.playlist_ibfk_1" FromRole="user" ToRole="playlist" />
           <NavigationProperty Name="singinghistory" Relationship="Self.singinghistory_ibfk_1" FromRole="user" ToRole="singinghistory" />
@@ -862,14 +865,6 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
           <Property Name="WTBTokens_ipaddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="WTBTokens_token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="user" Relationship="Self.wtbtokens_ibfk_1" FromRole="wtbtokens" ToRole="user" />
-        </EntityType>
-        <EntityType Name="accessruletocountrycode">
-          <Key>
-            <PropertyRef Name="rule_number" />
-            <PropertyRef Name="allowed_countrycode" />
-          </Key>
-          <Property Name="rule_number" Type="Int64" Nullable="false" />
-          <Property Name="allowed_countrycode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="song_ibfk_3">
           <End Role="album" Type="Self.album" Multiplicity="1" />
@@ -1089,6 +1084,7 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
         </Association>
         <EntityContainer Name="singspazeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="accessrule" EntityType="Self.accessrule" />
+          <EntitySet Name="accessruletocountrycode" EntityType="Self.accessruletocountrycode" />
           <EntitySet Name="album" EntityType="Self.album" />
           <EntitySet Name="artist" EntityType="Self.artist" />
           <EntitySet Name="contactus" EntityType="Self.contactus" />
@@ -1109,7 +1105,6 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
           <EntitySet Name="user" EntityType="Self.user" />
           <EntitySet Name="viewhistory" EntityType="Self.viewhistory" />
           <EntitySet Name="wtbtokens" EntityType="Self.wtbtokens" />
-          <EntitySet Name="accessruletocountrycode" EntityType="Self.accessruletocountrycode" />
           <AssociationSet Name="song_ibfk_3" Association="Self.song_ibfk_3">
             <End Role="album" EntitySet="album" />
             <End Role="song" EntitySet="song" />
@@ -1192,8 +1187,17 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
           <EntitySetMapping Name="accessrule">
             <EntityTypeMapping TypeName="singspazeModel.accessrule">
               <MappingFragment StoreEntitySet="accessrule">
-                <ScalarProperty Name="rule_number" ColumnName="rule_number" />
-                <ScalarProperty Name="rule_description" ColumnName="rule_description" />
+                <ScalarProperty Name="accessrule_id" ColumnName="accessrule_id" />
+                <ScalarProperty Name="accessrule_description" ColumnName="accessrule_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="accessruletocountrycode">
+            <EntityTypeMapping TypeName="singspazeModel.accessruletocountrycode">
+              <MappingFragment StoreEntitySet="accessruletocountrycode">
+                <ScalarProperty Name="accessruletocountrycode_id" ColumnName="accessruletocountrycode_id" />
+                <ScalarProperty Name="accessrule_id" ColumnName="accessrule_id" />
+                <ScalarProperty Name="allowed_countrycode" ColumnName="allowed_countrycode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1431,6 +1435,7 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
                 <ScalarProperty Name="user_token" ColumnName="user_token" />
                 <ScalarProperty Name="user_retoken" ColumnName="user_retoken" />
                 <ScalarProperty Name="APNS_token" ColumnName="APNS_token" />
+                <ScalarProperty Name="user_LastActivity" ColumnName="user_LastActivity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1452,14 +1457,6 @@ FROM `accessruletocountrycode` AS `accessruletocountrycode`</DefiningQuery>
                 <ScalarProperty Name="WTBTokens_timestamp" ColumnName="WTBTokens_timestamp" />
                 <ScalarProperty Name="WTBTokens_ipaddress" ColumnName="WTBTokens_ipaddress" />
                 <ScalarProperty Name="WTBTokens_token" ColumnName="WTBTokens_token" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="accessruletocountrycode">
-            <EntityTypeMapping TypeName="singspazeModel.accessruletocountrycode">
-              <MappingFragment StoreEntitySet="accessruletocountrycode">
-                <ScalarProperty Name="rule_number" ColumnName="rule_number" />
-                <ScalarProperty Name="allowed_countrycode" ColumnName="allowed_countrycode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

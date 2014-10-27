@@ -14,7 +14,8 @@ namespace SingSpaze.Models
     
     public partial class accessruletocountrycode
     {
-        public long rule_number { get; set; }
+        public long accessruletocountrycode_id { get; set; }
+        public long accessrule_id { get; set; }
         public string allowed_countrycode { get; set; }
     }
 }

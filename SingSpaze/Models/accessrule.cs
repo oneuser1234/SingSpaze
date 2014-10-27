@@ -14,7 +14,7 @@ namespace SingSpaze.Models
     
     public partial class accessrule
     {
-        public long rule_number { get; set; }
-        public string rule_description { get; set; }
+        public long accessrule_id { get; set; }
+        public string accessrule_description { get; set; }
     }
 }

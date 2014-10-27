@@ -13,6 +13,12 @@ namespace SingSpaze.Models.Input
     public class I_SongList
     {
         /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+
+        /// <summary>
         /// Type of order this list allow "new,hot" (default = null)
         /// </summary>
         [DataMember(Name = "type")]
@@ -91,6 +97,11 @@ namespace SingSpaze.Models.Input
     public class I_SearchSong
     {
         /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
+        /// <summary>
         /// Keyword data (default = null)
         /// </summary>
         [DataMember(Name = "keyword")]
@@ -156,6 +167,11 @@ namespace SingSpaze.Models.Input
     [DataContract]
     public class I_SearchSong_v2
     {
+        /// <summary>
+        /// Class logindata
+        /// </summary>
+        [DataMember(Name = "logindata")]
+        public Logindata logindata { get; set; }
         /// <summary>
         /// Keyword data (default = null)
         /// </summary>

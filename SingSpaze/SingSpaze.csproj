@@ -193,6 +193,7 @@
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\ArtistController.cs" />
     <Compile Include="Controllers\API\PlaylistController.cs" />
+    <Compile Include="Controllers\API\RecordingController.cs" />
     <Compile Include="Controllers\API\SongController.cs" />
     <Compile Include="Controllers\API\UtilityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

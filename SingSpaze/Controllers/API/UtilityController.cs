@@ -158,11 +158,7 @@ namespace SingSpaze.Controllers.API
                 return new O_ContactUs()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 

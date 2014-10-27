@@ -49,6 +49,8 @@ namespace SingSpaze.Models
                 response = "your account was multiple login";
             else if (code_id == 16)
                 response = "cannot not use this facebook ID";
+            else if (code_id == 17)
+                response = "server busy";
 
             return response;
 
@@ -104,22 +106,33 @@ namespace SingSpaze.Models
 
         public static Errordata checklogin(Logindata logindata)
         {
+            //no data
             if (logindata == null || string.IsNullOrEmpty(logindata.token))
-                return new Errordata()
-                           {
-                               code = 5,
-                               Detail = Useful.geterrordata(5)
-                           };
+                return geterror(5);
 
-            if (getuserid(logindata.token) != 0)
+            //check 1000 => same hour same day same year
+            singspazeEntities db = new singspazeEntities();
+            long curactivity = db.user.Where(u => u.user_LastActivity.Hour == DateTime.Now.Hour && u.user_LastActivity.Day == DateTime.Now.Day && u.user_LastActivity.Year == DateTime.Now.Year).Count();
+            if (curactivity > 1000)
+                return geterror(17);
+
+            long user_id = getuserid(logindata.token);
+            if (user_id != 0)
+            {
+                updateactivity(user_id);
                 return null;
+            }
             else
-                return new Errordata()
-                {
-                    code = 15,
-                    Detail = Useful.geterrordata(15)
-                }; ;
+                return geterror(15);
 
+        }
+
+        public static void updateactivity(long user_id)
+        {
+            singspazeEntities db = new singspazeEntities();
+            user userdata = db.user.FirstOrDefault(u => u.user_id == user_id);
+            userdata.user_LastActivity = DateTime.Now;
+            db.SaveChanges();
         }
 
         public static Selectdata getbaseselectdata()
@@ -156,9 +169,9 @@ namespace SingSpaze.Models
 
             //allowedcountry
             Boolean allowedcountry = true;
-            if (countrycode != "")
+            if (countrycode != "" && datasong.Song_accessRule != 0)
             {
-                accessruletocountrycode access = db.accessruletocountrycode.FirstOrDefault(a => a.rule_number == datasong.Song_accessRule && a.allowed_countrycode == countrycode);
+                accessruletocountrycode access = db.accessruletocountrycode.FirstOrDefault(a => a.accessrule_id == datasong.Song_accessRule && a.allowed_countrycode == countrycode);
                 if (access == null)
                     allowedcountry = false;
             }
@@ -248,9 +261,9 @@ namespace SingSpaze.Models
 
             //allowedcountry
             Boolean allowedcountry = true;
-            if (countrycode != "")
+            if (countrycode != "" && datasong.Song_accessRule != 0)
             {
-                accessruletocountrycode access = db.accessruletocountrycode.FirstOrDefault(a => a.rule_number == datasong.Song_accessRule && a.allowed_countrycode == countrycode);
+                accessruletocountrycode access = db.accessruletocountrycode.FirstOrDefault(a => a.accessrule_id == datasong.Song_accessRule && a.allowed_countrycode == countrycode);
                 if (access == null)
                     allowedcountry = false;
             }
@@ -570,6 +583,12 @@ namespace SingSpaze.Models
         /// Url avatar file
         /// </summary>
         public string avatar { get; set; }
+
+        /// <summary>
+        /// Register date
+        /// </summary>
+        public DateTime registerdate { get; set; }
+         
     }    
     /// <summary>
     /// Class data platlist (ex.id,description)

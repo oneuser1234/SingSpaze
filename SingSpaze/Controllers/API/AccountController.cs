@@ -313,11 +313,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_FBLogin()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 3,
-                        Detail = Useful.geterrordata(3)
-                    }
+                    errordata = Useful.geterror(3)
                 };
             
             }
@@ -362,6 +358,7 @@ namespace SingSpaze.Controllers.API
                 datauser.user_lastlogin = DateTime.Now;
                 datauser.user_token = Token;
                 datauser.APNS_token = i_data.Device_ID;
+                datauser.user_LastActivity = DateTime.Now;
                 db.SaveChanges();
                 return new O_FBLogin()
                 {
@@ -415,7 +412,8 @@ namespace SingSpaze.Controllers.API
                         firstname = userdata.user_firstname,
                         lastname = userdata.user_lastname,
                         username = userdata.user_login,
-                        avatar = userdata.user_avartar
+                        avatar = userdata.user_avartar,
+                        registerdate = userdata.user_createdDatetime
                     }
                 };
             }
@@ -439,33 +437,35 @@ namespace SingSpaze.Controllers.API
                 };
             }
 
-            Boolean errorinput = false;
+
+            //Boolean errorinput = false;
             if(i_data == null)
-                errorinput = true;
-
-            if(string.IsNullOrEmpty(i_data.Email) || string.IsNullOrEmpty(i_data.Firstname) || string.IsNullOrEmpty(i_data.Lastname) )
-                errorinput = true;
-            if(!string.IsNullOrEmpty(i_data.newPassword) && string.IsNullOrEmpty(i_data.oldPassword) ) // when change password
-                errorinput = true;
-
-            if(errorinput)
+            return new O_EditProfile()
             {
-                return new O_EditProfile()
-                {
-                    result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 9,
-                        Detail = Useful.geterrordata(9)
-                    }
-                };
+                   result = false,
+                   errordata = Useful.geterror(9)
+            };
 
-            }
+            //if(string.IsNullOrEmpty(i_data.Email) || string.IsNullOrEmpty(i_data.Firstname) || string.IsNullOrEmpty(i_data.Lastname) )
+            //    errorinput = true;
+            //if(!string.IsNullOrEmpty(i_data.newPassword) && string.IsNullOrEmpty(i_data.oldPassword) ) // when change password
+            //    errorinput = true;
 
+            //if(errorinput)
+            //{
+            //    return new O_EditProfile()
+            //    {
+            //        result = false,
+            //        errordata = Useful.geterror(9)
+            //    };
+
+            //}
+
+                
                 user edituser = db.user.SingleOrDefault(u => u.user_token == i_data.logindata.token);
                 if(edituser != null)
                 {
-
+                    //facebook
                     if (edituser.user_fbUserId != "0") //facebook
                     {
                         return new O_EditProfile()
@@ -475,30 +475,47 @@ namespace SingSpaze.Controllers.API
                         };
                     }
 
-                    user checkuser = db.user.FirstOrDefault(u => u.user_email == i_data.Email);
-                    if (checkuser != null)
+                    //change mail
+                    if (!string.IsNullOrEmpty(i_data.Email))
                     {
-                        return new O_EditProfile()
+                        user checkuser = db.user.FirstOrDefault(u => u.user_email == i_data.Email);
+                        if (checkuser != null)
                         {
-                            result = false,
-                            errordata = Useful.geterror(2)
-                        };
+                            return new O_EditProfile()
+                            {
+                                result = false,
+                                errordata = Useful.geterror(2)
+                            };
 
+                        }
+                        else
+                        {
+                            edituser.user_email = i_data.Email;
+                        }
                     }
 
-                    if (edituser.user_password != i_data.oldPassword)
+                    //check pass
+                    if (!string.IsNullOrEmpty(i_data.newPassword) && !string.IsNullOrEmpty(i_data.oldPassword))
                     {
-                        return new O_EditProfile()
+                        if (edituser.user_password != i_data.oldPassword)
                         {
-                            result = false,
-                            errordata = Useful.geterror(7)
-                        };
+                            return new O_EditProfile()
+                            {
+                                result = false,
+                                errordata = Useful.geterror(7)
+                            };
+                        }
+                        else
+                        {
+                            edituser.user_password = i_data.newPassword;
+                        }
                     }
 
-                    edituser.user_firstname = i_data.Firstname;
-                    edituser.user_lastname = i_data.Lastname;
-                    edituser.user_password = i_data.newPassword;
-                    edituser.user_email = i_data.Email;
+                    if (!string.IsNullOrEmpty(i_data.Firstname))
+                        edituser.user_firstname = i_data.Firstname;
+                    if (!string.IsNullOrEmpty(i_data.Lastname))
+                        edituser.user_lastname = i_data.Lastname;                    
+                    
                     edituser.user_modifiedDatetime = DateTime.Now;
 
                     db.SaveChanges();
@@ -538,11 +555,7 @@ namespace SingSpaze.Controllers.API
                 return new O_Forgot()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 6,
-                        Detail = Useful.geterrordata(6)
-                    }
+                    errordata = Useful.geterror(6)
                 };
             }
 
@@ -551,17 +564,14 @@ namespace SingSpaze.Controllers.API
                 return new O_Forgot()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 13,
-                        Detail = Useful.geterrordata(13)
-                    }
+                    errordata = Useful.geterror(13)
                 };
             }
 
             /// time + reset md5
             string Retoken = Useful.GetMd5Hash(MD5.Create(), DateTime.Now.ToString()  + "reset");
             userdata.user_retoken = Retoken;
+            userdata.user_LastActivity = DateTime.Now;
 
             //mail server
             var smtpClient = new SmtpClient("Singspaze.com")
@@ -626,11 +636,7 @@ namespace SingSpaze.Controllers.API
                 return new O_Reset()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -641,6 +647,7 @@ namespace SingSpaze.Controllers.API
 
                 edituser.user_password = i_data.newpassword;
                 edituser.user_retoken = null;
+                edituser.user_LastActivity = DateTime.Now;
 
                 //mail server
                 var smtpClient = new SmtpClient("Singspaze.com")
@@ -691,11 +698,7 @@ namespace SingSpaze.Controllers.API
                 return new O_Reset()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 14,
-                        Detail = Useful.geterrordata(14)
-                    }
+                    errordata = Useful.geterror(14)
                 };
             }
             
@@ -718,11 +721,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_Upload()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -751,11 +750,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_Upload()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 6,
-                        Detail = Useful.geterrordata(6)
-                    }
+                    errordata = Useful.geterror(6)
                 };
             }
 
@@ -786,11 +781,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_Upload()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
             

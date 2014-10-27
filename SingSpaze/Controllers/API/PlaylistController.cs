@@ -87,11 +87,7 @@ namespace SingSpaze.Controllers.API
             {
                 return new O_GetSonginPlaylist()
                 {
-                    errordata = new Errordata()
-                    {
-                        code = 6,
-                        Detail = Useful.geterrordata(6)
-                    }
+                    errordata = Useful.geterror(6)
                 };
             }
 
@@ -157,11 +153,7 @@ namespace SingSpaze.Controllers.API
                 return new O_AddNewPlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -206,11 +198,7 @@ namespace SingSpaze.Controllers.API
                 return new O_RemovePlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -240,11 +228,7 @@ namespace SingSpaze.Controllers.API
                 return new O_RemovePlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 10,
-                        Detail = Useful.geterrordata(10)
-                    }
+                    errordata = Useful.geterror(10)
                 };
             }
 
@@ -269,11 +253,7 @@ namespace SingSpaze.Controllers.API
                 return new O_AddSongtoPlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -294,11 +274,7 @@ namespace SingSpaze.Controllers.API
                 return new O_AddSongtoPlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 12,
-                        Detail = Useful.geterrordata(12)
-                    }
+                    errordata = Useful.geterror(12)
                 };
             }
 
@@ -325,11 +301,7 @@ namespace SingSpaze.Controllers.API
                 return new O_AddSongtoPlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 10,
-                        Detail = Useful.geterrordata(10)
-                    }
+                    errordata = Useful.geterror(10)
                 };
             }
 
@@ -354,11 +326,7 @@ namespace SingSpaze.Controllers.API
                 return new O_UpdatePlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 11,
-                        Detail = Useful.geterrordata(11)
-                    }
+                    errordata = Useful.geterror(11)
                 };
             }
 
@@ -417,11 +385,7 @@ namespace SingSpaze.Controllers.API
                 return new O_UpdatePlaylist()
                 {
                     result = false,
-                    errordata = new Errordata()
-                    {
-                        code = 10,
-                        Detail = Useful.geterrordata(10)
-                    }
+                    errordata = Useful.geterror(10)
                 };
             }
 
