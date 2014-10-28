@@ -494,9 +494,31 @@ namespace SingSpaze.Controllers.API
                         }
                     }
 
+                    //have old no new
+                    if (string.IsNullOrEmpty(i_data.newPassword) && !string.IsNullOrEmpty(i_data.oldPassword))
+                    {
+                        return new O_EditProfile()
+                        {
+                            result = false,
+                            errordata = Useful.geterror(14)
+                        };
+                    }
+
+                    //have new no old
+                    if (!string.IsNullOrEmpty(i_data.newPassword) && string.IsNullOrEmpty(i_data.oldPassword))
+                    {
+                        return new O_EditProfile()
+                        {
+                            result = false,
+                            errordata = Useful.geterror(14)
+                        };
+                    }
+
                     //check pass
                     if (!string.IsNullOrEmpty(i_data.newPassword) && !string.IsNullOrEmpty(i_data.oldPassword))
                     {
+
+
                         if (edituser.user_password != i_data.oldPassword)
                         {
                             return new O_EditProfile()
