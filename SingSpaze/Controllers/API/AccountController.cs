@@ -69,7 +69,9 @@ namespace SingSpaze.Controllers.API
                     };
                 }
                 /// end
-                
+
+                //Encrypt
+                i_data.Password = Useful.GetMd5Hash(MD5.Create(), i_data.Password + "password");
                 user userdata = new user()
                 {
                     user_fbUserId = "0",
@@ -269,6 +271,8 @@ namespace SingSpaze.Controllers.API
             //if (string.IsNullOrEmpty(i_data.Username) || string.IsNullOrEmpty(i_data.Password))
             //        errorinput = true;
 
+            //Encrypt
+            i_data.password = Useful.GetMd5Hash(MD5.Create(),i_data.password + "password");
             datauser = db.user.FirstOrDefault(u => u.user_email == i_data.email && u.user_password == i_data.password && u.user_fbUserId == "0");
             
           
