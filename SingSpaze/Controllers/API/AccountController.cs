@@ -521,8 +521,8 @@ namespace SingSpaze.Controllers.API
                     //check pass
                     if (!string.IsNullOrEmpty(i_data.newPassword) && !string.IsNullOrEmpty(i_data.oldPassword))
                     {
-
-
+                        //encrypt
+                        i_data.oldPassword = Useful.GetMd5Hash(MD5.Create(), i_data.oldPassword + "password");
                         if (edituser.user_password != i_data.oldPassword)
                         {
                             return new O_EditProfile()
