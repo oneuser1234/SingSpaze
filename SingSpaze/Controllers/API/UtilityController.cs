@@ -277,7 +277,7 @@ namespace SingSpaze.Controllers.API
             //for (int i = 0; i < tab.Count; i++)
             foreach (deviceinfo data in devicedata)
             {
-                data.deviceInfo_deviceToken = "ec0da716e10dcb74804645cef14788faa655e7f8cea875702faf4d8888e3c703";
+                //data.deviceInfo_deviceToken = "ec0da716e10dcb74804645cef14788faa655e7f8cea875702faf4d8888e3c703";
                 string message = i_data.message;
                 var payload = new NotificationPayload(data.deviceInfo_deviceToken.ToString(), message, 1, "default");
 
