@@ -483,7 +483,7 @@ namespace SingSpaze.Controllers.API
                     if (!string.IsNullOrEmpty(i_data.Email))
                     {
                         user checkuser = db.user.FirstOrDefault(u => u.user_email == i_data.Email);
-                        if (checkuser != null)
+                        if (checkuser != null && i_data.Email != edituser.user_email)
                         {
                             return new O_EditProfile()
                             {
@@ -533,6 +533,7 @@ namespace SingSpaze.Controllers.API
                         }
                         else
                         {
+                            i_data.newPassword = Useful.GetMd5Hash(MD5.Create(), i_data.newPassword + "password");
                             edituser.user_password = i_data.newPassword;
                         }
                     }

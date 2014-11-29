@@ -20,7 +20,7 @@ namespace SingSpaze.Models
             if (code_id == 1)
                 response = "cannot register";
             else if (code_id == 2)
-                response = "cannot use this username or email";
+                response = "cannot use this email";
             else if (code_id == 3)
                 response = "username or password was empty";
             else if (code_id == 4)
